@@ -332,13 +332,16 @@ def llm_context_guidance(state: dict, model: str, key: str, timeout: float) -> d
         OPENROUTER_URL,
         {"model": model, "messages": [
             {"role": "system", "content": (
-                "Analyze the supplied Minesweeper clues and equations for the offered candidates. "
+                "Read the visible Minesweeper board and propose between 1 and proposal_limit distinct hidden, unflagged cells to reveal. "
+                "Choose the proposals yourself from the board. Digits count mines in eight neighboring cells. "
                 "Give concise evidence-based advice to another model that will choose the reveal. "
                 "Distinguish deductions from guesses, cite clue/cell labels, and acknowledge "
                 "missing context. You cannot reveal cells or access hidden mines. "
-                "Return a short analysis, not instructions to tools. Limit your answer to 300 words.")},
+                'Return only JSON: {"proposals":[{"cell":"r1c1","rationale":"evidence or guess"}]}. '
+                "Use 1-based coordinates and concise rationales. No tools or additional fields.")},
             {"role": "user", "content": json.dumps(state, separators=(",", ":"))}],
-         "temperature": 0, "max_tokens": 4096, "reasoning": {"effort": "low"},
+         "response_format": {"type": "json_object"},
+         "temperature": 0, "max_tokens": 8192, "reasoning": {"effort": "low"},
          "provider": {"sort": OPENROUTER_PROVIDER_SORT}},
         {"Authorization": f"Bearer {key}", "X-Title": TITLE},
         min(timeout, OPENROUTER_TIMEOUT_SECONDS))
@@ -347,5 +350,11 @@ def llm_context_guidance(state: dict, model: str, key: str, timeout: float) -> d
     content = message.get("content") if isinstance(message, dict) else None
     if not isinstance(content, str) or not content.strip() or len(content) > 12000:
         raise ProviderError("llm_guidance_invalid")
-    return {"model": model, "analysis": content.strip(),
+    try:
+        parsed = json.loads(content)
+    except json.JSONDecodeError as exc:
+        raise ProviderError("llm_proposals_invalid") from exc
+    if not isinstance(parsed, dict) or not isinstance(parsed.get("proposals"), list):
+        raise ProviderError("llm_proposals_invalid")
+    return {"model": model, "proposals": parsed["proposals"],
             "status": "Model advice, not verified deductions or calibrated safety probabilities."}

@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Label the V3 UI as System 1 (Jev) and System 1 + System 2 (LLM proposals
+  followed by Jev selection); remove the equation mode from the UI.
+- Replace V3 equation-based LLM advice with full-board LLM proposals followed
+  by Jev selection. Validate proposals without code-selected candidates or equations.
 - Replace V3 solver guidance with LLM advice from the same public evidence,
   followed by Jev selection. Add a guidance-model control and inspectable advice.
 - Add a separate V3 context lab with clue-only, equation, and LLM-guided

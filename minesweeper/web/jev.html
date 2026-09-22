@@ -27,17 +27,18 @@
       <div class="status" id="status"><i class="dot"></i><span>idle · ready</span></div>
     </header>
 
-    <p class="overlay-note" id="v3Intro" hidden>Compare what Jev can infer from visible clues, explicit equations, or LLM guidance. Candidate selection and the prompt stay fixed. Same-seed games can diverge after different choices.</p>
+    <p class="overlay-note" id="v3Intro" hidden>System 1 is Jev. System 2 is the LLM. Compare Jev selecting from visible clues with an LLM proposing moves for Jev to evaluate.</p>
+    <p class="overlay-note" id="modeDescription" hidden></p>
     <div class="controls">
-      <label class="control" id="contextControl" hidden>Input to Jev<select id="contextMode"><option value="clues">Visible clues only</option><option value="equations">Clues + explicit equations</option><option value="assisted">Clues + equations + LLM guidance</option></select></label>
+      <label class="control" id="contextControl" hidden>Architecture<select id="contextMode"><option value="clues">System 1 · Jev</option><option value="llm">System 1 + System 2</option></select></label>
       <label class="control">Width<input id="width" type="number" min="2" max="500" value="30"></label>
       <label class="control">Height<input id="height" type="number" min="2" max="500" value="16"></label>
       <label class="control">Mines<input id="mines" type="number" min="1" max="249999" value="99"></label>
       <label class="control">Time (s)<input id="duration" type="number" min="5" max="3600" value="900"></label>
-      <label class="control">Candidates<input id="candidateLimit" type="number" min="4" max="48" value="20" title="Max cells offered to JEV per round"></label>
+      <label class="control">Candidates<input id="candidateLimit" type="number" min="4" max="48" value="20" title="Maximum code candidates in baseline modes, or LLM proposals in LLM + Jev"></label>
       <label class="control">Seed<input id="seed" type="text" placeholder="optional"></label>
-      <label class="control" id="guidanceControl" hidden>Guidance LLM<input id="guidanceModel" type="text" value="openai/gpt-oss-20b" aria-label="Guidance LLM model"></label>
-      <label class="control">JEV model<select id="jevModel"></select></label>
+      <label class="control" id="guidanceControl" hidden>System 2 · LLM<input id="guidanceModel" type="text" value="openai/gpt-oss-20b" aria-label="System 2 LLM model"></label>
+      <label class="control"><span id="jevModelLabel">JEV model</span><select id="jevModel"></select></label>
       <button class="secondary" id="pause" disabled>Pause</button>
       <button class="secondary" id="stop" disabled>Stop</button>
       <button class="primary" id="start">Start JEV</button>
@@ -70,7 +71,7 @@
     </section>
     <details id="inputPanel" hidden style="margin-top:16px">
       <summary>Input sent to Jev</summary>
-      <p class="overlay-note">Latest request, which may still be awaiting a response. No credentials or move history. Equations restate clue memberships; LLM-guided mode adds unverified model advice before Jev chooses. It makes an extra LLM call per move.</p>
+      <p class="overlay-note">Latest input to System 1 (Jev), which may still be awaiting a response. Combined mode includes the visible board and System 2’s unverified proposals. No credentials or move history.</p>
       <button class="secondary" id="downloadInput" type="button">Download request JSON</button>
       <pre id="inputJson" style="max-height:400px;overflow:auto;white-space:pre-wrap;font-size:.75rem"></pre>
     </details>
@@ -83,10 +84,12 @@
     const state = { config:null, timer:{status:'idle'}, status:'idle', model:'', elapsed_ms:null, event_total:0, projection:sample, decisions:[] };
     const $ = id => document.getElementById(id);
     if (V3) {
-      document.title = 'Minesweeper · V3 context experiment';
-      document.querySelector('h1').textContent = 'What does Jev see?';
+      $('jevModelLabel').textContent = 'System 1 · Jev';
+      $('start').textContent = 'Start experiment';
+      document.title = 'Minesweeper · System 1 + System 2';
+      document.querySelector('h1').textContent = 'System 1, with or without System 2';
       document.querySelector('.eyebrow').textContent = 'Minesweeper Thinking Lab / V3';
-      for (const id of ['v3Intro', 'contextControl', 'inputPanel']) $(id).hidden = false;
+      for (const id of ['v3Intro', 'modeDescription', 'contextControl', 'inputPanel']) $(id).hidden = false;
     }
     const number = n => Number(n ?? 0).toLocaleString('en-US');
     const duration = ms => { const total = Math.max(0, Math.round(Number(ms) / 1000)); return `${String(Math.floor(total / 60)).padStart(2,'0')}:${String(total % 60).padStart(2,'0')}`; };
@@ -300,7 +303,7 @@
       $('pause').textContent = state.status === 'paused' ? 'Resume' : 'Pause';
       if (inspectedCell) inspectCell(inspectedCell);
       $('contextMode').disabled = running;
-      $('guidanceControl').hidden = !V3 || $('contextMode').value !== 'assisted';
+      syncArchitecture();
       $('guidanceModel').disabled = running;
       $('downloadInput').disabled = !state.inputRequest;
       $('start').disabled = running;
@@ -352,9 +355,15 @@
       lastDecisionKey = key;
     }
 
-    $('contextMode').addEventListener('change', () => {
-      $('guidanceControl').hidden = !V3 || $('contextMode').value !== 'assisted';
-    });
+    function syncArchitecture() {
+      const combined = $('contextMode').value === 'llm';
+      $('guidanceControl').hidden = !V3 || !combined;
+      $('modeDescription').textContent = combined
+        ? 'System 2 reads the visible board and proposes moves. System 1 evaluates those proposals and selects a cell. One LLM call and one Jev call per move; no code-selected candidates or equations.'
+        : 'System 1 selects a cell using visible clues. Code samples candidate cells from the frontier, without solving clues or calculating risk. No System 2 call.';
+    }
+    $('contextMode').addEventListener('change', syncArchitecture);
+    syncArchitecture();
 
     async function loadConfig() {
       try {

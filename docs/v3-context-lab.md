@@ -1,62 +1,67 @@
-# V3: what does Jev infer from the input?
+# V3: System 1 and System 2
 
-Open `/v3/` to compare three representations of the same public evidence.
-V3 has its own game session, separate from the original browser experiments.
-It retains zoom, manual scrolling, choice percentages, and optional following.
+Open `/v3/` to compare System 1 (Jev) alone with System 1 + System 2 (an LLM). V3 has its
+own session and retains zoom, manual scrolling, choice percentages, and optional
+following.
 
-| Input mode | Evidence supplied | Solver assistance |
+| Mode | Input preparation | Who proposes moves? |
 | --- | --- | --- |
-| Visible clues only | Candidate coordinates, revealed clue coordinates and numbers, nearby unknown-cell coordinates, board counts | None |
-| Clues + explicit equations | The same evidence plus the exact unknown neighbors counted by each clue | No deductions or risk estimates |
-| Clues + equations + LLM guidance | The same evidence and equations plus an LLM's analysis of the same clues and candidates | LLM advice, unverified |
+| System 1 · Jev | Coordinates and numbers of nearby revealed clues | Code samples the visible frontier |
+| System 1 + System 2 | Full visible board goes to an LLM; Jev receives that board and the LLM's proposals and rationales | LLM |
 
-Equations restate observations. For example, a revealed `1` bordering unknown
-cells A, B, and C becomes `A + B + C = 1`. The equation mode does not simplify
-or combine equations, mark cells safe, or calculate mine probabilities.
+## System 1 + System 2
 
-## What stays fixed
+1. Code serializes the full visible board as rows: `?` for hidden cells, `F`
+   for flags, and digits for revealed clues. Coordinates are 1-based (`r1c1`).
+2. The LLM receives the board, game rules, and a maximum proposal count. It
+   selects hidden cells and supplies concise rationales. Code supplies no
+   frontier shortlist, equations, deductions, or risk estimates.
+3. Code validates the response: proposals must be distinct, within the count
+   limit, on the board, hidden, unflagged, and accompanied by rationales.
+   Invalid output stops the run; code does not repair or replace proposals.
+4. Jev receives the visible board and unverified LLM proposals. Its Choice
+   options are exactly those proposals, in the LLM's order. Code executes the
+   chosen legal move.
 
-All modes use the same prompt and candidate-selection procedure. Code evenly
-samples the frontier in row/column order up to the candidate limit; it does
-not rank by safety or remove proven mines. If there is no frontier, it samples
-unrevealed, unflagged cells. Candidates are identical **for identical board
-states**. Code still owns game rules, legal-action checks, and execution.
+Select the OpenRouter model in **System 2 · LLM**. This mode requires an
+`OPENROUTER_API_KEY` and a Jev key. It makes one LLM call followed by one Jev
+call per decision; both count toward the game deadline. Large boards send
+more input and may exceed a provider's context or time limits. The board is
+not silently cropped. Hidden mine locations and move history are never sent.
 
-The context starts with clues adjacent to the candidates and expands through
-shared unknown neighbors, up to 512 clues. Both unguided modes receive the
-same clue set; equation mode adds explicit memberships. A truncation flag and
-scope description identify incomplete context. Unconnected regions may be
-omitted even when expansion completes. No mode receives hidden mine locations
-or move history.
+This tests Jev's selection among LLM proposals, not independent Minesweeper
+solving by Jev. LLM rationales may be wrong. No solver verifies them or corrects
+the selected move. The shared initial reveal remains the fixed safe opening
+used by the browser experiments.
 
-The LLM-guided mode makes an OpenRouter call before each Jev decision. The
-LLM receives the same public evidence and equations, without solver outputs.
-Its advice is attached as `llm_guidance`; Jev still chooses from the unchanged
-candidates. Advice may be wrong and is not a verified proof or calibrated risk.
-Select the guidance model in the UI; `OPENROUTER_API_KEY` is required in addition
-to the Jev key. Both calls count toward the game deadline, so this mode adds
-latency and cost. A failed guidance call stops the run without a replacement move.
+## System 1 baseline
+
+The System 1 UI mode uses visible clues and code-sampled candidates. The earlier
+equation variant remains available through the API for reproducibility, but
+is no longer a UI option. Those two baselines share candidates and prompts.
+Code samples the frontier in row/column order, without safety ranking or
+filtering proven mines. With no frontier it samples hidden, unflagged cells.
+Context expands through connected clues around the candidates, capped at 512
+clues; its scope and truncation status are included in the input.
+
+Equations only restate observations: a revealed `1` bordering A, B, and C
+becomes `A + B + C = 1`. Code does not combine or solve these equations.
+These baselines provide domain-specific structure even though they do not
+supply a computed solution. Their candidates and prompts differ from LLM + Jev.
 
 ## Inspect and compare
 
-1. Choose a board size, seed, pinned Jev model, candidate limit, and input mode. For LLM guidance, also choose the OpenRouter model.
-2. Start the game. Expand **Input sent to Jev** below the board to inspect the
-   exact latest request, including the Choice prompt and offered answers.
-3. Use **Download request JSON** to retain that request without credentials.
-4. Repeat with the same settings and another mode.
+Choose a board, seed, input mode, pinned Jev model, and candidate/proposal
+limit. Expand **Input sent to Jev** to inspect or download the exact latest
+request, including the LLM proposals when present. Credentials are excluded.
 
-Different choices lead to different subsequent board states, so same-seed
-full games are not identical-state decision comparisons. A controlled study
-should replay frozen observations across all modes and report repeated games,
-failures, calls, and latency. The UI itself does not establish which mode is
-more capable.
+Same-seed games can follow different trajectories. Compare repeated games,
+failures, cost, and end-to-end latency before drawing performance conclusions.
+V3 stops on provider errors, invalid choices, or expired decisions. Choice
+percentages describe Jev's preferences, not probabilities of cell safety.
 
-V3 stops on provider errors, invalid choices, and expired decisions. It makes
-no random replacement move and applies no minimum-risk correction. Choice
-percentages remain model preferences, not probabilities of cell safety.
+![V3 System 1 + System 2 on a beginner board](images/v3-llm-guidance.png)
 
-![V3 LLM-guided mode on a beginner board](images/v3-llm-guidance.png)
-
-Implementation: [context construction](../minesweeper/context_lab.py),
+Implementation: [input construction](../minesweeper/context_lab.py),
 [provider adapter](../minesweeper/agents.py), and
 [isolation tests](../minesweeper/test_context_lab.py).

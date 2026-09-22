@@ -19,7 +19,7 @@ class ContextLabTests(unittest.TestCase):
         with patch.object(game, 'deduce', side_effect=AssertionError('solver used')), patch.object(game, 'risk_score', side_effect=AssertionError('risk used')):
             raw = context_lab.request_for(game, 'clues', 'jev-1.13.0')
             equations = context_lab.request_for(game, 'equations', 'jev-1.13.0')
-            context_lab.request_for(game, 'assisted', 'jev-1.13.0')
+            context_lab.public_board(game, 20)
         self.assertNotIn('code_guidance', raw['state'])
         self.assertNotIn('code_guidance', equations['state'])
         self.assertEqual(raw['questions'], equations['questions'])
@@ -27,14 +27,14 @@ class ContextLabTests(unittest.TestCase):
         without_equations.pop('equations')
         self.assertEqual(raw['state'], without_equations)
 
-    def test_guidance_does_not_change_candidates_or_prompt(self):
+    def test_llm_receives_only_public_board_without_frontier_or_equations(self):
         game = self.game()
-        raw = context_lab.request_for(game, 'clues', 'jev-1.13.0')
-        assisted = context_lab.request_for(game, 'assisted', 'jev-1.13.0')
-        self.assertEqual(raw['questions'], assisted['questions'])
-        self.assertEqual(raw['state']['candidates'], assisted['state']['candidates'])
-        self.assertNotIn('code_guidance', assisted['state'])
-        self.assertEqual(assisted['state'], context_lab.build_input(game, 'equations'))
+        with patch.object(game, 'frontier_hidden', side_effect=AssertionError('frontier used')):
+            state = context_lab.build_input(game, 'llm')
+        self.assertEqual(set(state), {'game', 'board', 'proposal_limit'})
+        for r, row in enumerate(state['board']['rows']):
+            for c, token in enumerate(row):
+                self.assertEqual(token, str(game.adjacent_mines(r, c)) if (r, c) in game.revealed else '?')
 
     def test_equations_are_only_restatements_of_revealed_clues(self):
         game = self.game()
@@ -133,48 +133,82 @@ class ContextLabTests(unittest.TestCase):
         comparison.stop()
 
 
-    def test_llm_advice_reaches_jev_without_changing_candidates(self):
+    def test_jev_receives_exactly_the_llm_proposals(self):
         comparison = server.Comparison(server._default_v2_html_path())
-        config = server._validate_start({'left_engine': 'none', 'right_engine': 'jev', 'context_mode': 'assisted', 'seed': 1})
+        config = server._validate_start({'left_engine': 'none', 'right_engine': 'jev', 'context_mode': 'llm', 'seed': 1})
         comparison.config = config
         comparison.timer = {'deadline_at_ms': server.now_ms() + 10000}
         side = comparison.sides['right']
         game = self.game()
-        baseline = context_lab.request_for(game, 'equations', side.model)
-        advice = {'model': config['model'], 'analysis': 'A test recommendation.'}
+        label = next(context_lab.cell_label(r,c) for r in range(game.height) for c in range(game.width) if (r,c) not in game.revealed)
+        advice = {'model': config['model'], 'proposals': [{'cell': label, 'rationale': 'A test proposal.'}]}
         with patch.object(game, 'deduce', side_effect=AssertionError('solver used')), patch.object(game, 'risk_score', side_effect=AssertionError('risk used')), patch('minesweeper.server.jev_key', return_value='key'), patch('minesweeper.server.openrouter_key', return_value='key'), patch('minesweeper.server.llm_context_guidance', return_value=advice) as llm, patch('minesweeper.server.jev_context_choose', return_value=('r1c1', {})) as jev:
             result = comparison._decide(side, game, config, 1)
         self.assertIsNone(result[2])
         self.assertEqual(side.input_request['state']['llm_guidance'], advice)
-        self.assertEqual(side.input_request['questions'], baseline['questions'])
-        evidence = dict(side.input_request['state'])
-        evidence.pop('llm_guidance')
-        self.assertEqual(evidence, baseline['state'])
+        self.assertEqual(list(side.input_request['questions']['cell']['criteria']), [label])
+        self.assertEqual(llm.call_args.args[0], context_lab.public_board(game, 20))
+        self.assertNotIn('equations', side.input_request['state'])
         self.assertEqual(jev.call_args.args[0], side.input_request)
 
     def test_failed_or_expired_llm_never_calls_jev(self):
         for failure in [True, False]:
             comparison = server.Comparison(server._default_v2_html_path())
-            config = server._validate_start({'left_engine': 'none', 'right_engine': 'jev', 'context_mode': 'assisted', 'seed': 1})
+            config = server._validate_start({'left_engine': 'none', 'right_engine': 'jev', 'context_mode': 'llm', 'seed': 1})
             comparison.timer = {'deadline_at_ms': server.now_ms() + 10000}
             def guide(*args):
                 if failure:
                     raise ProviderError('llm_failed')
                 comparison.timer['deadline_at_ms'] = server.now_ms() - 1
-                return {'analysis': 'late'}
+                label = next(context_lab.cell_label(r,c) for r,row in enumerate(args[0]['board']['rows']) for c,token in enumerate(row) if token == '?')
+                return {'proposals': [{'cell': label, 'rationale': 'late'}]}
             with patch('minesweeper.server.jev_key', return_value='key'), patch('minesweeper.server.openrouter_key', return_value='key'), patch('minesweeper.server.llm_context_guidance', side_effect=guide), patch('minesweeper.server.jev_context_choose') as jev:
                 result = comparison._decide(comparison.sides['right'], self.game(), config, 1)
-            self.assertIsNotNone(result[2])
+            self.assertEqual(result[2], 'llm_failed' if failure else 'decision_expired')
             jev.assert_not_called()
 
     def test_guidance_adapter_sends_public_state_and_rejects_empty_advice(self):
         from minesweeper.agents import llm_context_guidance
-        state = context_lab.build_input(self.game(), 'assisted')
-        with patch('minesweeper.agents._http_json', return_value={'choices': [{'message': {'content': 'Check the clues.'}}]}) as http:
+        state = context_lab.build_input(self.game(), 'llm')
+        with patch('minesweeper.agents._http_json', return_value={'choices': [{'message': {'content': json.dumps({'proposals': [{'cell': 'r1c1', 'rationale': 'guess'}]})}}]}) as http:
             advice = llm_context_guidance(state, 'test/model', 'key', 3)
-        self.assertEqual(advice['analysis'], 'Check the clues.')
+        self.assertEqual(advice['proposals'][0]['cell'], 'r1c1')
         self.assertEqual(json.loads(http.call_args.args[1]['messages'][1]['content']), state)
         self.assertEqual(http.call_args.args[3], 3)
         with patch('minesweeper.agents._http_json', return_value={'choices': []}):
             with self.assertRaises(ProviderError):
                 llm_context_guidance(state, 'test/model', 'key', 3)
+
+
+    def test_invalid_proposals_rejected_without_repair(self):
+        game = self.game()
+        evidence = context_lab.public_board(game, 4)
+        legal = next(context_lab.cell_label(r,c) for r in range(game.height) for c in range(game.width) if (r,c) not in game.revealed)
+        item = {'cell': legal, 'rationale': 'guess'}
+        revealed = context_lab.cell_label(*next(iter(game.revealed)))
+        for proposals in [[], [item, item], [item] * 5, [{'cell': revealed, 'rationale': 'bad'}], [{'cell': 'r999c999', 'rationale': 'bad'}], [{'cell': legal}], [None]]:
+            with self.assertRaises(ValueError):
+                context_lab.proposal_request(game, evidence, {'proposals': proposals}, 'jev')
+
+    def test_runner_uses_llm_proposals_without_code_selection(self):
+        comparison = server.Comparison(server._default_v2_html_path())
+        config = server._validate_start({'left_engine': 'none', 'right_engine': 'jev', 'context_mode': 'llm', 'width': 9, 'height': 9, 'mines': 10, 'seed': 1})
+        def propose(state, *args):
+            for r, row in enumerate(state['board']['rows']):
+                for c, token in enumerate(row):
+                    if token == '?':
+                        return {'proposals': [{'cell': context_lab.cell_label(r,c), 'rationale': 'test'}]}
+        def choose(request, *args):
+            comparison.sides['right'].paused = True
+            return next(iter(request['questions']['cell']['criteria'])), {}
+        with patch('minesweeper.context_lab.neutral_candidates', side_effect=AssertionError('code candidates used')), patch('minesweeper.server.jev_key', return_value='key'), patch('minesweeper.server.openrouter_key', return_value='key'), patch('minesweeper.server.llm_context_guidance', side_effect=propose), patch('minesweeper.server.jev_context_choose', side_effect=choose):
+            comparison.start(config)
+            import time
+            deadline = time.monotonic() + 2
+            while not comparison.sides['right'].decisions and time.monotonic() < deadline:
+                time.sleep(.01)
+            comparison.stop()
+            for worker in comparison.threads:
+                worker.join(timeout=2)
+        self.assertEqual(len(comparison.sides['right'].decisions), 1)
+        self.assertFalse(comparison.sides['right'].decisions[0]['fallback'])

@@ -300,9 +300,13 @@ class Comparison:
                 time.sleep(0.2)
                 continue
             round_number += 1
-            candidates = (context_lab.neutral_candidates(game, candidate_limit) if config.get("context_mode")
-                          else game.offered_candidates(candidate_limit))
-            if not candidates:
+            if config.get("context_mode") == "llm":
+                candidates = []  # The LLM supplies the options inside _decide.
+            elif config.get("context_mode"):
+                candidates = context_lab.neutral_candidates(game, candidate_limit)
+            else:
+                candidates = game.offered_candidates(candidate_limit)
+            if not candidates and config.get("context_mode") != "llm":
                 self._finish(side, run_id, game.phase, game)
                 return
             candidate_labels = [str(candidate["cell"]) for candidate in candidates]
@@ -310,6 +314,8 @@ class Comparison:
                 side, game, config, round_number, candidate_limit, include_grid, run_id
             )
             if config.get("context_mode"):
+                if config["context_mode"] == "llm" and not error:
+                    candidate_labels = list(side.input_request["questions"]["cell"]["criteria"])
                 if stop_event.is_set() or side.stopped or run_id != self.run_id:
                     return
                 if now_ms() >= deadline_ms:
@@ -404,20 +410,26 @@ class Comparison:
     ) -> tuple[str | None, dict[str, object], str | None]:
         grid_flag = include_grid if isinstance(include_grid, bool) else None
         if config.get("context_mode"):
-            request = context_lab.request_for(game, str(config["context_mode"]), side.model, candidate_limit)
+            request = None
             key = jev_key()
             if not key:
                 return None, {}, "jev_key_missing"
             try:
-                if config["context_mode"] == "assisted":
+                if config["context_mode"] == "llm":
                     llm_key = openrouter_key()
                     if not llm_key:
                         raise ProviderError("openrouter_key_missing")
                     remaining = (int(self.timer["deadline_at_ms"]) - now_ms()) / 1000
                     if remaining <= 0:
                         raise ProviderError("decision_expired")
-                    request["state"]["llm_guidance"] = llm_context_guidance(
-                        request["state"], str(config["model"]), llm_key, remaining)
+                    evidence = context_lab.public_board(game, candidate_limit)
+                    advice = llm_context_guidance(evidence, str(config["model"]), llm_key, remaining)
+                    try:
+                        request = context_lab.proposal_request(game, evidence, advice, side.model)
+                    except ValueError as exc:
+                        raise ProviderError(str(exc)) from exc
+                else:
+                    request = context_lab.request_for(game, str(config["context_mode"]), side.model, candidate_limit)
                 with self.lock:
                     if side.stopped or self.stop_event.is_set() or (expected_run is not None and expected_run != self.run_id):
                         return None, {}, "stopped"
@@ -637,7 +649,7 @@ def _validate_start(body: object) -> dict[str, object]:
     if left_engine == right_engine == "none":
         raise ValueError("no_engine_enabled")
     model = body.get("model", "openai/gpt-oss-20b")
-    if left_engine == "openrouter" or body.get("context_mode") == "assisted":
+    if left_engine == "openrouter" or body.get("context_mode") == "llm":
         model = _safe(model, "model")
     elif not isinstance(model, str) or not model:
         model = "n/a"

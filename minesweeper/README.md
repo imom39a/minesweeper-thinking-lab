@@ -44,11 +44,12 @@ among offered choices, not cell safety or a predicted future route.
 
 ## V3 context lab
 
-The [context lab](../docs/v3-context-lab.md) offers clue-only, equation, and
-LLM-guided inputs. Its session is separate from V2. The first two modes
-supply no deductions or risk estimates; all three share neutral candidates
-and the same prompt. Expand **Input sent to Jev** to inspect or download the
-latest request.
+The [context lab](../docs/v3-context-lab.md) offers **System 1 (Jev)** and
+**System 1 + System 2 (LLM proposals → Jev selection)**. Its session is separate
+from V2. System 1 uses code-sampled frontier candidates and visible clues;
+combined mode uses the LLM's proposals from the full visible board. Neither
+mode supplies solver deductions or computed risks. Expand **Input sent to Jev**
+to inspect or download the latest request.
 
 ## Benchmark modes
 
