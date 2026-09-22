@@ -1,0 +1,871 @@
+{
+  "created_at": "2026-09-22T12:15:20.068126+00:00",
+  "policy_version": "system-one-two-v2",
+  "config": {
+    "width": 100,
+    "height": 100,
+    "mines": 2000,
+    "seeds": 10,
+    "seed_start": 0,
+    "modes": "code,proof",
+    "seconds": 15.0,
+    "max_rounds": 2000,
+    "max_calls": 12,
+    "max_component_cells": 22,
+    "max_search_nodes": 200000,
+    "jev_model": "jev-1.13.0",
+    "llm_model": "openai/gpt-oss-20b",
+    "live": false,
+    "replay_states": 0,
+    "output": "minesweeper/results/very-large-offline.json"
+  },
+  "thresholds": {
+    "review_probability": 0.65,
+    "calibrated": false
+  },
+  "runs": [
+    {
+      "mode": "code",
+      "seed": 0,
+      "width": 100,
+      "height": 100,
+      "mines": 2000,
+      "status": "lost",
+      "rounds": 44,
+      "moves": 4273,
+      "proven_safe_reveals": 4270,
+      "guesses": 2,
+      "revealed_safe": 7990,
+      "safe_total": 8000,
+      "safe_coverage": 0.99875,
+      "exact_analyses": 31,
+      "incomplete_analyses": 13,
+      "elapsed_ms": 1920.131,
+      "compute_ms": 1890.197,
+      "calls": [],
+      "decisions": [
+        {
+          "round": 42,
+          "selected": "r12c1",
+          "outcome": "ok",
+          "mine_risk": 0.3333333333333333,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 44,
+          "selected": "r17c1",
+          "outcome": "mine",
+          "mine_risk": 0.5,
+          "risk_exact": true,
+          "candidate_count": 22
+        }
+      ]
+    },
+    {
+      "mode": "proof",
+      "seed": 0,
+      "width": 100,
+      "height": 100,
+      "mines": 2000,
+      "status": "abstained_guess_required",
+      "rounds": 42,
+      "moves": 4270,
+      "proven_safe_reveals": 4269,
+      "guesses": 0,
+      "revealed_safe": 7988,
+      "safe_total": 8000,
+      "safe_coverage": 0.9985,
+      "exact_analyses": 29,
+      "incomplete_analyses": 13,
+      "elapsed_ms": 1764.785,
+      "compute_ms": 1736.027,
+      "calls": [],
+      "decisions": []
+    },
+    {
+      "mode": "code",
+      "seed": 1,
+      "width": 100,
+      "height": 100,
+      "mines": 2000,
+      "status": "lost",
+      "rounds": 53,
+      "moves": 4197,
+      "proven_safe_reveals": 4190,
+      "guesses": 6,
+      "revealed_safe": 7994,
+      "safe_total": 8000,
+      "safe_coverage": 0.99925,
+      "exact_analyses": 51,
+      "incomplete_analyses": 2,
+      "elapsed_ms": 2730.544,
+      "compute_ms": 2698.291,
+      "calls": [],
+      "decisions": [
+        {
+          "round": 39,
+          "selected": "r3c55",
+          "outcome": "ok",
+          "mine_risk": 0.10244448591155066,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 41,
+          "selected": "r2c65",
+          "outcome": "ok",
+          "mine_risk": 0.12962962962962962,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 42,
+          "selected": "r6c63",
+          "outcome": "ok",
+          "mine_risk": 0.1,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 47,
+          "selected": "r1c54",
+          "outcome": "ok",
+          "mine_risk": 0.3333333333333333,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 52,
+          "selected": "r18c87",
+          "outcome": "ok",
+          "mine_risk": 0.5,
+          "risk_exact": true,
+          "candidate_count": 14
+        },
+        {
+          "round": 53,
+          "selected": "r40c1",
+          "outcome": "mine",
+          "mine_risk": 0.5,
+          "risk_exact": true,
+          "candidate_count": 12
+        }
+      ]
+    },
+    {
+      "mode": "proof",
+      "seed": 1,
+      "width": 100,
+      "height": 100,
+      "mines": 2000,
+      "status": "abstained_guess_required",
+      "rounds": 39,
+      "moves": 4165,
+      "proven_safe_reveals": 4164,
+      "guesses": 0,
+      "revealed_safe": 7954,
+      "safe_total": 8000,
+      "safe_coverage": 0.99425,
+      "exact_analyses": 37,
+      "incomplete_analyses": 2,
+      "elapsed_ms": 1756.348,
+      "compute_ms": 1725.819,
+      "calls": [],
+      "decisions": []
+    },
+    {
+      "mode": "code",
+      "seed": 2,
+      "width": 100,
+      "height": 100,
+      "mines": 2000,
+      "status": "lost",
+      "rounds": 56,
+      "moves": 4212,
+      "proven_safe_reveals": 4207,
+      "guesses": 4,
+      "revealed_safe": 7969,
+      "safe_total": 8000,
+      "safe_coverage": 0.996125,
+      "exact_analyses": 35,
+      "incomplete_analyses": 21,
+      "elapsed_ms": 2483.99,
+      "compute_ms": 2452.323,
+      "calls": [],
+      "decisions": [
+        {
+          "round": 51,
+          "selected": "r1c97",
+          "outcome": "ok",
+          "mine_risk": 0.08530380125710865,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 54,
+          "selected": "r21c98",
+          "outcome": "ok",
+          "mine_risk": 0.08416100365917407,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 55,
+          "selected": "r83c69",
+          "outcome": "ok",
+          "mine_risk": 0.08992154496077248,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 56,
+          "selected": "r21c99",
+          "outcome": "mine",
+          "mine_risk": 0.11764705882352941,
+          "risk_exact": true,
+          "candidate_count": 24
+        }
+      ]
+    },
+    {
+      "mode": "proof",
+      "seed": 2,
+      "width": 100,
+      "height": 100,
+      "mines": 2000,
+      "status": "abstained_guess_required",
+      "rounds": 51,
+      "moves": 4206,
+      "proven_safe_reveals": 4205,
+      "guesses": 0,
+      "revealed_safe": 7958,
+      "safe_total": 8000,
+      "safe_coverage": 0.99475,
+      "exact_analyses": 30,
+      "incomplete_analyses": 21,
+      "elapsed_ms": 2114.723,
+      "compute_ms": 2085.319,
+      "calls": [],
+      "decisions": []
+    },
+    {
+      "mode": "code",
+      "seed": 3,
+      "width": 100,
+      "height": 100,
+      "mines": 2000,
+      "status": "lost",
+      "rounds": 67,
+      "moves": 4107,
+      "proven_safe_reveals": 4097,
+      "guesses": 9,
+      "revealed_safe": 7840,
+      "safe_total": 8000,
+      "safe_coverage": 0.98,
+      "exact_analyses": 17,
+      "incomplete_analyses": 50,
+      "elapsed_ms": 3631.856,
+      "compute_ms": 3601.884,
+      "calls": [],
+      "decisions": [
+        {
+          "round": 38,
+          "selected": "r74c92",
+          "outcome": "ok",
+          "mine_risk": 0.2,
+          "risk_exact": false,
+          "candidate_count": 24
+        },
+        {
+          "round": 39,
+          "selected": "r73c93",
+          "outcome": "ok",
+          "mine_risk": 0.2,
+          "risk_exact": false,
+          "candidate_count": 24
+        },
+        {
+          "round": 40,
+          "selected": "r50c84",
+          "outcome": "ok",
+          "mine_risk": 0.25,
+          "risk_exact": false,
+          "candidate_count": 24
+        },
+        {
+          "round": 41,
+          "selected": "r59c81",
+          "outcome": "ok",
+          "mine_risk": 0.25,
+          "risk_exact": false,
+          "candidate_count": 24
+        },
+        {
+          "round": 42,
+          "selected": "r75c90",
+          "outcome": "ok",
+          "mine_risk": 0.25,
+          "risk_exact": false,
+          "candidate_count": 24
+        },
+        {
+          "round": 62,
+          "selected": "r2c18",
+          "outcome": "ok",
+          "mine_risk": 0.3333333333333333,
+          "risk_exact": false,
+          "candidate_count": 24
+        },
+        {
+          "round": 65,
+          "selected": "r26c99",
+          "outcome": "ok",
+          "mine_risk": 0.3333333333333333,
+          "risk_exact": false,
+          "candidate_count": 24
+        },
+        {
+          "round": 66,
+          "selected": "r25c99",
+          "outcome": "ok",
+          "mine_risk": 0.2,
+          "risk_exact": false,
+          "candidate_count": 24
+        },
+        {
+          "round": 67,
+          "selected": "r24c100",
+          "outcome": "mine",
+          "mine_risk": 0.25,
+          "risk_exact": false,
+          "candidate_count": 24
+        }
+      ]
+    },
+    {
+      "mode": "proof",
+      "seed": 3,
+      "width": 100,
+      "height": 100,
+      "mines": 2000,
+      "status": "abstained_guess_required",
+      "rounds": 38,
+      "moves": 3875,
+      "proven_safe_reveals": 3874,
+      "guesses": 0,
+      "revealed_safe": 7517,
+      "safe_total": 8000,
+      "safe_coverage": 0.939625,
+      "exact_analyses": 17,
+      "incomplete_analyses": 21,
+      "elapsed_ms": 1615.532,
+      "compute_ms": 1587.42,
+      "calls": [],
+      "decisions": []
+    },
+    {
+      "mode": "code",
+      "seed": 4,
+      "width": 100,
+      "height": 100,
+      "mines": 2000,
+      "status": "lost",
+      "rounds": 49,
+      "moves": 4327,
+      "proven_safe_reveals": 4325,
+      "guesses": 1,
+      "revealed_safe": 7998,
+      "safe_total": 8000,
+      "safe_coverage": 0.99975,
+      "exact_analyses": 21,
+      "incomplete_analyses": 28,
+      "elapsed_ms": 2394.653,
+      "compute_ms": 2365.306,
+      "calls": [],
+      "decisions": [
+        {
+          "round": 49,
+          "selected": "r29c1",
+          "outcome": "mine",
+          "mine_risk": 0.5,
+          "risk_exact": true,
+          "candidate_count": 4
+        }
+      ]
+    },
+    {
+      "mode": "proof",
+      "seed": 4,
+      "width": 100,
+      "height": 100,
+      "mines": 2000,
+      "status": "abstained_guess_required",
+      "rounds": 49,
+      "moves": 4326,
+      "proven_safe_reveals": 4325,
+      "guesses": 0,
+      "revealed_safe": 7998,
+      "safe_total": 8000,
+      "safe_coverage": 0.99975,
+      "exact_analyses": 21,
+      "incomplete_analyses": 28,
+      "elapsed_ms": 2331.488,
+      "compute_ms": 2302.57,
+      "calls": [],
+      "decisions": []
+    },
+    {
+      "mode": "code",
+      "seed": 5,
+      "width": 100,
+      "height": 100,
+      "mines": 2000,
+      "status": "lost",
+      "rounds": 69,
+      "moves": 4153,
+      "proven_safe_reveals": 4142,
+      "guesses": 10,
+      "revealed_safe": 7996,
+      "safe_total": 8000,
+      "safe_coverage": 0.9995,
+      "exact_analyses": 62,
+      "incomplete_analyses": 7,
+      "elapsed_ms": 3625.767,
+      "compute_ms": 3596.906,
+      "calls": [],
+      "decisions": [
+        {
+          "round": 2,
+          "selected": "r48c50",
+          "outcome": "ok",
+          "mine_risk": 0.1107072671001461,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 3,
+          "selected": "r48c53",
+          "outcome": "ok",
+          "mine_risk": 0.12305528154998974,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 40,
+          "selected": "r100c9",
+          "outcome": "ok",
+          "mine_risk": 0.11423266480915041,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 44,
+          "selected": "r99c6",
+          "outcome": "ok",
+          "mine_risk": 0.08979746218931509,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 54,
+          "selected": "r83c2",
+          "outcome": "ok",
+          "mine_risk": 0.10850884167575797,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 62,
+          "selected": "r10c80",
+          "outcome": "ok",
+          "mine_risk": 0.1,
+          "risk_exact": true,
+          "candidate_count": 21
+        },
+        {
+          "round": 64,
+          "selected": "r64c1",
+          "outcome": "ok",
+          "mine_risk": 0.125,
+          "risk_exact": true,
+          "candidate_count": 17
+        },
+        {
+          "round": 65,
+          "selected": "r64c2",
+          "outcome": "ok",
+          "mine_risk": 0.08333333333333333,
+          "risk_exact": true,
+          "candidate_count": 16
+        },
+        {
+          "round": 66,
+          "selected": "r65c1",
+          "outcome": "ok",
+          "mine_risk": 0.09090909090909091,
+          "risk_exact": true,
+          "candidate_count": 15
+        },
+        {
+          "round": 69,
+          "selected": "r100c48",
+          "outcome": "mine",
+          "mine_risk": 0.3333333333333333,
+          "risk_exact": true,
+          "candidate_count": 7
+        }
+      ]
+    },
+    {
+      "mode": "proof",
+      "seed": 5,
+      "width": 100,
+      "height": 100,
+      "mines": 2000,
+      "status": "abstained_guess_required",
+      "rounds": 2,
+      "moves": 4,
+      "proven_safe_reveals": 3,
+      "guesses": 0,
+      "revealed_safe": 12,
+      "safe_total": 8000,
+      "safe_coverage": 0.0015,
+      "exact_analyses": 2,
+      "incomplete_analyses": 0,
+      "elapsed_ms": 15.308,
+      "compute_ms": 13.186,
+      "calls": [],
+      "decisions": []
+    },
+    {
+      "mode": "code",
+      "seed": 6,
+      "width": 100,
+      "height": 100,
+      "mines": 2000,
+      "status": "lost",
+      "rounds": 49,
+      "moves": 4161,
+      "proven_safe_reveals": 4154,
+      "guesses": 6,
+      "revealed_safe": 7987,
+      "safe_total": 8000,
+      "safe_coverage": 0.998375,
+      "exact_analyses": 39,
+      "incomplete_analyses": 10,
+      "elapsed_ms": 2317.966,
+      "compute_ms": 2288.72,
+      "calls": [],
+      "decisions": [
+        {
+          "round": 41,
+          "selected": "r1c1",
+          "outcome": "ok",
+          "mine_risk": 0.375,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 42,
+          "selected": "r1c2",
+          "outcome": "ok",
+          "mine_risk": 0.3333333333333333,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 44,
+          "selected": "r2c1",
+          "outcome": "ok",
+          "mine_risk": 0.2857142857142857,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 45,
+          "selected": "r1c5",
+          "outcome": "ok",
+          "mine_risk": 0.42857142857142855,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 47,
+          "selected": "r4c2",
+          "outcome": "ok",
+          "mine_risk": 0.3333333333333333,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 49,
+          "selected": "r1c4",
+          "outcome": "mine",
+          "mine_risk": 0.5,
+          "risk_exact": true,
+          "candidate_count": 24
+        }
+      ]
+    },
+    {
+      "mode": "proof",
+      "seed": 6,
+      "width": 100,
+      "height": 100,
+      "mines": 2000,
+      "status": "abstained_guess_required",
+      "rounds": 41,
+      "moves": 4148,
+      "proven_safe_reveals": 4147,
+      "guesses": 0,
+      "revealed_safe": 7975,
+      "safe_total": 8000,
+      "safe_coverage": 0.996875,
+      "exact_analyses": 31,
+      "incomplete_analyses": 10,
+      "elapsed_ms": 1753.647,
+      "compute_ms": 1724.412,
+      "calls": [],
+      "decisions": []
+    },
+    {
+      "mode": "code",
+      "seed": 7,
+      "width": 100,
+      "height": 100,
+      "mines": 2000,
+      "status": "lost",
+      "rounds": 6,
+      "moves": 16,
+      "proven_safe_reveals": 11,
+      "guesses": 4,
+      "revealed_safe": 41,
+      "safe_total": 8000,
+      "safe_coverage": 0.005125,
+      "exact_analyses": 1,
+      "incomplete_analyses": 5,
+      "elapsed_ms": 34.37,
+      "compute_ms": 32.184,
+      "calls": [],
+      "decisions": [
+        {
+          "round": 3,
+          "selected": "r55c47",
+          "outcome": "ok",
+          "mine_risk": 0.16666666666666666,
+          "risk_exact": false,
+          "candidate_count": 24
+        },
+        {
+          "round": 4,
+          "selected": "r55c49",
+          "outcome": "ok",
+          "mine_risk": 0.2,
+          "risk_exact": false,
+          "candidate_count": 24
+        },
+        {
+          "round": 5,
+          "selected": "r1c1",
+          "outcome": "ok",
+          "mine_risk": 0.20040180813661476,
+          "risk_exact": false,
+          "candidate_count": 24
+        },
+        {
+          "round": 6,
+          "selected": "r1c3",
+          "outcome": "mine",
+          "mine_risk": 0.20042194092827004,
+          "risk_exact": false,
+          "candidate_count": 24
+        }
+      ]
+    },
+    {
+      "mode": "proof",
+      "seed": 7,
+      "width": 100,
+      "height": 100,
+      "mines": 2000,
+      "status": "abstained_guess_required",
+      "rounds": 3,
+      "moves": 12,
+      "proven_safe_reveals": 11,
+      "guesses": 0,
+      "revealed_safe": 38,
+      "safe_total": 8000,
+      "safe_coverage": 0.00475,
+      "exact_analyses": 1,
+      "incomplete_analyses": 2,
+      "elapsed_ms": 17.642,
+      "compute_ms": 15.376,
+      "calls": [],
+      "decisions": []
+    },
+    {
+      "mode": "code",
+      "seed": 8,
+      "width": 100,
+      "height": 100,
+      "mines": 2000,
+      "status": "lost",
+      "rounds": 51,
+      "moves": 4169,
+      "proven_safe_reveals": 4167,
+      "guesses": 1,
+      "revealed_safe": 7966,
+      "safe_total": 8000,
+      "safe_coverage": 0.99575,
+      "exact_analyses": 14,
+      "incomplete_analyses": 37,
+      "elapsed_ms": 2129.878,
+      "compute_ms": 2100.62,
+      "calls": [],
+      "decisions": [
+        {
+          "round": 51,
+          "selected": "r4c98",
+          "outcome": "mine",
+          "mine_risk": 0.10215873525399245,
+          "risk_exact": true,
+          "candidate_count": 24
+        }
+      ]
+    },
+    {
+      "mode": "proof",
+      "seed": 8,
+      "width": 100,
+      "height": 100,
+      "mines": 2000,
+      "status": "abstained_guess_required",
+      "rounds": 51,
+      "moves": 4168,
+      "proven_safe_reveals": 4167,
+      "guesses": 0,
+      "revealed_safe": 7966,
+      "safe_total": 8000,
+      "safe_coverage": 0.99575,
+      "exact_analyses": 14,
+      "incomplete_analyses": 37,
+      "elapsed_ms": 2152.811,
+      "compute_ms": 2123.997,
+      "calls": [],
+      "decisions": []
+    },
+    {
+      "mode": "code",
+      "seed": 9,
+      "width": 100,
+      "height": 100,
+      "mines": 2000,
+      "status": "lost",
+      "rounds": 41,
+      "moves": 4124,
+      "proven_safe_reveals": 4122,
+      "guesses": 1,
+      "revealed_safe": 7995,
+      "safe_total": 8000,
+      "safe_coverage": 0.999375,
+      "exact_analyses": 38,
+      "incomplete_analyses": 3,
+      "elapsed_ms": 1913.577,
+      "compute_ms": 1884.428,
+      "calls": [],
+      "decisions": [
+        {
+          "round": 41,
+          "selected": "r56c6",
+          "outcome": "mine",
+          "mine_risk": 0.5,
+          "risk_exact": true,
+          "candidate_count": 10
+        }
+      ]
+    },
+    {
+      "mode": "proof",
+      "seed": 9,
+      "width": 100,
+      "height": 100,
+      "mines": 2000,
+      "status": "abstained_guess_required",
+      "rounds": 41,
+      "moves": 4123,
+      "proven_safe_reveals": 4122,
+      "guesses": 0,
+      "revealed_safe": 7995,
+      "safe_total": 8000,
+      "safe_coverage": 0.999375,
+      "exact_analyses": 38,
+      "incomplete_analyses": 3,
+      "elapsed_ms": 1906.98,
+      "compute_ms": 1877.862,
+      "calls": [],
+      "decisions": []
+    }
+  ],
+  "replay": [],
+  "limitations": [
+    "Seeded layouts, provider outputs not guaranteed deterministic.",
+    "Exact refers to bounded complete model counting under a uniform layout prior.",
+    "Models choose minimum-computed-risk ties; no proof of optimal eventual wins.",
+    "Unfinished games stay in denominator; replay is one-step evidence only."
+  ],
+  "summary": {
+    "code": {
+      "games": 10,
+      "statuses": {
+        "lost": 10
+      },
+      "win_rate": 0.0,
+      "win_rate_wilson95": [
+        0.0,
+        0.2775327998628892
+      ],
+      "mean_safe_coverage": 0.8972,
+      "mean_elapsed_ms": 2318.2732,
+      "guesses": 44,
+      "proven_safe_reveals": 37685,
+      "provider_attempts": 0,
+      "api_calls": 0,
+      "calls_by_engine": {},
+      "provider_errors": 0,
+      "call_latency_p50_ms": null,
+      "call_latency_p95_ms": null,
+      "escalations": 0,
+      "guard_rejections": 0,
+      "reported_cost_usd": null,
+      "calls_with_reported_cost": 0,
+      "cost_note": "Only provider-reported costs; missing usage cost is unknown, not zero."
+    },
+    "proof": {
+      "games": 10,
+      "statuses": {
+        "abstained_guess_required": 10
+      },
+      "win_rate": 0.0,
+      "win_rate_wilson95": [
+        0.0,
+        0.2775327998628892
+      ],
+      "mean_safe_coverage": 0.7925125000000001,
+      "mean_elapsed_ms": 1542.9264,
+      "guesses": 0,
+      "proven_safe_reveals": 33287,
+      "provider_attempts": 0,
+      "api_calls": 0,
+      "calls_by_engine": {},
+      "provider_errors": 0,
+      "call_latency_p50_ms": null,
+      "call_latency_p95_ms": null,
+      "escalations": 0,
+      "guard_rejections": 0,
+      "reported_cost_usd": null,
+      "calls_with_reported_cost": 0,
+      "cost_note": "Only provider-reported costs; missing usage cost is unknown, not zero."
+    }
+  }
+}

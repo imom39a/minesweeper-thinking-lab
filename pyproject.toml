@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "minesweeper-thinking-lab"
+version = "0.1.0"
+description = "Reproducible Minesweeper experiments with Jev System One, LLMs, and hybrid architectures"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+dependencies = []
+
+[project.scripts]
+minesweeper = "minesweeper.server:main"
+minesweeper-benchmark = "minesweeper.benchmark:main"
+
+[project.urls]
+Repository = "https://github.com/imom39a/minesweeper-thinking-lab"
+Research = "https://github.com/imom39a/minesweeper-thinking-lab/blob/main/minesweeper/docs/system-one-system-two-research.md"
+Issues = "https://github.com/imom39a/minesweeper-thinking-lab/issues"
+
+[tool.setuptools.packages.find]
+include = ["minesweeper*"]
+
+[tool.setuptools.package-data]
+minesweeper = ["web/*.html", "docs/*.md", "results/*.json", "README.md"]

@@ -1,0 +1,12 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+build/
+dist/
+*.egg-info/
+.DS_Store
+local-results/

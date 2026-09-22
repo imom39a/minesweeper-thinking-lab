@@ -1,0 +1,34 @@
+name: Verify experiments
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.10", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install the standalone package
+        run: python -m pip install .
+      - name: Run game, solver and provider-mock tests
+        run: python -m unittest discover -s minesweeper -p 'test_*.py'
+      - name: Check imports, documentation and preserved results
+        run: |
+          python -m compileall -q minesweeper
+          python scripts/check_repo.py
+      - name: Run an offline experiment
+        run: >-
+          minesweeper-benchmark --width 9 --height 9 --mines 10
+          --seeds 3 --modes heuristic,code,proof --seconds 10
+          --output /tmp/minesweeper-ci.json

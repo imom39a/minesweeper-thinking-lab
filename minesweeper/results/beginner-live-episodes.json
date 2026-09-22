@@ -1,0 +1,497 @@
+{
+  "created_at": "2026-09-22T12:17:36.991985+00:00",
+  "policy_version": "system-one-two-v2",
+  "source_sha256": {
+    "game.py": "a35974e9bb0dd31508e872c3e250c15ed24e6c1363fae60b6de0fa0737f198e4",
+    "solver.py": "7da3d97d6bc655fd34b994f60777375fc5e25d47e1417d0b7f9673cfe51270c4",
+    "hybrid.py": "4e10a77cead97a3d2d6c15611ce970c1692270cad8fb36a09c578c7cfde8bc03",
+    "benchmark.py": "c7471e22af32a99bde8d9eaf20c86ce696fd7fcc2dac7a045beeb7f9360d1595"
+  },
+  "config": {
+    "width": 9,
+    "height": 9,
+    "mines": 10,
+    "seeds": 2,
+    "seed_start": 1,
+    "modes": "code,jev,llm,hybrid",
+    "seconds": 45.0,
+    "max_rounds": 2000,
+    "max_calls": 6,
+    "max_component_cells": 48,
+    "max_search_nodes": 200000,
+    "jev_model": "jev-1.13.0",
+    "llm_model": "openai/gpt-oss-20b",
+    "live": true,
+    "replay_states": 0,
+    "output": "minesweeper/results/beginner-live-episodes.json"
+  },
+  "thresholds": {
+    "review_probability": 0.65,
+    "calibrated": false
+  },
+  "runs": [
+    {
+      "mode": "code",
+      "seed": 1,
+      "width": 9,
+      "height": 9,
+      "mines": 10,
+      "status": "won",
+      "rounds": 3,
+      "moves": 11,
+      "proven_safe_reveals": 9,
+      "guesses": 1,
+      "revealed_safe": 71,
+      "safe_total": 71,
+      "safe_coverage": 1.0,
+      "exact_analyses": 3,
+      "incomplete_analyses": 0,
+      "elapsed_ms": 1.707,
+      "compute_ms": 1.377,
+      "calls": [],
+      "decisions": [
+        {
+          "round": 3,
+          "selected": "r1c8",
+          "outcome": "win",
+          "mine_risk": 0.5,
+          "risk_exact": true,
+          "candidate_count": 2
+        }
+      ]
+    },
+    {
+      "mode": "jev",
+      "seed": 1,
+      "width": 9,
+      "height": 9,
+      "mines": 10,
+      "status": "won",
+      "rounds": 3,
+      "moves": 11,
+      "proven_safe_reveals": 9,
+      "guesses": 1,
+      "revealed_safe": 71,
+      "safe_total": 71,
+      "safe_coverage": 1.0,
+      "exact_analyses": 3,
+      "incomplete_analyses": 0,
+      "elapsed_ms": 366.652,
+      "compute_ms": 1.32,
+      "calls": [
+        {
+          "engine": "jev",
+          "status": "ok",
+          "request_sent": true,
+          "confidence": 0.23,
+          "probabilities": {
+            "r1c8": 0.61,
+            "r1c9": 0.39
+          },
+          "needs_review": 0.42,
+          "provider_model": "jev-1.13.0",
+          "usage": {
+            "input_tokens": 1220,
+            "output_tokens": 58
+          },
+          "latency_ms": 364.971
+        }
+      ],
+      "decisions": [
+        {
+          "mode": "jev",
+          "escalated": false,
+          "initial_cell": "r1c8",
+          "initial_metadata": {
+            "confidence": 0.23,
+            "probabilities": {
+              "r1c8": 0.61,
+              "r1c9": 0.39
+            },
+            "needs_review": 0.42,
+            "provider_model": "jev-1.13.0",
+            "usage": {
+              "input_tokens": 1220,
+              "output_tokens": 58
+            }
+          },
+          "initial_guarded_cell": "r1c8",
+          "initial_guard_rejection": null,
+          "selected": "r1c8",
+          "guard_rejection": null,
+          "round": 3,
+          "outcome": "win",
+          "mine_risk": 0.5,
+          "risk_exact": true,
+          "candidate_count": 2
+        }
+      ]
+    },
+    {
+      "mode": "llm",
+      "seed": 1,
+      "width": 9,
+      "height": 9,
+      "mines": 10,
+      "status": "won",
+      "rounds": 3,
+      "moves": 11,
+      "proven_safe_reveals": 9,
+      "guesses": 1,
+      "revealed_safe": 71,
+      "safe_total": 71,
+      "safe_coverage": 1.0,
+      "exact_analyses": 3,
+      "incomplete_analyses": 0,
+      "elapsed_ms": 16845.391,
+      "compute_ms": 1.294,
+      "calls": [
+        {
+          "engine": "llm",
+          "status": "ok",
+          "request_sent": true,
+          "rationale": "Both candidates have identical 0.5 risk, but revealing r1c8 will immediately expose a number that, combined with the already proven mines, forces a deduction about r1c9 (and potentially r2c8). This unlocks further constraints, whereas revealing r1c9 would give a less informative number.",
+          "provider_model": "openai/gpt-oss-20b",
+          "usage": {
+            "prompt_tokens": 604,
+            "completion_tokens": 1518,
+            "total_tokens": 2122,
+            "cost": 0.0002439,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 192,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.0002439,
+              "upstream_inference_prompt_cost": 1.62e-05,
+              "upstream_inference_completions_cost": 0.0002277
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1428,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "latency_ms": 16843.65
+        }
+      ],
+      "decisions": [
+        {
+          "mode": "llm",
+          "escalated": false,
+          "initial_cell": "r1c8",
+          "initial_metadata": {
+            "rationale": "Both candidates have identical 0.5 risk, but revealing r1c8 will immediately expose a number that, combined with the already proven mines, forces a deduction about r1c9 (and potentially r2c8). This unlocks further constraints, whereas revealing r1c9 would give a less informative number.",
+            "provider_model": "openai/gpt-oss-20b",
+            "usage": {
+              "prompt_tokens": 604,
+              "completion_tokens": 1518,
+              "total_tokens": 2122,
+              "cost": 0.0002439,
+              "is_byok": false,
+              "prompt_tokens_details": {
+                "cached_tokens": 192,
+                "cache_write_tokens": 0,
+                "audio_tokens": 0,
+                "video_tokens": 0
+              },
+              "cost_details": {
+                "upstream_inference_cost": 0.0002439,
+                "upstream_inference_prompt_cost": 1.62e-05,
+                "upstream_inference_completions_cost": 0.0002277
+              },
+              "completion_tokens_details": {
+                "reasoning_tokens": 1428,
+                "image_tokens": 0,
+                "audio_tokens": 0
+              }
+            }
+          },
+          "initial_guarded_cell": "r1c8",
+          "initial_guard_rejection": null,
+          "selected": "r1c8",
+          "guard_rejection": null,
+          "round": 3,
+          "outcome": "win",
+          "mine_risk": 0.5,
+          "risk_exact": true,
+          "candidate_count": 2
+        }
+      ]
+    },
+    {
+      "mode": "hybrid",
+      "seed": 1,
+      "width": 9,
+      "height": 9,
+      "mines": 10,
+      "status": "won",
+      "rounds": 3,
+      "moves": 11,
+      "proven_safe_reveals": 9,
+      "guesses": 1,
+      "revealed_safe": 71,
+      "safe_total": 71,
+      "safe_coverage": 1.0,
+      "exact_analyses": 3,
+      "incomplete_analyses": 0,
+      "elapsed_ms": 383.872,
+      "compute_ms": 1.285,
+      "calls": [
+        {
+          "engine": "jev",
+          "status": "ok",
+          "request_sent": true,
+          "confidence": 0.29,
+          "probabilities": {
+            "r1c8": 0.64,
+            "r1c9": 0.36
+          },
+          "needs_review": 0.43,
+          "provider_model": "jev-1.13.0",
+          "usage": {
+            "input_tokens": 1220,
+            "output_tokens": 58
+          },
+          "latency_ms": 382.147
+        }
+      ],
+      "decisions": [
+        {
+          "mode": "hybrid",
+          "escalated": false,
+          "initial_cell": "r1c8",
+          "initial_metadata": {
+            "confidence": 0.29,
+            "probabilities": {
+              "r1c8": 0.64,
+              "r1c9": 0.36
+            },
+            "needs_review": 0.43,
+            "provider_model": "jev-1.13.0",
+            "usage": {
+              "input_tokens": 1220,
+              "output_tokens": 58
+            }
+          },
+          "initial_guarded_cell": "r1c8",
+          "initial_guard_rejection": null,
+          "review_reasons": [],
+          "selected": "r1c8",
+          "guard_rejection": null,
+          "round": 3,
+          "outcome": "win",
+          "mine_risk": 0.5,
+          "risk_exact": true,
+          "candidate_count": 2
+        }
+      ]
+    },
+    {
+      "mode": "code",
+      "seed": 2,
+      "width": 9,
+      "height": 9,
+      "mines": 10,
+      "status": "won",
+      "rounds": 2,
+      "moves": 18,
+      "proven_safe_reveals": 17,
+      "guesses": 0,
+      "revealed_safe": 71,
+      "safe_total": 71,
+      "safe_coverage": 1.0,
+      "exact_analyses": 2,
+      "incomplete_analyses": 0,
+      "elapsed_ms": 1.418,
+      "compute_ms": 1.123,
+      "calls": [],
+      "decisions": []
+    },
+    {
+      "mode": "jev",
+      "seed": 2,
+      "width": 9,
+      "height": 9,
+      "mines": 10,
+      "status": "won",
+      "rounds": 2,
+      "moves": 18,
+      "proven_safe_reveals": 17,
+      "guesses": 0,
+      "revealed_safe": 71,
+      "safe_total": 71,
+      "safe_coverage": 1.0,
+      "exact_analyses": 2,
+      "incomplete_analyses": 0,
+      "elapsed_ms": 1.322,
+      "compute_ms": 1.022,
+      "calls": [],
+      "decisions": []
+    },
+    {
+      "mode": "llm",
+      "seed": 2,
+      "width": 9,
+      "height": 9,
+      "mines": 10,
+      "status": "won",
+      "rounds": 2,
+      "moves": 18,
+      "proven_safe_reveals": 17,
+      "guesses": 0,
+      "revealed_safe": 71,
+      "safe_total": 71,
+      "safe_coverage": 1.0,
+      "exact_analyses": 2,
+      "incomplete_analyses": 0,
+      "elapsed_ms": 1.227,
+      "compute_ms": 0.964,
+      "calls": [],
+      "decisions": []
+    },
+    {
+      "mode": "hybrid",
+      "seed": 2,
+      "width": 9,
+      "height": 9,
+      "mines": 10,
+      "status": "won",
+      "rounds": 2,
+      "moves": 18,
+      "proven_safe_reveals": 17,
+      "guesses": 0,
+      "revealed_safe": 71,
+      "safe_total": 71,
+      "safe_coverage": 1.0,
+      "exact_analyses": 2,
+      "incomplete_analyses": 0,
+      "elapsed_ms": 1.182,
+      "compute_ms": 0.927,
+      "calls": [],
+      "decisions": []
+    }
+  ],
+  "replay": [],
+  "limitations": [
+    "Seeded layouts, provider outputs not guaranteed deterministic.",
+    "Exact refers to bounded complete model counting under a uniform layout prior.",
+    "Models choose minimum-computed-risk ties; no proof of optimal eventual wins.",
+    "Unfinished games stay in denominator; replay is one-step evidence only."
+  ],
+  "summary": {
+    "code": {
+      "games": 2,
+      "statuses": {
+        "won": 2
+      },
+      "win_rate": 1.0,
+      "win_rate_wilson95": [
+        0.34238022750665303,
+        1.0
+      ],
+      "mean_safe_coverage": 1.0,
+      "mean_elapsed_ms": 1.5625,
+      "guesses": 1,
+      "proven_safe_reveals": 26,
+      "provider_attempts": 0,
+      "api_calls": 0,
+      "calls_by_engine": {},
+      "provider_errors": 0,
+      "call_latency_p50_ms": null,
+      "call_latency_p95_ms": null,
+      "escalations": 0,
+      "guard_rejections": 0,
+      "reported_cost_usd": null,
+      "calls_with_reported_cost": 0,
+      "cost_note": "Only provider-reported costs; missing usage cost is unknown, not zero."
+    },
+    "jev": {
+      "games": 2,
+      "statuses": {
+        "won": 2
+      },
+      "win_rate": 1.0,
+      "win_rate_wilson95": [
+        0.34238022750665303,
+        1.0
+      ],
+      "mean_safe_coverage": 1.0,
+      "mean_elapsed_ms": 183.987,
+      "guesses": 1,
+      "proven_safe_reveals": 26,
+      "provider_attempts": 1,
+      "api_calls": 1,
+      "calls_by_engine": {
+        "jev": 1
+      },
+      "provider_errors": 0,
+      "call_latency_p50_ms": 364.971,
+      "call_latency_p95_ms": 364.971,
+      "escalations": 0,
+      "guard_rejections": 0,
+      "reported_cost_usd": null,
+      "calls_with_reported_cost": 0,
+      "cost_note": "Only provider-reported costs; missing usage cost is unknown, not zero."
+    },
+    "llm": {
+      "games": 2,
+      "statuses": {
+        "won": 2
+      },
+      "win_rate": 1.0,
+      "win_rate_wilson95": [
+        0.34238022750665303,
+        1.0
+      ],
+      "mean_safe_coverage": 1.0,
+      "mean_elapsed_ms": 8423.309,
+      "guesses": 1,
+      "proven_safe_reveals": 26,
+      "provider_attempts": 1,
+      "api_calls": 1,
+      "calls_by_engine": {
+        "llm": 1
+      },
+      "provider_errors": 0,
+      "call_latency_p50_ms": 16843.65,
+      "call_latency_p95_ms": 16843.65,
+      "escalations": 0,
+      "guard_rejections": 0,
+      "reported_cost_usd": 0.0002439,
+      "calls_with_reported_cost": 1,
+      "cost_note": "Only provider-reported costs; missing usage cost is unknown, not zero."
+    },
+    "hybrid": {
+      "games": 2,
+      "statuses": {
+        "won": 2
+      },
+      "win_rate": 1.0,
+      "win_rate_wilson95": [
+        0.34238022750665303,
+        1.0
+      ],
+      "mean_safe_coverage": 1.0,
+      "mean_elapsed_ms": 192.52700000000002,
+      "guesses": 1,
+      "proven_safe_reveals": 26,
+      "provider_attempts": 1,
+      "api_calls": 1,
+      "calls_by_engine": {
+        "jev": 1
+      },
+      "provider_errors": 0,
+      "call_latency_p50_ms": 382.147,
+      "call_latency_p95_ms": 382.147,
+      "escalations": 0,
+      "guard_rejections": 0,
+      "reported_cost_usd": null,
+      "calls_with_reported_cost": 0,
+      "cost_note": "Only provider-reported costs; missing usage cost is unknown, not zero."
+    }
+  }
+}

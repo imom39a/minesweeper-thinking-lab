@@ -1,0 +1,131 @@
+{
+  "created_at": "2026-09-22T12:15:20.072972+00:00",
+  "policy_version": "system-one-two-v2",
+  "config": {
+    "width": 500,
+    "height": 500,
+    "mines": 50000,
+    "seeds": 1,
+    "seed_start": 0,
+    "modes": "code,proof",
+    "seconds": 10.0,
+    "max_rounds": 2000,
+    "max_calls": 12,
+    "max_component_cells": 22,
+    "max_search_nodes": 200000,
+    "jev_model": "jev-1.13.0",
+    "llm_model": "openai/gpt-oss-20b",
+    "live": false,
+    "replay_states": 0,
+    "output": "minesweeper/results/maximum-board-bounded.json"
+  },
+  "thresholds": {
+    "review_probability": 0.65,
+    "calibrated": false
+  },
+  "runs": [
+    {
+      "mode": "code",
+      "seed": 0,
+      "width": 500,
+      "height": 500,
+      "mines": 50000,
+      "status": "time_limit",
+      "rounds": 39,
+      "moves": 8096,
+      "proven_safe_reveals": 8095,
+      "guesses": 0,
+      "revealed_safe": 15644,
+      "safe_total": 200000,
+      "safe_coverage": 0.07822,
+      "exact_analyses": 13,
+      "incomplete_analyses": 26,
+      "elapsed_ms": 10246.528,
+      "compute_ms": 10125.27,
+      "calls": [],
+      "decisions": []
+    },
+    {
+      "mode": "proof",
+      "seed": 0,
+      "width": 500,
+      "height": 500,
+      "mines": 50000,
+      "status": "time_limit",
+      "rounds": 39,
+      "moves": 8096,
+      "proven_safe_reveals": 8095,
+      "guesses": 0,
+      "revealed_safe": 15644,
+      "safe_total": 200000,
+      "safe_coverage": 0.07822,
+      "exact_analyses": 13,
+      "incomplete_analyses": 26,
+      "elapsed_ms": 10063.907,
+      "compute_ms": 9943.69,
+      "calls": [],
+      "decisions": []
+    }
+  ],
+  "replay": [],
+  "limitations": [
+    "Seeded layouts, provider outputs not guaranteed deterministic.",
+    "Exact refers to bounded complete model counting under a uniform layout prior.",
+    "Models choose minimum-computed-risk ties; no proof of optimal eventual wins.",
+    "Unfinished games stay in denominator; replay is one-step evidence only."
+  ],
+  "summary": {
+    "code": {
+      "games": 1,
+      "statuses": {
+        "time_limit": 1
+      },
+      "win_rate": 0.0,
+      "win_rate_wilson95": [
+        0.0,
+        0.7934506856227626
+      ],
+      "mean_safe_coverage": 0.07822,
+      "mean_elapsed_ms": 10246.528,
+      "guesses": 0,
+      "proven_safe_reveals": 8095,
+      "provider_attempts": 0,
+      "api_calls": 0,
+      "calls_by_engine": {},
+      "provider_errors": 0,
+      "call_latency_p50_ms": null,
+      "call_latency_p95_ms": null,
+      "escalations": 0,
+      "guard_rejections": 0,
+      "reported_cost_usd": null,
+      "calls_with_reported_cost": 0,
+      "cost_note": "Only provider-reported costs; missing usage cost is unknown, not zero."
+    },
+    "proof": {
+      "games": 1,
+      "statuses": {
+        "time_limit": 1
+      },
+      "win_rate": 0.0,
+      "win_rate_wilson95": [
+        0.0,
+        0.7934506856227626
+      ],
+      "mean_safe_coverage": 0.07822,
+      "mean_elapsed_ms": 10063.907,
+      "guesses": 0,
+      "proven_safe_reveals": 8095,
+      "provider_attempts": 0,
+      "api_calls": 0,
+      "calls_by_engine": {},
+      "provider_errors": 0,
+      "call_latency_p50_ms": null,
+      "call_latency_p95_ms": null,
+      "escalations": 0,
+      "guard_rejections": 0,
+      "reported_cost_usd": null,
+      "calls_with_reported_cost": 0,
+      "cost_note": "Only provider-reported costs; missing usage cost is unknown, not zero."
+    }
+  }
+}
