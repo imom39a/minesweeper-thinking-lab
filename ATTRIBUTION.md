@@ -2,9 +2,6 @@
 
 Minesweeper Thinking Lab originates from
 [imom39a/jev-playground](https://github.com/imom39a/jev-playground).
-[EXTRACTION.json](EXTRACTION.json) records the source repository, base commit,
-and SHA-256 hashes of the imported files. These hashes describe the original
-import, not subsequent revisions.
 
 The project's source code is released under the Apache License, Version 2.0;
 see [LICENSE](LICENSE). The bundled TypeSafe skill is distributed under its

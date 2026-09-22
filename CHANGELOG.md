@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add browser gameplay screenshots and repeat experiment records.
+- Replace the repository extraction manifest with dataset checksums in
+  `minesweeper/results/SHA256SUMS`.
 - Restructure the research report and guides around methods, results,
   limitations, and usage; consolidate proposed work in the
   [roadmap](docs/roadmap.md).

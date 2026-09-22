@@ -116,14 +116,19 @@ timeouts, and exhausted budgets remain explicit unfinished outcomes.
 
 ## Recorded results and reproducibility
 
-The [results directory](results/) contains 11 reports measured on September 22,
-2026. The [research report](docs/system-one-system-two-research.md) describes
+The [results directory](results/) contains the 11 original reports measured on
+September 22, 2026, with repeat runs in [verification/](results/verification/).
+The [research report](docs/system-one-system-two-research.md) describes
 their configurations and separates full-board outcomes from one-step replay
 results.
 
 Reports retain outcomes, decisions, timing, available provider usage, and, where
 recorded, source hashes. Missing provider costs mean unknown cost. Commands in
 this guide write outside `results/` to preserve the published datasets.
+
+[SHA256SUMS](results/SHA256SUMS) records checksums for all recorded datasets.
+Verify them with `python3 scripts/check_repo.py` from the repository root, or
+`shasum -a 256 -c SHA256SUMS` from `minesweeper/results/`.
 
 Offline boards are seeded, but deadline-dependent outcomes can differ across
 machines. Live outputs, latency, and service availability can vary even with

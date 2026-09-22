@@ -1,4 +1,4 @@
-"""Check standalone documentation links and original research data integrity."""
+"""Check documentation links and recorded research data integrity."""
 from __future__ import annotations
 
 import hashlib
@@ -25,18 +25,24 @@ def main() -> None:
             relative = target.split("#")[0]
             if relative and not (path.parent / relative).exists():
                 errors.append(f"Broken link in {path.relative_to(ROOT)}: {relative}")
-    extraction = json.loads((ROOT / "EXTRACTION.json").read_text())
-    results = list((ROOT / "minesweeper/results").glob("*.json"))
+    checksums = {}
+    for line in (ROOT / "minesweeper/results/SHA256SUMS").read_text().splitlines():
+        digest, filename = line.split("  ", 1)
+        if not re.fullmatch(r"[0-9a-f]{64}", digest) or filename in checksums:
+            raise SystemExit(f"Invalid or duplicate checksum: {filename}")
+        checksums[filename] = digest
+    results_dir = ROOT / "minesweeper/results"
+    results = list(results_dir.rglob("*.json"))
+    if set(checksums) != {path.relative_to(results_dir).as_posix() for path in results}:
+        errors.append("Result files and SHA256SUMS entries differ")
     for path in results:
         relative = str(path.relative_to(ROOT))
-        expected = extraction["files"].get(relative)
+        expected = checksums.get(path.relative_to(results_dir).as_posix())
         if expected is None or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
-            errors.append(f"Historical result changed: {relative}")
+            errors.append(f"Recorded result changed: {relative}")
         document = json.loads(path.read_text())
         if "config" not in document or "summary" not in document:
             errors.append(f"Invalid result: {relative}")
-    if len(results) != 11:
-        errors.append(f"Expected 11 historical results, found {len(results)}")
     if errors:
         raise SystemExit("\n".join(errors))
     print(f"Checked {len(documents)} documents and preserved {len(results)} result artifacts.")

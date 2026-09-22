@@ -24,4 +24,4 @@ Issues = "https://github.com/imom39a/minesweeper-thinking-lab/issues"
 include = ["minesweeper*"]
 
 [tool.setuptools.package-data]
-minesweeper = ["web/*.html", "docs/*.md", "results/*.json", "README.md"]
+minesweeper = ["web/*.html", "docs/*.md", "results/*.json", "results/verification/*.json", "results/SHA256SUMS", "README.md"]

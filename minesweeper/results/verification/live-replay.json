@@ -1,0 +1,5530 @@
+{
+  "created_at": "2026-09-22T13:59:23.839492+00:00",
+  "policy_version": "system-one-two-v2",
+  "source_sha256": {
+    "game.py": "a35974e9bb0dd31508e872c3e250c15ed24e6c1363fae60b6de0fa0737f198e4",
+    "solver.py": "940e7faa5db11ea9790260941168e21617334012948fc18a0b4da38b9f21ee9b",
+    "hybrid.py": "4e10a77cead97a3d2d6c15611ce970c1692270cad8fb36a09c578c7cfde8bc03",
+    "benchmark.py": "4cb9d0a9798df8a82fea15043f01309361285260cd7dba8e4feff4ff85685889"
+  },
+  "config": {
+    "width": 30,
+    "height": 16,
+    "mines": 99,
+    "seeds": 10,
+    "seed_start": 0,
+    "modes": "code,jev,llm,hybrid",
+    "seconds": 50.0,
+    "max_rounds": 2000,
+    "max_calls": 2,
+    "max_component_cells": 48,
+    "max_search_nodes": 200000,
+    "jev_model": "jev-1.13.0",
+    "llm_model": "openai/gpt-oss-20b",
+    "live": true,
+    "replay_states": 4,
+    "output": "local-results/2026-09-22/live-replay.json"
+  },
+  "thresholds": {
+    "review_probability": 0.65,
+    "calibrated": false
+  },
+  "runs": [
+    {
+      "mode": "code",
+      "seed": 0,
+      "width": 30,
+      "height": 16,
+      "mines": 99,
+      "status": "won",
+      "rounds": 19,
+      "moves": 224,
+      "proven_safe_reveals": 223,
+      "guesses": 0,
+      "revealed_safe": 381,
+      "safe_total": 381,
+      "safe_coverage": 1.0,
+      "exact_analyses": 19,
+      "incomplete_analyses": 0,
+      "elapsed_ms": 40.259,
+      "compute_ms": 38.809,
+      "calls": [],
+      "decisions": []
+    },
+    {
+      "mode": "code",
+      "seed": 1,
+      "width": 30,
+      "height": 16,
+      "mines": 99,
+      "status": "won",
+      "rounds": 19,
+      "moves": 199,
+      "proven_safe_reveals": 197,
+      "guesses": 1,
+      "revealed_safe": 381,
+      "safe_total": 381,
+      "safe_coverage": 1.0,
+      "exact_analyses": 19,
+      "incomplete_analyses": 0,
+      "elapsed_ms": 57.575,
+      "compute_ms": 55.996,
+      "calls": [],
+      "decisions": [
+        {
+          "round": 5,
+          "selected": "r6c15",
+          "outcome": "ok",
+          "mine_risk": 0.01120583948067752,
+          "risk_exact": true,
+          "candidate_count": 24
+        }
+      ]
+    },
+    {
+      "mode": "code",
+      "seed": 2,
+      "width": 30,
+      "height": 16,
+      "mines": 99,
+      "status": "won",
+      "rounds": 20,
+      "moves": 198,
+      "proven_safe_reveals": 195,
+      "guesses": 2,
+      "revealed_safe": 381,
+      "safe_total": 381,
+      "safe_coverage": 1.0,
+      "exact_analyses": 20,
+      "incomplete_analyses": 0,
+      "elapsed_ms": 55.33,
+      "compute_ms": 51.718,
+      "calls": [],
+      "decisions": [
+        {
+          "round": 17,
+          "selected": "r16c27",
+          "outcome": "ok",
+          "mine_risk": 0.20833333333333334,
+          "risk_exact": true,
+          "candidate_count": 15
+        },
+        {
+          "round": 18,
+          "selected": "r16c26",
+          "outcome": "ok",
+          "mine_risk": 0.21428571428571427,
+          "risk_exact": true,
+          "candidate_count": 14
+        }
+      ]
+    },
+    {
+      "mode": "code",
+      "seed": 3,
+      "width": 30,
+      "height": 16,
+      "mines": 99,
+      "status": "lost",
+      "rounds": 14,
+      "moves": 120,
+      "proven_safe_reveals": 118,
+      "guesses": 1,
+      "revealed_safe": 242,
+      "safe_total": 381,
+      "safe_coverage": 0.6351706036745407,
+      "exact_analyses": 14,
+      "incomplete_analyses": 0,
+      "elapsed_ms": 27.514,
+      "compute_ms": 25.815,
+      "calls": [],
+      "decisions": [
+        {
+          "round": 14,
+          "selected": "r13c22",
+          "outcome": "mine",
+          "mine_risk": 0.07198274959700211,
+          "risk_exact": true,
+          "candidate_count": 24
+        }
+      ]
+    },
+    {
+      "mode": "code",
+      "seed": 4,
+      "width": 30,
+      "height": 16,
+      "mines": 99,
+      "status": "lost",
+      "rounds": 18,
+      "moves": 145,
+      "proven_safe_reveals": 140,
+      "guesses": 4,
+      "revealed_safe": 305,
+      "safe_total": 381,
+      "safe_coverage": 0.800524934383202,
+      "exact_analyses": 18,
+      "incomplete_analyses": 0,
+      "elapsed_ms": 44.386,
+      "compute_ms": 39.26,
+      "calls": [],
+      "decisions": [
+        {
+          "round": 10,
+          "selected": "r2c10",
+          "outcome": "ok",
+          "mine_risk": 0.09887783297913764,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 11,
+          "selected": "r1c9",
+          "outcome": "ok",
+          "mine_risk": 0.10114985445197687,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 17,
+          "selected": "r10c7",
+          "outcome": "ok",
+          "mine_risk": 0.1111111111111111,
+          "risk_exact": true,
+          "candidate_count": 24
+        },
+        {
+          "round": 18,
+          "selected": "r9c6",
+          "outcome": "mine",
+          "mine_risk": 0.10888575458392101,
+          "risk_exact": true,
+          "candidate_count": 24
+        }
+      ]
+    }
+  ],
+  "replay": [
+    {
+      "state_index": 0,
+      "state_hash": "aa5d4066f2acb824",
+      "seed": 1,
+      "mode": "code",
+      "cell": "r6c15",
+      "would_hit_mine": false,
+      "initial_would_hit_mine": null,
+      "initial_guarded_would_hit_mine": null,
+      "trace": {},
+      "calls": []
+    },
+    {
+      "state_index": 0,
+      "state_hash": "aa5d4066f2acb824",
+      "seed": 1,
+      "mode": "jev",
+      "cell": "r6c15",
+      "would_hit_mine": false,
+      "initial_would_hit_mine": false,
+      "initial_guarded_would_hit_mine": false,
+      "trace": {
+        "mode": "jev",
+        "escalated": false,
+        "initial_cell": "r6c15",
+        "initial_metadata": {
+          "confidence": 0.98,
+          "probabilities": {
+            "r1c10": 0.0,
+            "r1c2": 0.0,
+            "r1c18": 0.0,
+            "r1c12": 0.0,
+            "r1c3": 0.0,
+            "r1c16": 0.0,
+            "r1c15": 0.0,
+            "r5c16": 0.0,
+            "r1c11": 0.0,
+            "r1c14": 0.0,
+            "r1c9": 0.0,
+            "r1c8": 0.0,
+            "r1c4": 0.0,
+            "r1c6": 0.0,
+            "r5c15": 0.01,
+            "r1c13": 0.0,
+            "r1c1": 0.0,
+            "r5c18": 0.0,
+            "r5c20": 0.0,
+            "r5c19": 0.0,
+            "r1c5": 0.0,
+            "r6c15": 0.99,
+            "r1c7": 0.0,
+            "r1c17": 0.0
+          },
+          "needs_review": 0.77,
+          "provider_model": "jev-1.13.0",
+          "usage": {
+            "input_tokens": 6875,
+            "output_tokens": 294
+          }
+        },
+        "initial_guarded_cell": "r6c15",
+        "initial_guard_rejection": null,
+        "selected": "r6c15",
+        "guard_rejection": null
+      },
+      "calls": [
+        {
+          "engine": "jev",
+          "status": "ok",
+          "request_sent": true,
+          "confidence": 0.98,
+          "probabilities": {
+            "r1c10": 0.0,
+            "r1c2": 0.0,
+            "r1c18": 0.0,
+            "r1c12": 0.0,
+            "r1c3": 0.0,
+            "r1c16": 0.0,
+            "r1c15": 0.0,
+            "r5c16": 0.0,
+            "r1c11": 0.0,
+            "r1c14": 0.0,
+            "r1c9": 0.0,
+            "r1c8": 0.0,
+            "r1c4": 0.0,
+            "r1c6": 0.0,
+            "r5c15": 0.01,
+            "r1c13": 0.0,
+            "r1c1": 0.0,
+            "r5c18": 0.0,
+            "r5c20": 0.0,
+            "r5c19": 0.0,
+            "r1c5": 0.0,
+            "r6c15": 0.99,
+            "r1c7": 0.0,
+            "r1c17": 0.0
+          },
+          "needs_review": 0.77,
+          "provider_model": "jev-1.13.0",
+          "usage": {
+            "input_tokens": 6875,
+            "output_tokens": 294
+          },
+          "latency_ms": 504.17
+        }
+      ]
+    },
+    {
+      "state_index": 0,
+      "state_hash": "aa5d4066f2acb824",
+      "seed": 1,
+      "mode": "llm",
+      "cell": "r6c15",
+      "would_hit_mine": false,
+      "initial_would_hit_mine": false,
+      "initial_guarded_would_hit_mine": false,
+      "trace": {
+        "mode": "llm",
+        "escalated": false,
+        "initial_cell": "r6c15",
+        "initial_metadata": {
+          "rationale": "Lowest mine risk (0.0112) and lies on several constraints, so revealing it should help unlock further deductions.",
+          "provider_model": "openai/gpt-oss-20b",
+          "usage": {
+            "prompt_tokens": 2742,
+            "completion_tokens": 654,
+            "total_tokens": 3396,
+            "cost": 0.000108216,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.000108216,
+              "upstream_inference_prompt_cost": 4.9356e-05,
+              "upstream_inference_completions_cost": 5.886e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 608,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          }
+        },
+        "initial_guarded_cell": "r6c15",
+        "initial_guard_rejection": null,
+        "selected": "r6c15",
+        "guard_rejection": null
+      },
+      "calls": [
+        {
+          "engine": "llm",
+          "status": "ok",
+          "request_sent": true,
+          "rationale": "Lowest mine risk (0.0112) and lies on several constraints, so revealing it should help unlock further deductions.",
+          "provider_model": "openai/gpt-oss-20b",
+          "usage": {
+            "prompt_tokens": 2742,
+            "completion_tokens": 654,
+            "total_tokens": 3396,
+            "cost": 0.000108216,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.000108216,
+              "upstream_inference_prompt_cost": 4.9356e-05,
+              "upstream_inference_completions_cost": 5.886e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 608,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "latency_ms": 22760.767
+        }
+      ]
+    },
+    {
+      "state_index": 0,
+      "state_hash": "aa5d4066f2acb824",
+      "seed": 1,
+      "mode": "hybrid",
+      "cell": "r6c15",
+      "would_hit_mine": false,
+      "initial_would_hit_mine": false,
+      "initial_guarded_would_hit_mine": false,
+      "trace": {
+        "mode": "hybrid",
+        "escalated": true,
+        "initial_cell": "r6c15",
+        "initial_metadata": {
+          "confidence": 0.98,
+          "probabilities": {
+            "r1c1": 0.0,
+            "r1c9": 0.0,
+            "r1c11": 0.0,
+            "r5c19": 0.0,
+            "r6c15": 0.99,
+            "r5c20": 0.0,
+            "r1c8": 0.0,
+            "r1c5": 0.0,
+            "r1c13": 0.0,
+            "r1c12": 0.0,
+            "r1c2": 0.0,
+            "r1c18": 0.0,
+            "r5c16": 0.0,
+            "r5c18": 0.0,
+            "r1c16": 0.0,
+            "r5c15": 0.01,
+            "r1c4": 0.0,
+            "r1c17": 0.0,
+            "r1c3": 0.0,
+            "r1c15": 0.0,
+            "r1c10": 0.0,
+            "r1c6": 0.0,
+            "r1c7": 0.0,
+            "r1c14": 0.0
+          },
+          "needs_review": 0.73,
+          "provider_model": "jev-1.13.0",
+          "usage": {
+            "input_tokens": 6875,
+            "output_tokens": 294
+          }
+        },
+        "initial_guarded_cell": "r6c15",
+        "initial_guard_rejection": null,
+        "review_reasons": [
+          "jev_requests_deliberation"
+        ],
+        "review_cell": "r6c15",
+        "review_metadata": {
+          "rationale": "Lowest mine risk (0.0112) and appears in several constraints, so revealing it should unlock further deductions.",
+          "provider_model": "openai/gpt-oss-20b",
+          "usage": {
+            "prompt_tokens": 2742,
+            "completion_tokens": 661,
+            "total_tokens": 3403,
+            "cost": 0.000108846,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.000108846,
+              "upstream_inference_prompt_cost": 4.9356e-05,
+              "upstream_inference_completions_cost": 5.949e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 616,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          }
+        },
+        "selected": "r6c15",
+        "guard_rejection": null
+      },
+      "calls": [
+        {
+          "engine": "jev",
+          "status": "ok",
+          "request_sent": true,
+          "confidence": 0.98,
+          "probabilities": {
+            "r1c1": 0.0,
+            "r1c9": 0.0,
+            "r1c11": 0.0,
+            "r5c19": 0.0,
+            "r6c15": 0.99,
+            "r5c20": 0.0,
+            "r1c8": 0.0,
+            "r1c5": 0.0,
+            "r1c13": 0.0,
+            "r1c12": 0.0,
+            "r1c2": 0.0,
+            "r1c18": 0.0,
+            "r5c16": 0.0,
+            "r5c18": 0.0,
+            "r1c16": 0.0,
+            "r5c15": 0.01,
+            "r1c4": 0.0,
+            "r1c17": 0.0,
+            "r1c3": 0.0,
+            "r1c15": 0.0,
+            "r1c10": 0.0,
+            "r1c6": 0.0,
+            "r1c7": 0.0,
+            "r1c14": 0.0
+          },
+          "needs_review": 0.73,
+          "provider_model": "jev-1.13.0",
+          "usage": {
+            "input_tokens": 6875,
+            "output_tokens": 294
+          },
+          "latency_ms": 361.978
+        },
+        {
+          "engine": "llm",
+          "status": "ok",
+          "request_sent": true,
+          "rationale": "Lowest mine risk (0.0112) and appears in several constraints, so revealing it should unlock further deductions.",
+          "provider_model": "openai/gpt-oss-20b",
+          "usage": {
+            "prompt_tokens": 2742,
+            "completion_tokens": 661,
+            "total_tokens": 3403,
+            "cost": 0.000108846,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.000108846,
+              "upstream_inference_prompt_cost": 4.9356e-05,
+              "upstream_inference_completions_cost": 5.949e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 616,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "latency_ms": 17157.73
+        }
+      ]
+    },
+    {
+      "state_index": 1,
+      "state_hash": "86082c019f05a2de",
+      "seed": 2,
+      "mode": "code",
+      "cell": "r16c27",
+      "would_hit_mine": false,
+      "initial_would_hit_mine": null,
+      "initial_guarded_would_hit_mine": null,
+      "trace": {},
+      "calls": []
+    },
+    {
+      "state_index": 1,
+      "state_hash": "86082c019f05a2de",
+      "seed": 2,
+      "mode": "jev",
+      "cell": "r16c27",
+      "would_hit_mine": false,
+      "initial_would_hit_mine": false,
+      "initial_guarded_would_hit_mine": false,
+      "trace": {
+        "mode": "jev",
+        "escalated": false,
+        "initial_cell": "r16c27",
+        "initial_metadata": {
+          "confidence": 0.59,
+          "probabilities": {
+            "r15c27": 0.0,
+            "r15c29": 0.0,
+            "r16c29": 0.15000000000000002,
+            "r14c26": 0.0,
+            "r15c26": 0.0,
+            "r16c25": 0.0,
+            "r15c25": 0.0,
+            "r16c27": 0.63,
+            "r13c27": 0.0,
+            "r15c30": 0.0,
+            "r16c30": 0.0,
+            "r14c27": 0.0,
+            "r16c28": 0.2,
+            "r13c26": 0.02,
+            "r16c26": 0.0
+          },
+          "needs_review": 0.67,
+          "provider_model": "jev-1.13.0",
+          "usage": {
+            "input_tokens": 7147,
+            "output_tokens": 220
+          }
+        },
+        "initial_guarded_cell": "r16c27",
+        "initial_guard_rejection": null,
+        "selected": "r16c27",
+        "guard_rejection": null
+      },
+      "calls": [
+        {
+          "engine": "jev",
+          "status": "ok",
+          "request_sent": true,
+          "confidence": 0.59,
+          "probabilities": {
+            "r15c27": 0.0,
+            "r15c29": 0.0,
+            "r16c29": 0.15000000000000002,
+            "r14c26": 0.0,
+            "r15c26": 0.0,
+            "r16c25": 0.0,
+            "r15c25": 0.0,
+            "r16c27": 0.63,
+            "r13c27": 0.0,
+            "r15c30": 0.0,
+            "r16c30": 0.0,
+            "r14c27": 0.0,
+            "r16c28": 0.2,
+            "r13c26": 0.02,
+            "r16c26": 0.0
+          },
+          "needs_review": 0.67,
+          "provider_model": "jev-1.13.0",
+          "usage": {
+            "input_tokens": 7147,
+            "output_tokens": 220
+          },
+          "latency_ms": 1328.029
+        }
+      ]
+    },
+    {
+      "state_index": 1,
+      "state_hash": "86082c019f05a2de",
+      "seed": 2,
+      "mode": "llm",
+      "cell": null,
+      "would_hit_mine": null,
+      "initial_would_hit_mine": null,
+      "initial_guarded_would_hit_mine": null,
+      "trace": {
+        "mode": "llm",
+        "escalated": false,
+        "error": "llm_decision_invalid"
+      },
+      "calls": [
+        {
+          "engine": "llm",
+          "status": "error",
+          "request_sent": true,
+          "error": "llm_decision_invalid",
+          "latency_ms": 18721.648
+        }
+      ]
+    },
+    {
+      "state_index": 1,
+      "state_hash": "86082c019f05a2de",
+      "seed": 2,
+      "mode": "hybrid",
+      "cell": null,
+      "would_hit_mine": null,
+      "initial_would_hit_mine": false,
+      "initial_guarded_would_hit_mine": false,
+      "trace": {
+        "mode": "hybrid",
+        "escalated": true,
+        "initial_cell": "r16c27",
+        "initial_metadata": {
+          "confidence": 0.6,
+          "probabilities": {
+            "r16c25": 0.0,
+            "r16c28": 0.18000000000000002,
+            "r15c25": 0.0,
+            "r15c26": 0.0,
+            "r14c26": 0.0,
+            "r13c26": 0.02,
+            "r15c27": 0.0,
+            "r13c27": 0.0,
+            "r16c29": 0.15,
+            "r15c30": 0.01,
+            "r16c30": 0.0,
+            "r16c26": 0.0,
+            "r15c29": 0.0,
+            "r14c27": 0.0,
+            "r16c27": 0.64
+          },
+          "needs_review": 0.67,
+          "provider_model": "jev-1.13.0",
+          "usage": {
+            "input_tokens": 7147,
+            "output_tokens": 220
+          }
+        },
+        "initial_guarded_cell": "r16c27",
+        "initial_guard_rejection": null,
+        "review_reasons": [
+          "jev_requests_deliberation"
+        ],
+        "error": "llm_decision_invalid"
+      },
+      "calls": [
+        {
+          "engine": "jev",
+          "status": "ok",
+          "request_sent": true,
+          "confidence": 0.6,
+          "probabilities": {
+            "r16c25": 0.0,
+            "r16c28": 0.18000000000000002,
+            "r15c25": 0.0,
+            "r15c26": 0.0,
+            "r14c26": 0.0,
+            "r13c26": 0.02,
+            "r15c27": 0.0,
+            "r13c27": 0.0,
+            "r16c29": 0.15,
+            "r15c30": 0.01,
+            "r16c30": 0.0,
+            "r16c26": 0.0,
+            "r15c29": 0.0,
+            "r14c27": 0.0,
+            "r16c27": 0.64
+          },
+          "needs_review": 0.67,
+          "provider_model": "jev-1.13.0",
+          "usage": {
+            "input_tokens": 7147,
+            "output_tokens": 220
+          },
+          "latency_ms": 382.394
+        },
+        {
+          "engine": "llm",
+          "status": "error",
+          "request_sent": true,
+          "error": "llm_decision_invalid",
+          "latency_ms": 3566.096
+        }
+      ]
+    },
+    {
+      "state_index": 2,
+      "state_hash": "298bc34d7fd47292",
+      "seed": 3,
+      "mode": "code",
+      "cell": "r13c22",
+      "would_hit_mine": true,
+      "initial_would_hit_mine": null,
+      "initial_guarded_would_hit_mine": null,
+      "trace": {},
+      "calls": []
+    },
+    {
+      "state_index": 2,
+      "state_hash": "298bc34d7fd47292",
+      "seed": 3,
+      "mode": "jev",
+      "cell": "r13c22",
+      "would_hit_mine": true,
+      "initial_would_hit_mine": true,
+      "initial_guarded_would_hit_mine": true,
+      "trace": {
+        "mode": "jev",
+        "escalated": false,
+        "initial_cell": "r13c22",
+        "initial_metadata": {
+          "confidence": 0.98,
+          "probabilities": {
+            "r2c24": 0.0,
+            "r1c21": 0.0,
+            "r2c27": 0.0,
+            "r2c21": 0.0,
+            "r14c22": 0.0,
+            "r1c26": 0.0,
+            "r2c25": 0.0,
+            "r2c26": 0.0,
+            "r1c22": 0.0,
+            "r1c25": 0.0,
+            "r2c22": 0.0,
+            "r15c21": 0.0,
+            "r1c27": 0.0,
+            "r1c20": 0.0,
+            "r1c30": 0.0,
+            "r1c24": 0.0,
+            "r1c28": 0.0,
+            "r1c23": 0.0,
+            "r13c22": 0.99,
+            "r1c29": 0.0,
+            "r2c23": 0.0,
+            "r15c22": 0.0,
+            "r15c20": 0.01,
+            "r2c28": 0.0
+          },
+          "needs_review": 0.67,
+          "provider_model": "jev-1.13.0",
+          "usage": {
+            "input_tokens": 8743,
+            "output_tokens": 309
+          }
+        },
+        "initial_guarded_cell": "r13c22",
+        "initial_guard_rejection": null,
+        "selected": "r13c22",
+        "guard_rejection": null
+      },
+      "calls": [
+        {
+          "engine": "jev",
+          "status": "ok",
+          "request_sent": true,
+          "confidence": 0.98,
+          "probabilities": {
+            "r2c24": 0.0,
+            "r1c21": 0.0,
+            "r2c27": 0.0,
+            "r2c21": 0.0,
+            "r14c22": 0.0,
+            "r1c26": 0.0,
+            "r2c25": 0.0,
+            "r2c26": 0.0,
+            "r1c22": 0.0,
+            "r1c25": 0.0,
+            "r2c22": 0.0,
+            "r15c21": 0.0,
+            "r1c27": 0.0,
+            "r1c20": 0.0,
+            "r1c30": 0.0,
+            "r1c24": 0.0,
+            "r1c28": 0.0,
+            "r1c23": 0.0,
+            "r13c22": 0.99,
+            "r1c29": 0.0,
+            "r2c23": 0.0,
+            "r15c22": 0.0,
+            "r15c20": 0.01,
+            "r2c28": 0.0
+          },
+          "needs_review": 0.67,
+          "provider_model": "jev-1.13.0",
+          "usage": {
+            "input_tokens": 8743,
+            "output_tokens": 309
+          },
+          "latency_ms": 400.898
+        }
+      ]
+    },
+    {
+      "state_index": 2,
+      "state_hash": "298bc34d7fd47292",
+      "seed": 3,
+      "mode": "llm",
+      "cell": "r13c22",
+      "would_hit_mine": true,
+      "initial_would_hit_mine": true,
+      "initial_guarded_would_hit_mine": true,
+      "trace": {
+        "mode": "llm",
+        "escalated": false,
+        "initial_cell": "r13c22",
+        "initial_metadata": {
+          "rationale": "Lowest mine risk (0.072) among candidates and is a frontier cell involved in multiple constraints, so revealing it is most likely to provide useful information for further deductions.",
+          "provider_model": "openai/gpt-oss-20b",
+          "usage": {
+            "prompt_tokens": 3755,
+            "completion_tokens": 835,
+            "total_tokens": 4590,
+            "cost": 0.00023726,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 64,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00023726,
+              "upstream_inference_prompt_cost": 0.00011201,
+              "upstream_inference_completions_cost": 0.00012525
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 776,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          }
+        },
+        "initial_guarded_cell": "r13c22",
+        "initial_guard_rejection": null,
+        "selected": "r13c22",
+        "guard_rejection": null
+      },
+      "calls": [
+        {
+          "engine": "llm",
+          "status": "ok",
+          "request_sent": true,
+          "rationale": "Lowest mine risk (0.072) among candidates and is a frontier cell involved in multiple constraints, so revealing it is most likely to provide useful information for further deductions.",
+          "provider_model": "openai/gpt-oss-20b",
+          "usage": {
+            "prompt_tokens": 3755,
+            "completion_tokens": 835,
+            "total_tokens": 4590,
+            "cost": 0.00023726,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 64,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00023726,
+              "upstream_inference_prompt_cost": 0.00011201,
+              "upstream_inference_completions_cost": 0.00012525
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 776,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "latency_ms": 14027.011
+        }
+      ]
+    },
+    {
+      "state_index": 2,
+      "state_hash": "298bc34d7fd47292",
+      "seed": 3,
+      "mode": "hybrid",
+      "cell": "r13c22",
+      "would_hit_mine": true,
+      "initial_would_hit_mine": true,
+      "initial_guarded_would_hit_mine": true,
+      "trace": {
+        "mode": "hybrid",
+        "escalated": true,
+        "initial_cell": "r13c22",
+        "initial_metadata": {
+          "confidence": 0.98,
+          "probabilities": {
+            "r1c22": 0.0,
+            "r2c23": 0.0,
+            "r2c24": 0.0,
+            "r1c23": 0.0,
+            "r1c24": 0.0,
+            "r2c21": 0.0,
+            "r13c22": 0.99,
+            "r1c28": 0.0,
+            "r1c27": 0.0,
+            "r1c20": 0.0,
+            "r2c26": 0.0,
+            "r2c22": 0.0,
+            "r15c21": 0.0,
+            "r2c27": 0.0,
+            "r1c30": 0.0,
+            "r15c22": 0.0,
+            "r1c25": 0.0,
+            "r14c22": 0.0,
+            "r1c26": 0.0,
+            "r2c28": 0.0,
+            "r2c25": 0.0,
+            "r1c21": 0.0,
+            "r15c20": 0.01,
+            "r1c29": 0.0
+          },
+          "needs_review": 0.67,
+          "provider_model": "jev-1.13.0",
+          "usage": {
+            "input_tokens": 8743,
+            "output_tokens": 309
+          }
+        },
+        "initial_guarded_cell": "r13c22",
+        "initial_guard_rejection": null,
+        "review_reasons": [
+          "jev_requests_deliberation"
+        ],
+        "review_cell": "r13c22",
+        "review_metadata": {
+          "rationale": "Lowest mine risk (0.072) and is a frontier cell involved in several constraints, so revealing it will likely unlock further deductions.",
+          "provider_model": "openai/gpt-oss-20b",
+          "usage": {
+            "prompt_tokens": 3755,
+            "completion_tokens": 746,
+            "total_tokens": 4501,
+            "cost": 0.00018711,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 3744,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00018711,
+              "upstream_inference_prompt_cost": 7.521e-05,
+              "upstream_inference_completions_cost": 0.0001119
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 694,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          }
+        },
+        "selected": "r13c22",
+        "guard_rejection": null
+      },
+      "calls": [
+        {
+          "engine": "jev",
+          "status": "ok",
+          "request_sent": true,
+          "confidence": 0.98,
+          "probabilities": {
+            "r1c22": 0.0,
+            "r2c23": 0.0,
+            "r2c24": 0.0,
+            "r1c23": 0.0,
+            "r1c24": 0.0,
+            "r2c21": 0.0,
+            "r13c22": 0.99,
+            "r1c28": 0.0,
+            "r1c27": 0.0,
+            "r1c20": 0.0,
+            "r2c26": 0.0,
+            "r2c22": 0.0,
+            "r15c21": 0.0,
+            "r2c27": 0.0,
+            "r1c30": 0.0,
+            "r15c22": 0.0,
+            "r1c25": 0.0,
+            "r14c22": 0.0,
+            "r1c26": 0.0,
+            "r2c28": 0.0,
+            "r2c25": 0.0,
+            "r1c21": 0.0,
+            "r15c20": 0.01,
+            "r1c29": 0.0
+          },
+          "needs_review": 0.67,
+          "provider_model": "jev-1.13.0",
+          "usage": {
+            "input_tokens": 8743,
+            "output_tokens": 309
+          },
+          "latency_ms": 485.836
+        },
+        {
+          "engine": "llm",
+          "status": "ok",
+          "request_sent": true,
+          "rationale": "Lowest mine risk (0.072) and is a frontier cell involved in several constraints, so revealing it will likely unlock further deductions.",
+          "provider_model": "openai/gpt-oss-20b",
+          "usage": {
+            "prompt_tokens": 3755,
+            "completion_tokens": 746,
+            "total_tokens": 4501,
+            "cost": 0.00018711,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 3744,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.00018711,
+              "upstream_inference_prompt_cost": 7.521e-05,
+              "upstream_inference_completions_cost": 0.0001119
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 694,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "latency_ms": 15842.859
+        }
+      ]
+    },
+    {
+      "state_index": 3,
+      "state_hash": "9b6d67541dc80e94",
+      "seed": 4,
+      "mode": "code",
+      "cell": "r2c10",
+      "would_hit_mine": false,
+      "initial_would_hit_mine": null,
+      "initial_guarded_would_hit_mine": null,
+      "trace": {},
+      "calls": []
+    },
+    {
+      "state_index": 3,
+      "state_hash": "9b6d67541dc80e94",
+      "seed": 4,
+      "mode": "jev",
+      "cell": "r2c10",
+      "would_hit_mine": false,
+      "initial_would_hit_mine": false,
+      "initial_guarded_would_hit_mine": false,
+      "trace": {
+        "mode": "jev",
+        "escalated": false,
+        "initial_cell": "r2c10",
+        "initial_metadata": {
+          "confidence": 0.78,
+          "probabilities": {
+            "r1c6": 0.0,
+            "r1c11": 0.0,
+            "r1c12": 0.0,
+            "r3c10": 0.2,
+            "r2c6": 0.0,
+            "r1c10": 0.0,
+            "r1c9": 0.0,
+            "r2c8": 0.0,
+            "r1c13": 0.0,
+            "r2c10": 0.8,
+            "r2c2": 0.0,
+            "r1c5": 0.0,
+            "r1c7": 0.0,
+            "r2c7": 0.0,
+            "r2c9": 0.0,
+            "r1c8": 0.0,
+            "r1c3": 0.0,
+            "r2c3": 0.0,
+            "r2c1": 0.0,
+            "r2c5": 0.0,
+            "r1c1": 0.0,
+            "r1c4": 0.0,
+            "r1c2": 0.0,
+            "r2c4": 0.0
+          },
+          "needs_review": 0.7,
+          "provider_model": "jev-1.13.0",
+          "usage": {
+            "input_tokens": 8606,
+            "output_tokens": 285
+          }
+        },
+        "initial_guarded_cell": "r2c10",
+        "initial_guard_rejection": null,
+        "selected": "r2c10",
+        "guard_rejection": null
+      },
+      "calls": [
+        {
+          "engine": "jev",
+          "status": "ok",
+          "request_sent": true,
+          "confidence": 0.78,
+          "probabilities": {
+            "r1c6": 0.0,
+            "r1c11": 0.0,
+            "r1c12": 0.0,
+            "r3c10": 0.2,
+            "r2c6": 0.0,
+            "r1c10": 0.0,
+            "r1c9": 0.0,
+            "r2c8": 0.0,
+            "r1c13": 0.0,
+            "r2c10": 0.8,
+            "r2c2": 0.0,
+            "r1c5": 0.0,
+            "r1c7": 0.0,
+            "r2c7": 0.0,
+            "r2c9": 0.0,
+            "r1c8": 0.0,
+            "r1c3": 0.0,
+            "r2c3": 0.0,
+            "r2c1": 0.0,
+            "r2c5": 0.0,
+            "r1c1": 0.0,
+            "r1c4": 0.0,
+            "r1c2": 0.0,
+            "r2c4": 0.0
+          },
+          "needs_review": 0.7,
+          "provider_model": "jev-1.13.0",
+          "usage": {
+            "input_tokens": 8606,
+            "output_tokens": 285
+          },
+          "latency_ms": 525.075
+        }
+      ]
+    },
+    {
+      "state_index": 3,
+      "state_hash": "9b6d67541dc80e94",
+      "seed": 4,
+      "mode": "llm",
+      "cell": null,
+      "would_hit_mine": null,
+      "initial_would_hit_mine": null,
+      "initial_guarded_would_hit_mine": null,
+      "trace": {
+        "mode": "llm",
+        "escalated": false,
+        "error": "provider_request_timeout"
+      },
+      "calls": [
+        {
+          "engine": "llm",
+          "status": "error",
+          "request_sent": true,
+          "error": "provider_request_timeout",
+          "latency_ms": 30006.168
+        }
+      ]
+    },
+    {
+      "state_index": 3,
+      "state_hash": "9b6d67541dc80e94",
+      "seed": 4,
+      "mode": "hybrid",
+      "cell": "r2c10",
+      "would_hit_mine": false,
+      "initial_would_hit_mine": false,
+      "initial_guarded_would_hit_mine": false,
+      "trace": {
+        "mode": "hybrid",
+        "escalated": true,
+        "initial_cell": "r2c10",
+        "initial_metadata": {
+          "confidence": 0.76,
+          "probabilities": {
+            "r1c4": 0.0,
+            "r3c10": 0.22,
+            "r1c9": 0.0,
+            "r1c7": 0.0,
+            "r2c7": 0.0,
+            "r1c3": 0.0,
+            "r2c6": 0.0,
+            "r1c1": 0.0,
+            "r2c2": 0.0,
+            "r1c6": 0.0,
+            "r2c10": 0.78,
+            "r2c9": 0.0,
+            "r1c8": 0.0,
+            "r1c10": 0.0,
+            "r1c11": 0.0,
+            "r2c4": 0.0,
+            "r2c3": 0.0,
+            "r1c13": 0.0,
+            "r1c12": 0.0,
+            "r1c5": 0.0,
+            "r2c8": 0.0,
+            "r2c5": 0.0,
+            "r2c1": 0.0,
+            "r1c2": 0.0
+          },
+          "needs_review": 0.66,
+          "provider_model": "jev-1.13.0",
+          "usage": {
+            "input_tokens": 8606,
+            "output_tokens": 285
+          }
+        },
+        "initial_guarded_cell": "r2c10",
+        "initial_guard_rejection": null,
+        "review_reasons": [
+          "jev_requests_deliberation"
+        ],
+        "review_cell": "r2c10",
+        "review_metadata": {
+          "rationale": "Lowest mine risk and adjacent to unconstrained cells, likely to unlock further deductions",
+          "provider_model": "openai/gpt-oss-20b",
+          "usage": {
+            "prompt_tokens": 3787,
+            "completion_tokens": 1107,
+            "total_tokens": 4894,
+            "cost": 0.000167796,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.000167796,
+              "upstream_inference_prompt_cost": 6.8166e-05,
+              "upstream_inference_completions_cost": 9.963e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1070,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          }
+        },
+        "selected": "r2c10",
+        "guard_rejection": null
+      },
+      "calls": [
+        {
+          "engine": "jev",
+          "status": "ok",
+          "request_sent": true,
+          "confidence": 0.76,
+          "probabilities": {
+            "r1c4": 0.0,
+            "r3c10": 0.22,
+            "r1c9": 0.0,
+            "r1c7": 0.0,
+            "r2c7": 0.0,
+            "r1c3": 0.0,
+            "r2c6": 0.0,
+            "r1c1": 0.0,
+            "r2c2": 0.0,
+            "r1c6": 0.0,
+            "r2c10": 0.78,
+            "r2c9": 0.0,
+            "r1c8": 0.0,
+            "r1c10": 0.0,
+            "r1c11": 0.0,
+            "r2c4": 0.0,
+            "r2c3": 0.0,
+            "r1c13": 0.0,
+            "r1c12": 0.0,
+            "r1c5": 0.0,
+            "r2c8": 0.0,
+            "r2c5": 0.0,
+            "r2c1": 0.0,
+            "r1c2": 0.0
+          },
+          "needs_review": 0.66,
+          "provider_model": "jev-1.13.0",
+          "usage": {
+            "input_tokens": 8606,
+            "output_tokens": 285
+          },
+          "latency_ms": 378.845
+        },
+        {
+          "engine": "llm",
+          "status": "ok",
+          "request_sent": true,
+          "rationale": "Lowest mine risk and adjacent to unconstrained cells, likely to unlock further deductions",
+          "provider_model": "openai/gpt-oss-20b",
+          "usage": {
+            "prompt_tokens": 3787,
+            "completion_tokens": 1107,
+            "total_tokens": 4894,
+            "cost": 0.000167796,
+            "is_byok": false,
+            "prompt_tokens_details": {
+              "cached_tokens": 0,
+              "cache_write_tokens": 0,
+              "audio_tokens": 0,
+              "video_tokens": 0
+            },
+            "cost_details": {
+              "upstream_inference_cost": 0.000167796,
+              "upstream_inference_prompt_cost": 6.8166e-05,
+              "upstream_inference_completions_cost": 9.963e-05
+            },
+            "completion_tokens_details": {
+              "reasoning_tokens": 1070,
+              "image_tokens": 0,
+              "audio_tokens": 0
+            }
+          },
+          "latency_ms": 19546.782
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Seeded layouts, provider outputs not guaranteed deterministic.",
+    "Exact refers to bounded complete model counting under a uniform layout prior.",
+    "Models choose minimum-computed-risk ties; no proof of optimal eventual wins.",
+    "Unfinished games stay in denominator; replay is one-step evidence only."
+  ],
+  "summary": {
+    "code": {
+      "games": 5,
+      "statuses": {
+        "won": 3,
+        "lost": 2
+      },
+      "win_rate": 0.6,
+      "win_rate_wilson95": [
+        0.2307242812760128,
+        0.882379225767352
+      ],
+      "mean_safe_coverage": 0.8871391076115486,
+      "mean_elapsed_ms": 45.0128,
+      "guesses": 8,
+      "proven_safe_reveals": 873,
+      "provider_attempts": 0,
+      "api_calls": 0,
+      "calls_by_engine": {},
+      "provider_errors": 0,
+      "call_latency_p50_ms": null,
+      "call_latency_p95_ms": null,
+      "escalations": 0,
+      "guard_rejections": 0,
+      "reported_cost_usd": null,
+      "calls_with_reported_cost": 0,
+      "cost_note": "Only provider-reported costs; missing usage cost is unknown, not zero."
+    }
+  },
+  "replay_summary": {
+    "code": {
+      "states": 4,
+      "safe_next_reveals": 3,
+      "mine_next_reveals": 1,
+      "no_decision": 0,
+      "api_calls": 0,
+      "calls_by_engine": {},
+      "provider_errors": {},
+      "escalations": 0,
+      "median_total_provider_ms": 0.0,
+      "s2_rescues_vs_guarded_s1": 0,
+      "s2_harms_vs_guarded_s1": 0,
+      "guarded_counterfactual_available": 0
+    },
+    "jev": {
+      "states": 4,
+      "safe_next_reveals": 3,
+      "mine_next_reveals": 1,
+      "no_decision": 0,
+      "api_calls": 4,
+      "calls_by_engine": {
+        "jev": 4
+      },
+      "provider_errors": {},
+      "escalations": 0,
+      "median_total_provider_ms": 514.6225000000001,
+      "s2_rescues_vs_guarded_s1": 0,
+      "s2_harms_vs_guarded_s1": 0,
+      "guarded_counterfactual_available": 0
+    },
+    "llm": {
+      "states": 4,
+      "safe_next_reveals": 1,
+      "mine_next_reveals": 1,
+      "no_decision": 2,
+      "api_calls": 4,
+      "calls_by_engine": {
+        "llm": 4
+      },
+      "provider_errors": {
+        "llm_decision_invalid": 1,
+        "provider_request_timeout": 1
+      },
+      "escalations": 0,
+      "median_total_provider_ms": 20741.2075,
+      "s2_rescues_vs_guarded_s1": 0,
+      "s2_harms_vs_guarded_s1": 0,
+      "guarded_counterfactual_available": 0
+    },
+    "hybrid": {
+      "states": 4,
+      "safe_next_reveals": 2,
+      "mine_next_reveals": 1,
+      "no_decision": 1,
+      "api_calls": 8,
+      "calls_by_engine": {
+        "jev": 4,
+        "llm": 4
+      },
+      "provider_errors": {
+        "llm_decision_invalid": 1
+      },
+      "escalations": 4,
+      "median_total_provider_ms": 16924.2015,
+      "s2_rescues_vs_guarded_s1": 0,
+      "s2_harms_vs_guarded_s1": 0,
+      "guarded_counterfactual_available": 3
+    }
+  },
+  "frozen_states": [
+    {
+      "seed": 1,
+      "state": {
+        "game": "minesweeper",
+        "round": 5,
+        "board": {
+          "width": 30,
+          "height": 16,
+          "mines": 99,
+          "revealed_count": 72,
+          "proven_mines_count": 15
+        },
+        "rules": "Each constraint counts mines in its listed hidden cells. One mine loses.",
+        "candidates": [
+          {
+            "cell": "r6c15",
+            "row": 5,
+            "col": 14,
+            "provably_safe": false,
+            "mine_risk": 0.01120583948067752,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r5c15",
+            "row": 4,
+            "col": 14,
+            "provably_safe": false,
+            "mine_risk": 0.03361751844203256,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r5c18",
+            "row": 4,
+            "col": 17,
+            "provably_safe": false,
+            "mine_risk": 0.04482335792271008,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r5c16",
+            "row": 4,
+            "col": 15,
+            "provably_safe": false,
+            "mine_risk": 0.14265265258128634,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r5c19",
+            "row": 4,
+            "col": 18,
+            "provably_safe": false,
+            "mine_risk": 0.14265265258128634,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r5c20",
+            "row": 4,
+            "col": 19,
+            "provably_safe": false,
+            "mine_risk": 0.14265265258128634,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r1c1",
+            "row": 0,
+            "col": 0,
+            "provably_safe": false,
+            "mine_risk": 0.19133526203040893,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c2",
+            "row": 0,
+            "col": 1,
+            "provably_safe": false,
+            "mine_risk": 0.19133526203040893,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c3",
+            "row": 0,
+            "col": 2,
+            "provably_safe": false,
+            "mine_risk": 0.19133526203040893,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c4",
+            "row": 0,
+            "col": 3,
+            "provably_safe": false,
+            "mine_risk": 0.19133526203040893,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c5",
+            "row": 0,
+            "col": 4,
+            "provably_safe": false,
+            "mine_risk": 0.19133526203040893,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c6",
+            "row": 0,
+            "col": 5,
+            "provably_safe": false,
+            "mine_risk": 0.19133526203040893,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c7",
+            "row": 0,
+            "col": 6,
+            "provably_safe": false,
+            "mine_risk": 0.19133526203040893,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c8",
+            "row": 0,
+            "col": 7,
+            "provably_safe": false,
+            "mine_risk": 0.19133526203040893,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c9",
+            "row": 0,
+            "col": 8,
+            "provably_safe": false,
+            "mine_risk": 0.19133526203040893,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c10",
+            "row": 0,
+            "col": 9,
+            "provably_safe": false,
+            "mine_risk": 0.19133526203040893,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c11",
+            "row": 0,
+            "col": 10,
+            "provably_safe": false,
+            "mine_risk": 0.19133526203040893,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c12",
+            "row": 0,
+            "col": 11,
+            "provably_safe": false,
+            "mine_risk": 0.19133526203040893,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c13",
+            "row": 0,
+            "col": 12,
+            "provably_safe": false,
+            "mine_risk": 0.19133526203040893,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c14",
+            "row": 0,
+            "col": 13,
+            "provably_safe": false,
+            "mine_risk": 0.19133526203040893,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c15",
+            "row": 0,
+            "col": 14,
+            "provably_safe": false,
+            "mine_risk": 0.19133526203040893,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c16",
+            "row": 0,
+            "col": 15,
+            "provably_safe": false,
+            "mine_risk": 0.19133526203040893,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c17",
+            "row": 0,
+            "col": 16,
+            "provably_safe": false,
+            "mine_risk": 0.19133526203040893,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c18",
+            "row": 0,
+            "col": 17,
+            "provably_safe": false,
+            "mine_risk": 0.19133526203040893,
+            "risk_exact": true,
+            "frontier": false
+          }
+        ],
+        "constraints": [
+          {
+            "cells": [
+              "r5c15",
+              "r5c16",
+              "r5c17",
+              "r6c15",
+              "r7c15",
+              "r7c16"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r5c16",
+              "r5c17",
+              "r5c18",
+              "r7c16"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r5c17",
+              "r5c18",
+              "r5c19"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r5c18",
+              "r5c19",
+              "r5c20",
+              "r7c20"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r5c19",
+              "r5c20",
+              "r5c21",
+              "r6c21",
+              "r7c20",
+              "r7c21"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r6c13",
+              "r6c14",
+              "r6c15",
+              "r7c15",
+              "r8c13"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r6c12",
+              "r6c13",
+              "r6c14",
+              "r7c12",
+              "r8c12",
+              "r8c13"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r7c16",
+              "r8c18"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r7c20",
+              "r8c18",
+              "r8c20"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r7c15",
+              "r8c13",
+              "r9c13"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r7c15",
+              "r7c16"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r7c15",
+              "r7c16"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r7c16",
+              "r8c18"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r7c20",
+              "r8c18",
+              "r8c20",
+              "r9c20"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r8c13",
+              "r9c13",
+              "r10c14"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r8c18"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r10c14"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r8c18"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r8c18"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r8c18",
+              "r8c20",
+              "r9c20",
+              "r10c20"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r9c12",
+              "r9c13",
+              "r10c12",
+              "r10c14",
+              "r11c12"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r10c14"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r9c20",
+              "r10c20",
+              "r11c20"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r10c12",
+              "r10c14",
+              "r11c12",
+              "r12c12",
+              "r12c13"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r10c14",
+              "r12c13"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r10c14"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r10c20",
+              "r11c20",
+              "r12c20"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r12c13",
+              "r13c14"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r11c20",
+              "r12c20",
+              "r13c19",
+              "r13c20"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r12c11",
+              "r12c12",
+              "r12c13",
+              "r13c11",
+              "r14c11",
+              "r14c12"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r12c12",
+              "r12c13",
+              "r13c14",
+              "r14c12"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r13c14"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r13c19"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r13c14"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r13c19",
+              "r14c19"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r13c14",
+              "r14c12"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r13c14"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r13c14",
+              "r15c16"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r13c19",
+              "r14c19",
+              "r15c17"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r13c19",
+              "r13c20",
+              "r13c21",
+              "r14c19",
+              "r15c21"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r13c20",
+              "r13c21",
+              "r15c21"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r14c11",
+              "r14c12",
+              "r15c11",
+              "r16c11",
+              "r16c12"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r14c12",
+              "r16c12"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r12c21",
+              "r12c22",
+              "r12c23",
+              "r13c21",
+              "r13c23",
+              "r14c23"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r15c16",
+              "r15c17"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r15c16",
+              "r15c17"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r13c21",
+              "r13c23",
+              "r14c23",
+              "r15c21",
+              "r15c23"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r15c16"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r14c19",
+              "r15c17"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r14c19"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r14c19",
+              "r15c21",
+              "r16c21"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r14c23",
+              "r15c21",
+              "r15c23",
+              "r16c21",
+              "r16c22",
+              "r16c23"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r16c12"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r15c16"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r15c16",
+              "r15c17"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r15c16",
+              "r15c17"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r15c17"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r15c21",
+              "r16c21"
+            ],
+            "mines": 1
+          }
+        ],
+        "constraint_count": 58,
+        "context_truncated": false,
+        "probabilities_complete": true,
+        "solver_stats": {
+          "components": 2,
+          "largest_component": 36,
+          "search_nodes": 15050,
+          "aborted_components": 0,
+          "oversized_components": 0,
+          "global_weighting_aborted": false,
+          "inconsistent": false,
+          "weighting_operations": 37,
+          "frontier_cells": 56,
+          "hidden_cells": 408,
+          "exact_cells": 408,
+          "proven_safe": 0,
+          "proven_mines": 15
+        }
+      },
+      "mine_labels": [
+        "r1c2",
+        "r1c5",
+        "r1c12",
+        "r1c14",
+        "r1c15",
+        "r1c16",
+        "r1c18"
+      ]
+    },
+    {
+      "seed": 2,
+      "state": {
+        "game": "minesweeper",
+        "round": 17,
+        "board": {
+          "width": 30,
+          "height": 16,
+          "mines": 99,
+          "revealed_count": 372,
+          "proven_mines_count": 93
+        },
+        "rules": "Each constraint counts mines in its listed hidden cells. One mine loses.",
+        "candidates": [
+          {
+            "cell": "r16c27",
+            "row": 15,
+            "col": 26,
+            "provably_safe": false,
+            "mine_risk": 0.20833333333333334,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r16c28",
+            "row": 15,
+            "col": 27,
+            "provably_safe": false,
+            "mine_risk": 0.20833333333333334,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r16c29",
+            "row": 15,
+            "col": 28,
+            "provably_safe": false,
+            "mine_risk": 0.20833333333333334,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r16c25",
+            "row": 15,
+            "col": 24,
+            "provably_safe": false,
+            "mine_risk": 0.3333333333333333,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r16c26",
+            "row": 15,
+            "col": 25,
+            "provably_safe": false,
+            "mine_risk": 0.3333333333333333,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r16c30",
+            "row": 15,
+            "col": 29,
+            "provably_safe": false,
+            "mine_risk": 0.3333333333333333,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r13c26",
+            "row": 12,
+            "col": 25,
+            "provably_safe": false,
+            "mine_risk": 0.375,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r14c27",
+            "row": 13,
+            "col": 26,
+            "provably_safe": false,
+            "mine_risk": 0.375,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r15c27",
+            "row": 14,
+            "col": 26,
+            "provably_safe": false,
+            "mine_risk": 0.375,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r15c30",
+            "row": 14,
+            "col": 29,
+            "provably_safe": false,
+            "mine_risk": 0.375,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r15c25",
+            "row": 14,
+            "col": 24,
+            "provably_safe": false,
+            "mine_risk": 0.5,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r15c26",
+            "row": 14,
+            "col": 25,
+            "provably_safe": false,
+            "mine_risk": 0.5,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r13c27",
+            "row": 12,
+            "col": 26,
+            "provably_safe": false,
+            "mine_risk": 0.625,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r14c26",
+            "row": 13,
+            "col": 25,
+            "provably_safe": false,
+            "mine_risk": 0.625,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r15c29",
+            "row": 14,
+            "col": 28,
+            "provably_safe": false,
+            "mine_risk": 0.625,
+            "risk_exact": true,
+            "frontier": true
+          }
+        ],
+        "constraints": [
+          {
+            "cells": [
+              "r12c25",
+              "r13c26",
+              "r13c27"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r12c28",
+              "r13c26",
+              "r13c27",
+              "r13c28"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r12c25",
+              "r13c26",
+              "r14c24",
+              "r14c26"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r13c26",
+              "r14c24",
+              "r14c26",
+              "r15c24",
+              "r15c25",
+              "r15c26"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r13c27",
+              "r13c28",
+              "r14c27",
+              "r15c27",
+              "r15c29"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r13c28",
+              "r15c29",
+              "r15c30"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r15c29",
+              "r15c30"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r14c27",
+              "r15c27",
+              "r15c29",
+              "r16c27",
+              "r16c28",
+              "r16c29"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r10c25",
+              "r12c25"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r10c25",
+              "r10c26",
+              "r12c25"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r10c25",
+              "r10c26",
+              "r12c25"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r10c26",
+              "r12c28"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r12c28"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r10c30",
+              "r12c28"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r12c25"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r12c28",
+              "r13c28"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r12c22",
+              "r14c23",
+              "r14c24"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r12c25",
+              "r14c23",
+              "r14c24"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r12c28",
+              "r13c28"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r14c23",
+              "r14c24",
+              "r15c24",
+              "r16c22",
+              "r16c24"
+            ],
+            "mines": 5
+          },
+          {
+            "cells": [
+              "r15c24",
+              "r16c22",
+              "r16c24"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r8c26",
+              "r9c24",
+              "r10c25",
+              "r10c26"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r8c26",
+              "r8c27",
+              "r9c27",
+              "r10c25",
+              "r10c26"
+            ],
+            "mines": 5
+          },
+          {
+            "cells": [
+              "r8c30",
+              "r9c28",
+              "r9c30",
+              "r10c30"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r9c23",
+              "r9c24",
+              "r10c25"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r9c27",
+              "r9c28",
+              "r10c26"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r9c28",
+              "r9c30",
+              "r10c30"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r11c20",
+              "r12c22"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r12c22"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r12c22"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r10c30"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r11c20",
+              "r12c22",
+              "r13c20",
+              "r13c21"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r12c22"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r12c22",
+              "r13c21",
+              "r14c23"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r13c21",
+              "r14c23"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r16c22"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r14c23",
+              "r16c22"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r16c22"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r7c25",
+              "r8c26",
+              "r8c27"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r8c26",
+              "r8c27"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r8c27"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r6c30",
+              "r8c30"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r6c30",
+              "r8c30"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r7c22",
+              "r8c22",
+              "r9c22",
+              "r9c23",
+              "r9c24"
+            ],
+            "mines": 5
+          },
+          {
+            "cells": [
+              "r7c25",
+              "r9c23",
+              "r9c24"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r7c25",
+              "r8c26",
+              "r9c24"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r8c27",
+              "r9c27",
+              "r9c28"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r8c30",
+              "r9c28",
+              "r9c30"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r10c18",
+              "r11c20"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r11c20"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r9c22",
+              "r11c20"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r9c22",
+              "r9c23"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r9c22",
+              "r9c23",
+              "r9c24"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r9c27",
+              "r9c28"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r10c18",
+              "r11c20",
+              "r12c18"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r11c20",
+              "r12c18",
+              "r13c20"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r11c20",
+              "r13c20",
+              "r13c21"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r12c18",
+              "r13c20"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r13c20",
+              "r15c18"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r13c20",
+              "r13c21"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r13c20",
+              "r13c21"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r4c29",
+              "r6c30"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r4c29",
+              "r6c30"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r7c22"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r5c23",
+              "r7c22"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r5c23",
+              "r7c22"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r5c23",
+              "r7c25"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r7c25"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r7c25"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r6c30"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r7c22",
+              "r8c21",
+              "r8c22"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r7c22",
+              "r8c22"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r7c25"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r10c18"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r10c18"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r10c18"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r8c21",
+              "r8c22",
+              "r9c22"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r10c18"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r10c18",
+              "r12c17",
+              "r12c18"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r10c18",
+              "r12c17",
+              "r12c18"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r12c17",
+              "r12c18",
+              "r13c16"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r12c17",
+              "r12c18"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r13c16",
+              "r15c17",
+              "r15c18"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r15c17",
+              "r15c18"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r15c18"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r15c17",
+              "r15c18",
+              "r16c16"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r15c17",
+              "r15c18"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r15c18"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r3c27",
+              "r3c29",
+              "r4c29"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r3c29",
+              "r4c29"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r3c22",
+              "r3c23",
+              "r5c23"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r3c22",
+              "r3c23",
+              "r4c24",
+              "r5c23"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r3c27",
+              "r3c29",
+              "r4c29"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r3c29",
+              "r4c29"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r5c23"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r4c24",
+              "r5c23"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r4c29"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r8c21"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r8c21"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r8c21"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r12c15",
+              "r12c17"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r12c15",
+              "r12c17",
+              "r13c16"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r12c15",
+              "r13c16",
+              "r14c15"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r13c16",
+              "r14c15",
+              "r15c17"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r14c15",
+              "r16c16"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r14c15",
+              "r15c17",
+              "r16c16"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r16c16"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r3c22"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r3c22",
+              "r3c23"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r3c22",
+              "r3c23"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r3c23",
+              "r3c25"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r3c25",
+              "r3c27"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r3c27"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r1c29",
+              "r3c27",
+              "r3c29"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r1c29",
+              "r3c29"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r1c29",
+              "r3c29"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r3c22"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r3c23",
+              "r3c25",
+              "r4c24"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r3c25",
+              "r3c27"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r3c22"
+            ],
+            "mines": 1
+          }
+        ],
+        "constraint_count": 297,
+        "context_truncated": true,
+        "probabilities_complete": true,
+        "solver_stats": {
+          "components": 1,
+          "largest_component": 12,
+          "search_nodes": 129,
+          "aborted_components": 0,
+          "oversized_components": 0,
+          "global_weighting_aborted": false,
+          "inconsistent": false,
+          "weighting_operations": 12,
+          "frontier_cells": 105,
+          "hidden_cells": 108,
+          "exact_cells": 108,
+          "proven_safe": 0,
+          "proven_mines": 93
+        }
+      },
+      "mine_labels": [
+        "r16c25",
+        "r13c26",
+        "r14c27",
+        "r15c27",
+        "r15c30",
+        "r15c25"
+      ]
+    },
+    {
+      "seed": 3,
+      "state": {
+        "game": "minesweeper",
+        "round": 14,
+        "board": {
+          "width": 30,
+          "height": 16,
+          "mines": 99,
+          "revealed_count": 242,
+          "proven_mines_count": 65
+        },
+        "rules": "Each constraint counts mines in its listed hidden cells. One mine loses.",
+        "candidates": [
+          {
+            "cell": "r13c22",
+            "row": 12,
+            "col": 21,
+            "provably_safe": false,
+            "mine_risk": 0.07198274959700211,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r14c22",
+            "row": 13,
+            "col": 21,
+            "provably_safe": false,
+            "mine_risk": 0.10797412439550318,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r15c20",
+            "row": 14,
+            "col": 19,
+            "provably_safe": false,
+            "mine_risk": 0.10797412439550318,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r15c21",
+            "row": 14,
+            "col": 20,
+            "provably_safe": false,
+            "mine_risk": 0.10797412439550318,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r15c22",
+            "row": 14,
+            "col": 21,
+            "provably_safe": false,
+            "mine_risk": 0.10797412439550318,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r1c20",
+            "row": 0,
+            "col": 19,
+            "provably_safe": false,
+            "mine_risk": 0.17663041981196004,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c21",
+            "row": 0,
+            "col": 20,
+            "provably_safe": false,
+            "mine_risk": 0.17663041981196004,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c22",
+            "row": 0,
+            "col": 21,
+            "provably_safe": false,
+            "mine_risk": 0.17663041981196004,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c23",
+            "row": 0,
+            "col": 22,
+            "provably_safe": false,
+            "mine_risk": 0.17663041981196004,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c24",
+            "row": 0,
+            "col": 23,
+            "provably_safe": false,
+            "mine_risk": 0.17663041981196004,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c25",
+            "row": 0,
+            "col": 24,
+            "provably_safe": false,
+            "mine_risk": 0.17663041981196004,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c26",
+            "row": 0,
+            "col": 25,
+            "provably_safe": false,
+            "mine_risk": 0.17663041981196004,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c27",
+            "row": 0,
+            "col": 26,
+            "provably_safe": false,
+            "mine_risk": 0.17663041981196004,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c28",
+            "row": 0,
+            "col": 27,
+            "provably_safe": false,
+            "mine_risk": 0.17663041981196004,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c29",
+            "row": 0,
+            "col": 28,
+            "provably_safe": false,
+            "mine_risk": 0.17663041981196004,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c30",
+            "row": 0,
+            "col": 29,
+            "provably_safe": false,
+            "mine_risk": 0.17663041981196004,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r2c21",
+            "row": 1,
+            "col": 20,
+            "provably_safe": false,
+            "mine_risk": 0.17663041981196004,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r2c22",
+            "row": 1,
+            "col": 21,
+            "provably_safe": false,
+            "mine_risk": 0.17663041981196004,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r2c23",
+            "row": 1,
+            "col": 22,
+            "provably_safe": false,
+            "mine_risk": 0.17663041981196004,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r2c24",
+            "row": 1,
+            "col": 23,
+            "provably_safe": false,
+            "mine_risk": 0.17663041981196004,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r2c25",
+            "row": 1,
+            "col": 24,
+            "provably_safe": false,
+            "mine_risk": 0.17663041981196004,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r2c26",
+            "row": 1,
+            "col": 25,
+            "provably_safe": false,
+            "mine_risk": 0.17663041981196004,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r2c27",
+            "row": 1,
+            "col": 26,
+            "provably_safe": false,
+            "mine_risk": 0.17663041981196004,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r2c28",
+            "row": 1,
+            "col": 27,
+            "provably_safe": false,
+            "mine_risk": 0.17663041981196004,
+            "risk_exact": true,
+            "frontier": false
+          }
+        ],
+        "constraints": [
+          {
+            "cells": [
+              "r11c20",
+              "r11c22",
+              "r12c22",
+              "r13c22"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r12c22",
+              "r13c22",
+              "r14c20",
+              "r14c22"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r13c22",
+              "r14c20",
+              "r14c22",
+              "r15c20",
+              "r15c21",
+              "r15c22"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r9c20",
+              "r10c18",
+              "r11c19",
+              "r11c20"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r9c20",
+              "r9c21",
+              "r10c21",
+              "r11c19",
+              "r11c20"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r10c21",
+              "r10c22",
+              "r11c20",
+              "r11c22",
+              "r12c22"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r11c19",
+              "r11c20",
+              "r13c18"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r11c19",
+              "r11c20"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r13c18",
+              "r14c18",
+              "r14c19",
+              "r14c20"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r14c19",
+              "r14c20"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r7c18",
+              "r7c19",
+              "r7c20",
+              "r9c20"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r7c19",
+              "r7c20",
+              "r7c21",
+              "r8c21",
+              "r9c20",
+              "r9c21"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r10c18"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r10c18"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r9c20",
+              "r10c18"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r10c18"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r10c18"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r10c18",
+              "r11c19"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r13c17",
+              "r13c18"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r11c19",
+              "r13c17",
+              "r13c18"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r14c17",
+              "r14c18",
+              "r15c18",
+              "r16c16",
+              "r16c17",
+              "r16c18"
+            ],
+            "mines": 6
+          },
+          {
+            "cells": [
+              "r5c18",
+              "r6c18",
+              "r7c18"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r6c18",
+              "r7c18"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r7c18"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r7c18",
+              "r7c19"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r12c15",
+              "r13c15",
+              "r13c17"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r12c15",
+              "r13c15",
+              "r13c17",
+              "r14c17"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r13c15",
+              "r13c17",
+              "r14c17"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r16c16"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r14c17",
+              "r16c16",
+              "r16c17"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r16c16"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r3c18",
+              "r5c18"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r3c18",
+              "r4c19",
+              "r5c18",
+              "r5c19"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r5c18",
+              "r6c18"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r10c14",
+              "r11c14",
+              "r12c15"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r12c15"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r11c13",
+              "r11c14",
+              "r12c15",
+              "r13c15"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r12c15",
+              "r13c15"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r13c15"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r13c15"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r1c16",
+              "r3c18"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r1c19",
+              "r2c19",
+              "r3c18"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r3c18"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r2c19",
+              "r2c20",
+              "r3c18",
+              "r3c20",
+              "r4c19",
+              "r4c20"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r8c14",
+              "r10c13",
+              "r10c14"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r8c14",
+              "r10c13",
+              "r10c14"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r8c14",
+              "r10c14"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r10c13",
+              "r11c12",
+              "r11c13"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r10c14",
+              "r11c14"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r11c12",
+              "r11c13"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r11c12",
+              "r11c13",
+              "r11c14"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r1c16"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r1c19",
+              "r2c19"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r1c15",
+              "r1c16"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r1c15",
+              "r1c16"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r8c14"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r8c14"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r8c14"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r8c14"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r8c14"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r10c13"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r10c10",
+              "r11c12"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r10c10",
+              "r11c12"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r11c12"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r1c15"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r1c15"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r8c9",
+              "r10c10"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r8c9",
+              "r10c10"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r10c10"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r10c10",
+              "r11c9"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r10c10",
+              "r11c9"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r7c8",
+              "r7c10",
+              "r8c9"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r7c8",
+              "r8c9",
+              "r9c7"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r7c10",
+              "r8c9"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r8c9",
+              "r9c7"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r9c7",
+              "r11c7",
+              "r11c9"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r11c7",
+              "r11c9",
+              "r12c7"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r11c7",
+              "r11c9",
+              "r12c7",
+              "r13c7"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r11c9"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r11c9"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r7c8"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r7c8"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r7c8",
+              "r7c10"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r7c10"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r7c10"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r7c8",
+              "r8c6"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r7c10"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r7c8",
+              "r8c6",
+              "r9c6",
+              "r9c7"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r7c10"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r9c6",
+              "r9c7",
+              "r11c5",
+              "r11c7"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r9c6",
+              "r9c7",
+              "r11c7"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r11c5",
+              "r11c7",
+              "r12c5",
+              "r12c7"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r11c5",
+              "r11c7",
+              "r12c5",
+              "r12c7",
+              "r13c6",
+              "r13c7"
+            ],
+            "mines": 6
+          },
+          {
+            "cells": [
+              "r12c7",
+              "r13c7",
+              "r14c8"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r13c6",
+              "r13c7"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r13c6",
+              "r13c7",
+              "r14c8"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r6c5",
+              "r8c6"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r6c5",
+              "r8c6"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r8c6",
+              "r9c4",
+              "r9c6"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r8c6",
+              "r9c4",
+              "r9c6",
+              "r10c4"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r9c4",
+              "r9c6",
+              "r10c4",
+              "r11c5"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r10c4",
+              "r11c3",
+              "r11c5",
+              "r12c5"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r11c3",
+              "r11c5",
+              "r12c5"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r12c5"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r12c5",
+              "r13c6"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r14c8"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r13c6"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r14c8",
+              "r15c9"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r14c8"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r14c8",
+              "r15c9",
+              "r16c9"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r6c5"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r6c5"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r6c5"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r6c5"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r6c5"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r6c5"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r9c4"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r9c4"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r9c4",
+              "r10c4"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r11c1",
+              "r11c2",
+              "r11c3"
+            ],
+            "mines": 3
+          }
+        ],
+        "constraint_count": 189,
+        "context_truncated": true,
+        "probabilities_complete": true,
+        "solver_stats": {
+          "components": 2,
+          "largest_component": 14,
+          "search_nodes": 180,
+          "aborted_components": 0,
+          "oversized_components": 0,
+          "global_weighting_aborted": false,
+          "inconsistent": false,
+          "weighting_operations": 37,
+          "frontier_cells": 86,
+          "hidden_cells": 238,
+          "exact_cells": 238,
+          "proven_safe": 0,
+          "proven_mines": 65
+        }
+      },
+      "mine_labels": [
+        "r13c22",
+        "r1c22",
+        "r2c24"
+      ]
+    },
+    {
+      "seed": 4,
+      "state": {
+        "game": "minesweeper",
+        "round": 10,
+        "board": {
+          "width": 30,
+          "height": 16,
+          "mines": 99,
+          "revealed_count": 251,
+          "proven_mines_count": 62
+        },
+        "rules": "Each constraint counts mines in its listed hidden cells. One mine loses.",
+        "candidates": [
+          {
+            "cell": "r2c10",
+            "row": 1,
+            "col": 9,
+            "provably_safe": false,
+            "mine_risk": 0.09887783297913764,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r3c10",
+            "row": 2,
+            "col": 9,
+            "provably_safe": false,
+            "mine_risk": 0.09887783297913764,
+            "risk_exact": true,
+            "frontier": true
+          },
+          {
+            "cell": "r1c1",
+            "row": 0,
+            "col": 0,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c2",
+            "row": 0,
+            "col": 1,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c3",
+            "row": 0,
+            "col": 2,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c4",
+            "row": 0,
+            "col": 3,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c5",
+            "row": 0,
+            "col": 4,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c6",
+            "row": 0,
+            "col": 5,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c7",
+            "row": 0,
+            "col": 6,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c8",
+            "row": 0,
+            "col": 7,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c9",
+            "row": 0,
+            "col": 8,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c10",
+            "row": 0,
+            "col": 9,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c11",
+            "row": 0,
+            "col": 10,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c12",
+            "row": 0,
+            "col": 11,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r1c13",
+            "row": 0,
+            "col": 12,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r2c1",
+            "row": 1,
+            "col": 0,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r2c2",
+            "row": 1,
+            "col": 1,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r2c3",
+            "row": 1,
+            "col": 2,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r2c4",
+            "row": 1,
+            "col": 3,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r2c5",
+            "row": 1,
+            "col": 4,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r2c6",
+            "row": 1,
+            "col": 5,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r2c7",
+            "row": 1,
+            "col": 6,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r2c8",
+            "row": 1,
+            "col": 7,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          },
+          {
+            "cell": "r2c9",
+            "row": 1,
+            "col": 8,
+            "provably_safe": false,
+            "mine_risk": 0.1977556659582753,
+            "risk_exact": true,
+            "frontier": false
+          }
+        ],
+        "constraints": [
+          {
+            "cells": [
+              "r2c10",
+              "r2c11",
+              "r2c12",
+              "r3c10",
+              "r4c10",
+              "r4c11"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r2c11",
+              "r2c12",
+              "r2c13",
+              "r4c11"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r2c12",
+              "r2c13",
+              "r2c14",
+              "r3c14",
+              "r4c14"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r4c11",
+              "r5c13"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r4c10",
+              "r4c11",
+              "r5c10",
+              "r6c10"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r4c11",
+              "r5c13"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r1c14",
+              "r2c14",
+              "r2c15",
+              "r2c16"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r3c14",
+              "r4c14",
+              "r5c13",
+              "r5c14"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r3c14",
+              "r3c15",
+              "r4c14",
+              "r5c14",
+              "r5c15"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r5c10",
+              "r6c10",
+              "r7c11"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r5c13",
+              "r7c11"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r5c13",
+              "r5c14"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r5c13",
+              "r5c14",
+              "r5c15"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r6c9",
+              "r6c10",
+              "r7c9",
+              "r7c11",
+              "r8c9",
+              "r8c10",
+              "r8c11"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r2c15",
+              "r2c16",
+              "r2c17"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r2c16",
+              "r2c17"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r2c15",
+              "r2c16",
+              "r2c17",
+              "r3c15"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r2c16",
+              "r2c17"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r3c15",
+              "r5c15"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r5c15"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r5c14",
+              "r5c15"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r5c15"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r7c11",
+              "r8c11"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r7c11",
+              "r8c11"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r8c10",
+              "r8c11",
+              "r9c10",
+              "r10c10",
+              "r10c11"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r8c11",
+              "r10c11"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r2c17"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r2c17"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r2c17"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r10c11",
+              "r11c11"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r10c11",
+              "r11c11",
+              "r12c11"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r11c11",
+              "r12c11"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r12c10",
+              "r12c11",
+              "r13c10",
+              "r14c11"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r12c11",
+              "r14c11"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r13c9",
+              "r13c10",
+              "r14c9",
+              "r14c11",
+              "r15c9",
+              "r15c10"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r14c11",
+              "r15c13"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r14c11",
+              "r15c10",
+              "r16c10"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r14c11",
+              "r15c13"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r15c13",
+              "r15c14"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r15c13",
+              "r15c14"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r15c10",
+              "r16c10"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r15c13"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r15c13",
+              "r15c14"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r15c13",
+              "r15c14"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r15c14"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r15c14",
+              "r16c16"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r15c14",
+              "r16c16"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r16c16",
+              "r16c17"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r16c16",
+              "r16c17",
+              "r16c18"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r14c19",
+              "r16c17",
+              "r16c18"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r14c19",
+              "r16c18"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r16c18"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r13c19",
+              "r14c19"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r13c19",
+              "r14c19"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r13c19",
+              "r14c19"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r13c19",
+              "r14c19"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r14c19"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r13c19"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r11c20",
+              "r13c19"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r11c20",
+              "r13c19"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r10c20",
+              "r11c20"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r10c20",
+              "r11c20"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r10c20",
+              "r10c21",
+              "r11c20"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r11c20"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r8c19",
+              "r10c20"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r8c19",
+              "r10c20",
+              "r10c21"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r10c20",
+              "r10c21"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r10c21"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r10c21"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r10c21",
+              "r12c23"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r7c19",
+              "r8c19"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r7c19",
+              "r8c19"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r7c19",
+              "r8c19"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r7c19",
+              "r8c19"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r8c19"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r12c23",
+              "r12c24"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r12c23",
+              "r12c24"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r12c23"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r12c23"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r12c23",
+              "r12c24",
+              "r13c24"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r7c19"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r5c20",
+              "r7c19"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r5c20",
+              "r7c19"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r12c24"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r12c24",
+              "r13c24"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r12c24",
+              "r13c24"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r13c24"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r13c24"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r13c24",
+              "r15c26"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r3c20",
+              "r4c20",
+              "r5c20"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r3c20",
+              "r4c20",
+              "r5c20",
+              "r5c22"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r4c20",
+              "r5c20"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r4c20",
+              "r5c20",
+              "r5c22"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r5c20",
+              "r5c22"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r14c27",
+              "r15c26"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r15c26"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r14c27",
+              "r15c26"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r15c26"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r15c26"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r15c26"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r3c20"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r3c20"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r3c20"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r3c20",
+              "r4c20"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r3c20",
+              "r4c20"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r3c23",
+              "r5c22"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r3c23",
+              "r4c24",
+              "r5c22",
+              "r5c24"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r4c24",
+              "r5c22",
+              "r5c24",
+              "r6c23"
+            ],
+            "mines": 4
+          },
+          {
+            "cells": [
+              "r5c22",
+              "r6c23",
+              "r7c23"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r14c27"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r14c27"
+            ],
+            "mines": 1
+          },
+          {
+            "cells": [
+              "r14c27",
+              "r14c29"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r14c27",
+              "r14c29"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r14c27",
+              "r14c29"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r1c23",
+              "r2c23",
+              "r3c23"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r1c23",
+              "r1c24",
+              "r2c23",
+              "r2c25",
+              "r3c23",
+              "r3c25"
+            ],
+            "mines": 6
+          },
+          {
+            "cells": [
+              "r2c23",
+              "r3c23"
+            ],
+            "mines": 2
+          },
+          {
+            "cells": [
+              "r2c23",
+              "r2c25",
+              "r3c23",
+              "r3c25",
+              "r4c24"
+            ],
+            "mines": 5
+          },
+          {
+            "cells": [
+              "r3c25",
+              "r4c24",
+              "r5c24"
+            ],
+            "mines": 3
+          },
+          {
+            "cells": [
+              "r4c24",
+              "r5c24",
+              "r6c26"
+            ],
+            "mines": 3
+          }
+        ],
+        "constraint_count": 195,
+        "context_truncated": true,
+        "probabilities_complete": true,
+        "solver_stats": {
+          "components": 3,
+          "largest_component": 9,
+          "search_nodes": 170,
+          "aborted_components": 0,
+          "oversized_components": 0,
+          "global_weighting_aborted": false,
+          "inconsistent": false,
+          "weighting_operations": 94,
+          "frontier_cells": 86,
+          "hidden_cells": 229,
+          "exact_cells": 229,
+          "proven_safe": 0,
+          "proven_mines": 62
+        }
+      },
+      "mine_labels": [
+        "r1c4",
+        "r1c11",
+        "r2c1",
+        "r2c5"
+      ]
+    }
+  ]
+}

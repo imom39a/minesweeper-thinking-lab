@@ -35,6 +35,17 @@ is too small to establish a general model comparison. See the
 [research report](minesweeper/docs/system-one-system-two-research.md) for methods,
 all results, failures, and limitations.
 
+## Browser gameplay
+
+LLM and Jev playing the same 9×9 board with 10 mines (seed 1). Both lanes
+cleared this board using the original browser policy.
+
+![Completed LLM versus Jev game with both boards cleared](docs/images/llm-vs-jev.png)
+
+See the [gameplay gallery and repeat experiments](docs/gameplay.md) for the
+Jev-only view, configurations, and new CLI results. These screenshots show
+individual games, not aggregate model performance.
+
 ## Quick start
 
 Requires **Python 3.10+**. Running from a checkout uses only the Python standard
