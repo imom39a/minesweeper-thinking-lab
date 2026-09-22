@@ -18,6 +18,7 @@ OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 OPENROUTER_MODELS_URL = "https://openrouter.ai/api/v1/models"
 JEV_URL = "https://api.typesafe.ai/v1/systemone"
 OPENROUTER_TIMEOUT_SECONDS = 30.0
+SYSTEM_TWO_TIMEOUT_SECONDS = 120.0
 JEV_TIMEOUT_SECONDS = 20.0
 MAX_PROVIDER_RESPONSE_BYTES = 1_000_000
 OPENROUTER_PROVIDER_SORT = "latency"
@@ -344,7 +345,7 @@ def llm_context_guidance(state: dict, model: str, key: str, timeout: float) -> d
          "temperature": 0, "max_tokens": 8192, "reasoning": {"effort": "low"},
          "provider": {"sort": OPENROUTER_PROVIDER_SORT}},
         {"Authorization": f"Bearer {key}", "X-Title": TITLE},
-        min(timeout, OPENROUTER_TIMEOUT_SECONDS))
+        min(timeout, SYSTEM_TWO_TIMEOUT_SECONDS))
     choices = response.get("choices")
     message = choices[0].get("message") if isinstance(choices, list) and choices and isinstance(choices[0], dict) else None
     content = message.get("content") if isinstance(message, dict) else None

@@ -121,6 +121,7 @@ class Side:
         self.stopped = False
         self.completed_at_ms: int | None = None
         self.last_error: str | None = None
+        self.decision_stage: str | None = None
         self.input_request: dict | None = None
 
     def reset(self, engine: str, model: str, game: MinesweeperGame) -> None:
@@ -135,6 +136,7 @@ class Side:
         self.completed_at_ms = None
         self.last_error = None
         self.input_request = None
+        self.decision_stage = None
 
     def reset_disabled(self) -> None:
         self.engine = "none"
@@ -422,8 +424,18 @@ class Comparison:
                     remaining = (int(self.timer["deadline_at_ms"]) - now_ms()) / 1000
                     if remaining <= 0:
                         raise ProviderError("decision_expired")
+                    with self.lock:
+                        if side.stopped or (expected_run is not None and expected_run != self.run_id):
+                            return None, {}, "stopped"
+                        side.decision_stage = "system_2"
+                        self._touch()
                     evidence = context_lab.public_board(game, candidate_limit)
-                    advice = llm_context_guidance(evidence, str(config["model"]), llm_key, remaining)
+                    try:
+                        advice = llm_context_guidance(evidence, str(config["model"]), llm_key, remaining)
+                    except ProviderError as exc:
+                        if str(exc) == "provider_request_timeout":
+                            raise ProviderError("system_2_timeout") from exc
+                        raise
                     try:
                         request = context_lab.proposal_request(game, evidence, advice, side.model)
                     except ValueError as exc:
@@ -436,6 +448,7 @@ class Comparison:
                     remaining = (int(self.timer["deadline_at_ms"]) - now_ms()) / 1000
                     if remaining <= 0:
                         return None, {}, "decision_expired"
+                    side.decision_stage = "system_1"
                     side.input_request = request
                     self._touch()
                 cell, metadata = jev_context_choose(request, key, remaining)
@@ -566,6 +579,7 @@ class Comparison:
             "decisions": side.decisions[-FEED_EVENTS:],
             "seats": [side.engine],
             "input_request": side.input_request,
+            "decision_stage": side.decision_stage,
         }
 
     def feed(self, key: str) -> dict[str, object]:

@@ -212,3 +212,26 @@ class ContextLabTests(unittest.TestCase):
                 worker.join(timeout=2)
         self.assertEqual(len(comparison.sides['right'].decisions), 1)
         self.assertFalse(comparison.sides['right'].decisions[0]['fallback'])
+
+
+    def test_system_two_has_reasoning_budget_bounded_by_game_deadline(self):
+        from minesweeper.agents import llm_context_guidance
+        response = {'choices': [{'message': {'content': '{"proposals":[{"cell":"r1c1","rationale":"guess"}]}'}}]}
+        for remaining, expected in [(300, 120), (12, 12)]:
+            with patch('minesweeper.agents._http_json', return_value=response) as http:
+                llm_context_guidance({}, 'model', 'key', remaining)
+            self.assertEqual(http.call_args.args[3], expected)
+
+
+    def test_system_two_timeout_is_identified_and_does_not_call_jev(self):
+        comparison = server.Comparison(server._default_v2_html_path())
+        config = server._validate_start({'left_engine': 'none', 'right_engine': 'jev', 'context_mode': 'llm', 'seed': 22})
+        comparison.timer = {'deadline_at_ms': server.now_ms() + 300000}
+        side = comparison.sides['right']
+        def timeout(*args):
+            self.assertEqual(comparison._side_snapshot(side)['decision_stage'], 'system_2')
+            raise ProviderError('provider_request_timeout')
+        with patch('minesweeper.server.jev_key', return_value='key'), patch('minesweeper.server.openrouter_key', return_value='key'), patch('minesweeper.server.llm_context_guidance', side_effect=timeout), patch('minesweeper.server.jev_context_choose') as jev:
+            result = comparison._decide(side, self.game(), config, 1)
+        self.assertEqual(result[2], 'system_2_timeout')
+        jev.assert_not_called()

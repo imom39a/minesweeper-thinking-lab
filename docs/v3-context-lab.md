@@ -25,7 +25,9 @@ following.
 
 Select the OpenRouter model in **System 2 · LLM**. This mode requires an
 `OPENROUTER_API_KEY` and a Jev key. It makes one LLM call followed by one Jev
-call per decision; both count toward the game deadline. Large boards send
+call per decision; both count toward the game deadline. System 2 has up to
+120 seconds per request, bounded by the remaining game time. The status badge
+identifies the active model, a failed request, or a reached time limit. Large boards send
 more input and may exceed a provider's context or time limits. The board is
 not silently cropped. Hidden mine locations and move history are never sent.
 

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Fix V3 reporting failed runs as complete. Show provider errors above the board
+  and the active reasoning stage; allow System 2 up to 120 seconds within the game deadline.
 - Label the V3 UI as System 1 (Jev) and System 1 + System 2 (LLM proposals
   followed by Jev selection); remove the equation mode from the UI.
 - Replace V3 equation-based LLM advice with full-board LLM proposals followed

@@ -27,6 +27,7 @@
       <div class="status" id="status"><i class="dot"></i><span>idle · ready</span></div>
     </header>
 
+    <p id="v3Failure" class="overlay-note" role="alert" style="color:var(--red,#ff8080)" hidden></p>
     <p class="overlay-note" id="v3Intro" hidden>System 1 is Jev. System 2 is the LLM. Compare Jev selecting from visible clues with an LLM proposing moves for Jev to evaluate.</p>
     <p class="overlay-note" id="modeDescription" hidden></p>
     <div class="controls">
@@ -62,7 +63,6 @@
       </div>
     </section>
 
-    <p id="v3Failure" class="overlay-note" role="status" hidden></p>
     <section class="stats">
       <div class="stat timer"><strong id="timer">15:00</strong><span id="timerLabel">not started</span></div>
       <div class="stat"><span>Revealed</span><b id="revealed">0 / 0</b></div>
@@ -282,10 +282,12 @@
         : (state.timer.status === 'complete' && Number.isFinite(state.timer.elapsed_ms) ? state.timer.elapsed_ms : null);
       const left = state.timer.deadline_at_ms ? Math.max(0, state.timer.deadline_at_ms - Date.now()) : null;
       $('timer').textContent = finalMs !== null ? duration(finalMs) : (left === null ? duration(Number($('duration').value) * 1000) : `${String(Math.floor(left / 60000)).padStart(2,'0')}:${String(Math.ceil((left % 60000) / 1000) % 60).padStart(2,'0')}`);
-      $('timerLabel').textContent = state.timer.status === 'complete' ? 'complete' : finalMs !== null ? 'final' : state.timer.status === 'running' ? 'running' : 'not started';
+      $('timerLabel').textContent = state.timer.status === 'complete' ? 'elapsed' : finalMs !== null ? 'final' : state.timer.status === 'running' ? 'running' : 'not started';
       const status = $('status');
-      status.className = 'status ' + (state.timer.status === 'complete' ? 'complete' : running ? 'running' : state.timer.status === 'error' ? 'error' : '');
-      status.querySelector('span').textContent = state.timer.status === 'idle' ? 'idle · ready' : state.timer.status;
+      const failedRun = V3 && Boolean(state.failure);
+      const label = failedRun ? 'failed' : state.status === 'won' ? 'board cleared' : state.status === 'lost' ? 'mine hit' : state.status === 'time_limit' ? 'time limit' : state.status === 'paused' ? 'paused' : state.timer.status === 'complete' ? 'stopped' : V3 && running && state.decisionStage ? (state.decisionStage === 'system_2' ? 'System 2 · proposing moves' : 'System 1 · selecting a move') : state.timer.status === 'idle' ? 'idle · ready' : state.timer.status;
+      status.className = 'status ' + (failedRun || state.status === 'lost' ? 'error' : state.status === 'won' ? 'complete' : running ? 'running' : '');
+      status.querySelector('span').textContent = label;
       const revealed = p.outcome?.revealed ?? p.revealed_count ?? 0;
       $('roundLabel').textContent = `round ${number(p.outcome?.moves ?? p.round ?? 0)}`;
       $('revealed').textContent = `${number(revealed)} / ${number(p.safe_total ?? 0)}`;
@@ -337,8 +339,11 @@
         if (side.decisions) state.decisions = side.decisions;
         if (V3) {
           const failure = (side.events || []).filter(e => e.kind === 'decision_failed').at(-1);
+          state.failure = failure;
+          state.decisionStage = side.decision_stage;
           $('v3Failure').hidden = !failure;
-          $('v3Failure').textContent = failure ? `Run stopped: ${failure.message}. No replacement move was made.` : '';
+          const explanations = {system_2_timeout: 'System 2 (LLM) timed out before returning proposals. Each call has up to 120 seconds, limited by the remaining game time.', provider_request_timeout: 'The model request timed out before returning a decision.', llm_guidance_invalid: 'System 2 returned no usable proposals. Try another LLM or run again.', llm_proposals_invalid: 'System 2 returned invalid proposals. No cells were substituted.'};
+          $('v3Failure').textContent = failure ? `Run failed: ${explanations[failure.message] || failure.message}. No replacement move was made.` : '';
         }
         if (V3 && side.input_request) {
           state.inputRequest = side.input_request;
