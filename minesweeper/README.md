@@ -31,6 +31,15 @@ The large-board browser accepts up to 500×500 cells and sends compact frontier
 input above 4,096 cells. Both browsers use the original heuristic controller.
 The stronger solver and hybrid policy below are CLI experiments.
 
+In V2, use **Zoom** and scroll in either direction to explore large boards.
+**Follow Jev** keeps the latest move in view; turn it off to inspect another
+area. Candidate cells show Jev's choice percentages, with the selected cell
+outlined in gold. Hover or tap a cell for its percentage and change from the
+previous round, or select a candidate in the sidebar to locate it on the board.
+The dashed trail shows recent completed moves. **Pause** pauses between moves;
+an in-flight request may still finish. These percentages describe preference
+among offered choices, not cell safety or a predicted future route.
+
 ## Benchmark modes
 
 The CLI automatically reveals proved-safe cells, then applies the selected

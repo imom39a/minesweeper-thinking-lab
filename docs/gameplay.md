@@ -23,6 +23,25 @@ hybrid experiment run through the CLI. The displayed confidence is model
 preference, not cell safety. Individual games and their displayed clocks do not
 establish relative reliability or service latency.
 
+## Cell probabilities and large-board navigation
+
+V2 keeps cells readable on large boards with adjustable zoom and scrolling in
+both directions. The example below shows part of a 50×50 board with 500 mines
+(seed 0, `jev-1.13.0`, 20-second budget).
+
+![Scrollable 50 by 50 board with Jev choice percentages and recent move trail](images/jev-probabilities.png)
+
+Teal outlines identify alternatives from the latest decision; gold identifies
+the selected cell. Percentages are Jev's choice probabilities before that
+reveal, not probabilities of avoiding a mine. Hover or tap to inspect changes
+in percentage points when the same candidate appeared in the previous round.
+Selecting a sidebar candidate moves the viewport to that cell.
+
+**Follow Jev** keeps the latest move visible. Turn it off for free exploration,
+or use **Pause** to inspect between moves. The dashed trail shows past moves;
+it does not forecast a route. Only visible cells are drawn, so increasing the
+board size does not require a board-sized canvas.
+
 ## Offline repeat experiments
 
 The following September 22, 2026 runs use the code at

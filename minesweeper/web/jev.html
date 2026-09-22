@@ -10,7 +10,8 @@
     button,select,input { font:inherit } button { cursor:pointer } main { width:min(1680px,calc(100% - 32px)); margin:0 auto; padding:24px 0 80px }
     header { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; padding-bottom:18px; border-bottom:1px solid var(--line) } .eyebrow { color:var(--gold); font:700 .64rem ui-monospace,monospace; letter-spacing:.12em; text-transform:uppercase } h1 { margin:7px 0 0; font-size:clamp(2rem,4vw,4.2rem); letter-spacing:-.06em; line-height:.9 } .status { display:flex; gap:9px; align-items:center; border:1px solid var(--line); border-radius:99px; color:var(--muted); padding:9px 12px; font:700 .66rem ui-monospace,monospace; text-transform:uppercase; white-space:nowrap } .dot { width:8px; height:8px; border-radius:50%; background:var(--gold) } .status.running .dot { background:var(--good) } .status.error .dot { background:var(--bad) } .status.complete .dot { background:var(--good) }
     .controls { display:flex; flex-wrap:wrap; gap:10px; align-items:end; margin-top:16px } .control { display:grid; gap:5px; color:var(--muted); font:700 .62rem ui-monospace,monospace; letter-spacing:.04em; text-transform:uppercase } select,input[type=number],input[type=text] { min-width:110px; border:1px solid var(--line); border-radius:8px; background:#0c1319; color:var(--ink); padding:8px 10px; font-size:.78rem } input[type=number] { min-width:80px; width:92px } .primary,.secondary { border:1px solid transparent; border-radius:9px; padding:9px 13px; font-size:.76rem; font-weight:750 } .primary { color:#111820; background:var(--gold) } .secondary { color:var(--ink); border-color:var(--line); background:transparent } .primary:disabled,.secondary:disabled { opacity:.45; cursor:default }
-    .board-wrap { display:grid; grid-template-columns:minmax(0,1fr) 280px; gap:1px; margin-top:16px; background:var(--line); border:1px solid var(--line); border-radius:16px; overflow:hidden; box-shadow:0 18px 55px rgba(0,0,0,.28) } .board-pane { background:#0b1218; min-width:0; height:min(70vh,660px) } canvas { display:block; width:100%; height:100% }
+    .overlay-controls { display:flex; flex-wrap:wrap; gap:16px; margin:14px 0 0; color:var(--muted); font-size:.75rem } .overlay-controls label { display:flex; gap:6px; align-items:center } .overlay-note { color:var(--muted); font-size:.73rem; line-height:1.5; margin:8px 0 } .cell-detail { min-height:2.5em; color:var(--gold); font:600 .72rem/1.5 ui-monospace,monospace } .side { max-height:660px }
+    .board-wrap { display:grid; grid-template-columns:minmax(0,1fr) 280px; gap:1px; margin-top:16px; background:var(--line); border:1px solid var(--line); border-radius:16px; overflow:hidden; box-shadow:0 18px 55px rgba(0,0,0,.28) } .board-pane { background:#0b1218; min-width:0; height:min(70vh,660px); overflow:auto; position:relative; overscroll-behavior:contain } .board-space { position:relative } canvas { display:block; position:sticky; top:0; left:0; touch-action:pan-x pan-y }
     .side { background:var(--panel); padding:13px 14px; overflow:auto } .side-head { display:flex; align-items:center; justify-content:space-between; gap:10px } .side-head h2 { margin:0; font-size:.95rem } .side-head small { color:var(--muted); font:700 .6rem ui-monospace,monospace; text-transform:uppercase }
     .decision-trace { margin-top:12px; color:#dbe5e6 } .decision-trace.empty { color:var(--muted); font-size:.66rem } .decision-kicker { display:flex; justify-content:space-between; gap:8px; color:var(--muted); font:700 .57rem ui-monospace,monospace; letter-spacing:.07em; text-transform:uppercase } .decision-choice { margin-top:5px; color:var(--ink); font:800 .95rem ui-monospace,monospace } .decision-action { margin-top:3px; color:var(--gold); font:700 .63rem ui-monospace,monospace } .decision-meta { display:flex; flex-wrap:wrap; gap:5px 8px; margin-top:7px; color:var(--muted); font:600 .58rem ui-monospace,monospace } .confidence { display:flex; align-items:center; gap:8px; margin-top:9px; color:var(--muted); font:700 .57rem ui-monospace,monospace; text-transform:uppercase } .confidence i { flex:1; height:6px; border-radius:99px; background:rgba(255,255,255,.09); overflow:hidden } .confidence i b { display:block; height:100%; width:0; border-radius:99px; background:linear-gradient(90deg,var(--gold),var(--good)) } .decision-bars { display:grid; gap:5px; margin-top:10px } .decision-bar { display:grid; grid-template-columns:minmax(0,1fr) 58px 30px; align-items:center; gap:6px; color:var(--muted); font:600 .58rem ui-monospace,monospace } .decision-bar i { display:block; height:5px; border-radius:99px; background:linear-gradient(90deg,var(--gold),var(--good)); transform-origin:left center } .decision-bar span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap } .decision-bar b { text-align:right; color:#dbe5e6 } .decision-reason { margin-top:8px; color:#c1cdd0; font-size:.65rem; line-height:1.35 }
     .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; margin-top:16px; background:var(--line); border:1px solid var(--line); border-radius:14px; overflow:hidden } .stat { padding:12px 14px; background:var(--panel) } .stat span { display:block; color:var(--muted); font:700 .58rem ui-monospace,monospace; text-transform:uppercase } .stat b { display:block; margin-top:6px; font-size:1.15rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis } .stat b.success { color:var(--good) } .stat b.failure { color:var(--bad) } .stat b.gold { color:var(--gold) }
@@ -33,12 +34,22 @@
       <label class="control">Candidates<input id="candidateLimit" type="number" min="4" max="48" value="20" title="Max cells offered to JEV per round"></label>
       <label class="control">Seed<input id="seed" type="text" placeholder="optional"></label>
       <label class="control">JEV model<select id="jevModel"></select></label>
+      <button class="secondary" id="pause" disabled>Pause</button>
       <button class="secondary" id="stop" disabled>Stop</button>
       <button class="primary" id="start">Start JEV</button>
     </div>
 
+    <div class="overlay-controls">
+      <label><input type="checkbox" id="showProbabilities" checked>Jev choice probabilities</label>
+      <label><input type="checkbox" id="showTrail" checked>Recent move trail</label>
+      <label><input type="checkbox" id="followJev" checked>Follow Jev</label>
+      <label>Zoom <input id="zoom" type="range" min="16" max="64" step="4" value="36" aria-label="Board cell size"><output id="zoomLabel">36 px</output></label>
+      <span>Scroll to explore · teal = alternatives · gold = selected · dashed line = past moves</span>
+    </div>
+    <p class="overlay-note" id="overlayNote">Percentages describe Jev’s preference among offered cells, not the chance a cell is safe.</p>
+    <div class="cell-detail" id="cellDetail" aria-live="polite">Hover or tap a cell to inspect its latest choice probability.</div>
     <section class="board-wrap">
-      <div class="board-pane"><canvas id="board" aria-label="JEV Minesweeper board"></canvas></div>
+      <div class="board-pane" id="boardPane" tabindex="0" aria-label="Scrollable Minesweeper board"><div class="board-space" id="boardSpace"><canvas id="board" aria-label="JEV Minesweeper board"></canvas></div></div>
       <div class="side">
         <div class="side-head"><h2>Decision</h2><small id="roundLabel">round 0</small></div>
         <div class="decision-trace empty" id="decision" aria-live="polite">No decision yet.</div>
@@ -60,34 +71,111 @@
     const number = n => Number(n ?? 0).toLocaleString('en-US');
     const duration = ms => { const total = Math.max(0, Math.round(Number(ms) / 1000)); return `${String(Math.floor(total / 60)).padStart(2,'0')}:${String(total % 60).padStart(2,'0')}`; };
     const DIGIT_COLORS = { '1':'#69b9ff','2':'#72e0a1','3':'#ff9a5c','4':'#947ff1','5':'#ffd166','6':'#74d5c0','7':'#f386d4','8':'#d28cff' };
-    const COLORS = { '?':[34,49,60], 'F':[255,209,102], '*':[255,113,130], '0':[16,24,32] };
-
-    function colorFor(token) {
-      if (token === '?') return COLORS['?'];
-      if (token === 'F') return COLORS['F'];
-      if (token === '*') return COLORS['*'];
-      const hex = DIGIT_COLORS[token] || '#dbe5e6';
-      return [parseInt(hex.slice(1,3),16), parseInt(hex.slice(3,5),16), parseInt(hex.slice(5,7),16)];
+    let boardLayout = null;
+    let inspectedCell = null;
+    let lastDecisionKey = null;
+    let displayedRun = null;
+    const decisions = () => (state.decisions || []).filter(d => d?.kind === 'participant_decision');
+    function cellPosition(label) {
+      const match = /^r([1-9]\d*)c([1-9]\d*)$/.exec(label);
+      if (!match) return null;
+      const row = Number(match[1]) - 1, col = Number(match[2]) - 1;
+      const p = state.projection;
+      return p && row < p.height && col < p.width ? {row, col} : null;
+    }
+    function entriesFor(decision) {
+      if (!decision || decision.fallback || !decision.probabilities || typeof decision.probabilities !== 'object') return [];
+      return Object.entries(decision.probabilities)
+        .filter(([label, value]) => cellPosition(label) && typeof value === 'number' && Number.isFinite(value) && value >= 0 && value <= 1)
+        .sort((a, b) => b[1] - a[1]);
+    }
+    const percent = value => value > 0 && value < .01 ? '<1%' : `${Math.round(value * 100)}%`;
+    function deltaFor(label) {
+      const list = decisions();
+      const current = new Map(entriesFor(list.at(-1))).get(label);
+      const previous = new Map(entriesFor(list.at(-2))).get(label);
+      if (current === undefined || previous === undefined) return '';
+      const delta = Math.round((current - previous) * 100);
+      return ` (${delta > 0 ? '+' : ''}${delta} pp vs previous round)`;
+    }
+    function inspectCell(label) {
+      inspectedCell = label;
+      const latest = decisions().at(-1);
+      const value = new Map(entriesFor(latest)).get(label);
+      $('cellDetail').textContent = !label ? 'Hover or tap a cell to inspect its latest choice probability.'
+        : value === undefined ? `${label} · no Jev probability in the latest decision`
+        : `${label} · ${percent(value)} Jev choice${deltaFor(label)}${latest.selected?.cell === label ? ' · selected' : ' · alternative'}`;
+    }
+    function focusLatest(label) {
+      const p = state.projection;
+      if (!p) return;
+      const pos = cellPosition(label || decisions().at(-1)?.selected?.cell) || {row: Math.floor(p.height / 2), col: Math.floor(p.width / 2)};
+      const pane = $('boardPane'), scale = Number($('zoom').value);
+      pane.scrollLeft = 10 + (pos.col + .5) * scale - pane.clientWidth / 2;
+      pane.scrollTop = 10 + (pos.row + .5) * scale - pane.clientHeight / 2;
+      draw();
+    }
+    function drawOverlay(ctx, scale, ox, oy) {
+      const list = decisions(), latest = list.at(-1);
+      if ($('showTrail').checked) {
+        const recent = list.slice(-12);
+        ctx.beginPath(); ctx.strokeStyle = 'rgba(255,209,102,.65)'; ctx.lineWidth = 1.5; ctx.setLineDash([4, 4]);
+        let connected = false;
+        for (const decision of recent) {
+          const pos = !decision.fallback && cellPosition(decision.selected?.cell);
+          if (!pos) { connected = false; continue; }
+          const x = ox + (pos.col + .5) * scale, y = oy + (pos.row + .5) * scale;
+          if (connected) ctx.lineTo(x, y); else ctx.moveTo(x, y);
+          connected = true;
+        }
+        ctx.stroke(); ctx.setLineDash([]);
+      }
+      if (!$('showProbabilities').checked) return;
+      for (const [label, value] of entriesFor(latest)) {
+        const {row, col} = cellPosition(label);
+        const x = ox + col * scale, y = oy + row * scale;
+        const chosen = latest.selected?.cell === label;
+        ctx.fillStyle = `rgba(116,213,192,${.08 + value * .55})`;
+        ctx.fillRect(x, y, Math.max(1, scale - 1), Math.max(1, scale - 1));
+        ctx.strokeStyle = chosen ? '#ffd166' : '#74d5c0'; ctx.lineWidth = chosen ? 2.5 : 1;
+        ctx.strokeRect(x + 1, y + 1, Math.max(1, scale - 3), Math.max(1, scale - 3));
+        if (scale >= 28) {
+          const size = Math.max(9, Math.min(12, scale * .25));
+          ctx.fillStyle = '#090d12'; ctx.fillRect(x + 1, y + scale - size - 4, scale - 3, size + 3);
+          ctx.fillStyle = chosen ? '#ffd166' : '#b2f5e7';
+          ctx.font = `700 ${size}px ui-monospace,monospace`; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+          ctx.fillText(percent(value), x + scale / 2, y + scale - 2);
+        }
+      }
     }
 
     function draw() {
       const canvas = $('board');
+      const pane = $('boardPane');
+      const p = state.projection;
+      const scale = Number($('zoom').value);
+      $('boardSpace').style.width = `${Math.max(pane.clientWidth, (p?.width || 0) * scale + 20)}px`;
+      $('boardSpace').style.height = `${Math.max(pane.clientHeight, (p?.height || 0) * scale + 20)}px`;
+      canvas.style.width = `${pane.clientWidth}px`;
+      canvas.style.height = `${pane.clientHeight}px`;
       const rect = canvas.getBoundingClientRect();
       const dpr = Math.min(devicePixelRatio || 1, 2);
       const ctx = canvas.getContext('2d');
       canvas.width = Math.max(1, Math.floor(rect.width * dpr));
       canvas.height = Math.max(1, Math.floor(rect.height * dpr));
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const w = rect.width, h = rect.height, p = state.projection;
+      const w = rect.width, h = rect.height;
       ctx.clearRect(0, 0, w, h);
+      boardLayout = null;
       if (!p || typeof p.cells !== 'string') return;
       const cols = p.width, rows = p.height, pad = 10;
-      const scale = Math.min((w - 2 * pad) / cols, (h - 2 * pad) / rows);
       const boardW = scale * cols, boardH = scale * rows;
-      const ox = Math.floor((w - boardW) / 2), oy = Math.floor((h - boardH) / 2);
+      const ox = Math.max(pad, Math.floor((w - boardW) / 2)) - pane.scrollLeft;
+      const oy = Math.max(pad, Math.floor((h - boardH) / 2)) - pane.scrollTop;
+      boardLayout = {scale, ox, oy, cols, rows};
       if (scale >= 9) {
-        for (let r = 0; r < rows; r++) {
-          for (let c = 0; c < cols; c++) {
+        for (let r = Math.max(0, Math.floor(-oy / scale)); r < Math.min(rows, Math.ceil((h - oy) / scale)); r++) {
+          for (let c = Math.max(0, Math.floor(-ox / scale)); c < Math.min(cols, Math.ceil((w - ox) / scale)); c++) {
             const token = p.cells[r * cols + c];
             const x = ox + c * scale, y = oy + r * scale;
             if (token === '?') { ctx.fillStyle = '#22313c'; ctx.fillRect(x, y, scale - 1, scale - 1); }
@@ -96,20 +184,8 @@
             else { ctx.fillStyle = '#101820'; ctx.fillRect(x, y, scale - 1, scale - 1); if (token !== '0') { ctx.fillStyle = DIGIT_COLORS[token] || '#dbe5e6'; ctx.font = `700 ${Math.floor(scale * 0.58)}px ui-monospace,monospace`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(token, x + scale / 2, y + scale / 2); } }
           }
         }
-      } else {
-        const off = document.createElement('canvas');
-        off.width = cols; off.height = rows;
-        const octx = off.getContext('2d');
-        const image = octx.createImageData(cols, rows);
-        for (let i = 0; i < cols * rows; i++) {
-          const [r, g, b] = colorFor(p.cells[i]);
-          const o = i * 4;
-          image.data[o] = r; image.data[o + 1] = g; image.data[o + 2] = b; image.data[o + 3] = 255;
-        }
-        octx.putImageData(image, 0, 0);
-        ctx.imageSmoothingEnabled = false;
-        ctx.drawImage(off, ox, oy, boardW, boardH);
       }
+      drawOverlay(ctx, scale, ox, oy);
       if (Array.isArray(p.boom)) {
         ctx.strokeStyle = '#ffd166'; ctx.lineWidth = 2;
         ctx.strokeRect(ox + p.boom[1] * scale - 1, oy + p.boom[0] * scale - 1, scale + 1, scale + 1);
@@ -119,7 +195,10 @@
     function renderDecision() {
       const box = $('decision');
       const decision = (state.decisions || []).filter(item => item && item.kind === 'participant_decision').at(-1);
-      if (!decision) { box.className = 'decision-trace empty'; box.replaceChildren(Object.assign(document.createElement('span'), { textContent: 'No decision yet.' })); return; }
+      if (!decision) { delete box.dataset.decision; box.className = 'decision-trace empty'; box.replaceChildren(Object.assign(document.createElement('span'), { textContent: 'No decision yet.' })); return; }
+      const signature = `${decision.at_ms}:${decision.round}:${decision.selected?.cell}`;
+      if (box.dataset.decision === signature) return;
+      box.dataset.decision = signature;
       const selected = decision.selected || {};
       box.className = 'decision-trace';
       const kicker = document.createElement('div'); kicker.className = 'decision-kicker';
@@ -135,10 +214,10 @@
         meta.append(Object.assign(document.createElement('span'), { textContent: `model ${decision.provider_model}` }));
         box.append(meta);
       }
-      const confidence = Number(decision.confidence);
+      const confidence = decision.confidence;
       if (Number.isFinite(confidence)) {
         const wrap = document.createElement('div'); wrap.className = 'confidence';
-        wrap.append(Object.assign(document.createElement('span'), { textContent: 'conf' }));
+        wrap.append(Object.assign(document.createElement('span'), { textContent: 'Choice confidence' }));
         const track = document.createElement('i'); const fill = document.createElement('b');
         fill.style.width = `${Math.round(Math.max(0, Math.min(1, confidence)) * 100)}%`;
         track.append(fill); wrap.append(track);
@@ -147,14 +226,24 @@
       }
       const probabilities = decision.probabilities;
       if (probabilities && typeof probabilities === 'object') {
-        const entries = Object.entries(probabilities).filter(([, v]) => typeof v === 'number').sort((a, b) => b[1] - a[1]).slice(0, 6);
+        const entries = entriesFor(decision);
         if (entries.length) {
           const bars = document.createElement('div'); bars.className = 'decision-bars';
           for (const [label, value] of entries) {
             const bar = document.createElement('div'); bar.className = 'decision-bar';
             bar.append(Object.assign(document.createElement('span'), { textContent: label }));
             const track = document.createElement('i'); track.style.transform = `scaleX(${Math.max(0, Math.min(1, value))})`; bar.append(track);
-            bar.append(Object.assign(document.createElement('b'), { textContent: `${Math.round(value * 100)}%` }));
+            bar.append(Object.assign(document.createElement('b'), { textContent: percent(value), title: `${label}${deltaFor(label)}` }));
+            bar.tabIndex = 0;
+            bar.setAttribute('role', 'button');
+            const locate = () => { $('followJev').checked = false; focusLatest(label); inspectCell(label); };
+            bar.addEventListener('click', locate);
+            bar.addEventListener('keydown', event => {
+              if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); locate(); }
+            });
+            bar.setAttribute('aria-label', `${label}: ${percent(value)} choice probability${deltaFor(label)}`);
+            bar.addEventListener('mouseenter', () => inspectCell(label));
+            bar.addEventListener('focus', () => inspectCell(label));
             bars.append(bar);
           }
           box.append(bars);
@@ -183,14 +272,34 @@
       outcome.textContent = done ? 'cleared' : failed ? 'mine hit' : state.status === 'time_limit' ? 'time limit' : state.status === 'ended' ? 'ended' : (p.phase || 'waiting');
       outcome.className = done ? 'success' : failed ? 'failure' : state.status === 'time_limit' ? 'gold' : '';
       renderDecision();
+      const latest = decisions().at(-1);
+      $('overlayNote').textContent = latest
+        ? `Round ${latest.round} · ${latest.fallback ? 'fallback move; no Jev probabilities' : 'probabilities before the latest reveal'}. Choice probability is not cell safety. Alternatives are not a predicted route.`
+        : 'Percentages describe Jev’s preference among offered cells, not the chance a cell is safe.';
+      $('pause').disabled = !['live', 'paused'].includes(state.status);
+      $('pause').textContent = state.status === 'paused' ? 'Resume' : 'Pause';
+      if (inspectedCell) inspectCell(inspectedCell);
       $('start').disabled = running;
       $('stop').disabled = !state.config || state.timer.status === 'idle';
     }
 
+    function syncRunControls() {
+      const config = state.config;
+      if (!config) return;
+      for (const [id, key] of Object.entries({width:'width', height:'height', mines:'mines', duration:'duration_seconds', candidateLimit:'candidate_limit', seed:'seed', jevModel:'jev_model'})) {
+        if (config[key] !== undefined) $(id).value = String(config[key]);
+      }
+      syncMineMax();
+    }
     function apply(payload) {
       if (!payload || payload.type !== 'comparison') return;
       if (payload.config) state.config = payload.config;
       if (payload.timer) state.timer = payload.timer;
+      const run = state.timer.started_at_ms;
+      if (run !== displayedRun && state.config) {
+        syncRunControls();
+        displayedRun = run;
+      }
       const side = payload.sides && payload.sides.right;
       if (side) {
         state.status = side.status;
@@ -201,6 +310,10 @@
         if (side.decisions) state.decisions = side.decisions;
       }
       render();
+      draw();
+      const key = `${state.timer.started_at_ms}:${decisions().at(-1)?.at_ms}`;
+      if (key !== lastDecisionKey && $('followJev').checked) focusLatest();
+      lastDecisionKey = key;
     }
 
     async function loadConfig() {
@@ -218,6 +331,7 @@
           $('status').querySelector('span').textContent = 'missing JEV_API_KEY';
         }
       } catch { $('status').querySelector('span').textContent = 'config unavailable'; }
+      syncRunControls();
       syncMineMax();
     }
 
@@ -244,6 +358,8 @@
       const seed = $('seed').value.trim();
       if (seed !== '' && /^\d+$/.test(seed)) body.seed = Number(seed);
       $('start').disabled = true;
+      $('boardPane').scrollTo(0, 0);
+      inspectCell(null);
       try {
         const response = await fetch('/start', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
         const result = await response.json();
@@ -257,6 +373,37 @@
     });
     $('stop').addEventListener('click', async () => { await fetch('/stop', { method: 'POST' }); });
 
+    $('pause').addEventListener('click', async () => {
+      await fetch(state.status === 'paused' ? '/resume' : '/pause', {
+        method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({side: 'right'})
+      });
+    });
+    $('followJev').addEventListener('change', () => { if ($('followJev').checked) focusLatest(); });
+    $('boardPane').addEventListener('scroll', draw, {passive: true});
+    let previousScale = Number($('zoom').value);
+    $('zoom').addEventListener('input', () => {
+      const pane = $('boardPane'), next = Number($('zoom').value);
+      const x = (pane.scrollLeft + pane.clientWidth / 2) / previousScale;
+      const y = (pane.scrollTop + pane.clientHeight / 2) / previousScale;
+      $('zoomLabel').textContent = `${next} px`;
+      previousScale = next;
+      draw();
+      pane.scrollLeft = x * next - pane.clientWidth / 2;
+      pane.scrollTop = y * next - pane.clientHeight / 2;
+      draw();
+    });
+    for (const id of ['showProbabilities', 'showTrail']) $(id).addEventListener('change', draw);
+    function inspectPointer(event) {
+      if (!boardLayout) return;
+      const rect = $('board').getBoundingClientRect();
+      const {scale, ox, oy, cols, rows} = boardLayout;
+      const col = Math.floor((event.clientX - rect.left - ox) / scale);
+      const row = Math.floor((event.clientY - rect.top - oy) / scale);
+      inspectCell(row >= 0 && col >= 0 && row < rows && col < cols ? `r${row + 1}c${col + 1}` : null);
+    }
+    $('board').addEventListener('pointermove', inspectPointer);
+    $('board').addEventListener('click', inspectPointer);
+    $('board').addEventListener('pointerleave', () => inspectCell(null));
     window.addEventListener('resize', draw);
     const feed = new EventSource('/events');
     feed.addEventListener('comparison', event => { try { apply(JSON.parse(event.data)); } catch { /* ignore */ } });

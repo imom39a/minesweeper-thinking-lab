@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add V2 cell-choice percentages, previous-round changes, recent move trails,
+  pause/resume, and zoomable scrolling with an optional follow mode.
 - Add browser gameplay screenshots and repeat experiment records.
 - Replace the repository extraction manifest with dataset checksums in
   `minesweeper/results/SHA256SUMS`.
