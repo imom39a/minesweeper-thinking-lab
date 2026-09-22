@@ -29,10 +29,15 @@ tradeoff against that same controller and the single-provider policies.
 
 ### Experiment variants
 
-Three variants are available: the LLM-versus-Jev browser (`/`), the Jev-only
+The original study covered three variants: the LLM-versus-Jev browser (`/`), the Jev-only
 large-board browser (`/v2/`), and the stronger-solver CLI. Results below come
 from the CLI; both browsers retain the original deductions and heuristic
 ranking. See the [architecture guide](../../docs/architecture.md).
+
+The later [V3 experiment](../../docs/v3-context-lab.md) compares Jev with
+LLM-generated proposals followed by Jev selection, without solver guidance.
+Its architecture and request budgets differ from this study; the recorded
+results below do not evaluate V3.
 
 ### Policies and board generation
 

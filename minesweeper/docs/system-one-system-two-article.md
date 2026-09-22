@@ -10,7 +10,7 @@ LLM, but adding LLM review did not improve the recorded outcomes.
 
 ## Three approaches to decision making
 
-The repository includes an LLM-versus-Jev browser comparison, a Jev-only
+The original study includes an LLM-versus-Jev browser comparison, a Jev-only
 large-board browser, and a CLI for comparing stronger inference with code,
 Jev, LLM, and hybrid policies. The browsers use the original game policy.
 The stronger solver and hybrid are currently available in the CLI.
@@ -23,6 +23,11 @@ budgets. A guard restricts model choices to candidates tied at the minimum
 computed mine risk. “Jev-only” therefore means one model provider; the game
 still depends on deterministic code.
 [Implemented architecture](../../docs/architecture.md)
+
+The later [V3 experiment](../../docs/v3-context-lab.md) compares Jev with
+LLM-generated proposals followed by Jev selection, without solver guidance.
+Its architecture and request budgets differ from this study; the recorded
+results below do not evaluate V3.
 
 ## Better inference reduced guessing
 

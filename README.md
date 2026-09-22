@@ -5,8 +5,10 @@ Minesweeper. The project measures board completion, decision quality, provider
 calls, and latency to test when model-assisted decisions improve on code alone.
 
 In these experiments, **System One** is Jev's typed decision model and
-**System Two** is an LLM asked to review a candidate move. Code controls the
-game, computes risks, and executes actions.
+**System Two** is an LLM. In V3, the LLM proposes moves for Jev to select;
+in the CLI hybrid, it reviews uncertain decisions after Jev. Code owns game
+rules and execution. Solver deductions and risk estimates are used by the
+original browsers and CLI, but are not supplied in V3.
 
 ## Experiments
 
@@ -19,7 +21,8 @@ game, computes risks, and executes actions.
 
 Variant 3 has six modes: `heuristic`, `code`, `proof`, `jev`, `llm`, and `hybrid`.
 Its solver and hybrid controller are available through the CLI; the browser
-variants retain their original controller. The 500×500 input limit describes
+routes `/` and `/v2/` retain their original controller. V3 uses a separate
+controller without solver guidance. The 500×500 input limit describes
 supported board size, not demonstrated solving reliability.
 
 ## Findings
@@ -36,7 +39,9 @@ is too small to establish a general model comparison. See the
 [research report](minesweeper/docs/system-one-system-two-research.md) for methods,
 all results, failures, and limitations.
 
-See the [V3 context lab guide](docs/v3-context-lab.md) for what each input mode supplies and how to inspect the actual request.
+The recorded findings above concern the CLI policies, not V3. V3 has gameplay
+integration checks but no published comparative win-rate study. See the
+[V3 guide](docs/v3-context-lab.md) for its inputs and request inspection.
 
 ## Browser gameplay
 
@@ -68,14 +73,18 @@ cp .env.example .env
 python3 -m minesweeper.server
 ```
 
-Open [LLM vs Jev](http://127.0.0.1:5391/) or
+Open [System 1 and System 2 (V3)](http://127.0.0.1:5391/v3/),
+[LLM vs Jev](http://127.0.0.1:5391/), or
 [Jev on large boards](http://127.0.0.1:5391/v2/). Use `TYPESAFE_API_KEY`
 (or `JEV_API_KEY`) for Jev and `OPENROUTER_API_KEY` for the LLM. Credentials
-remain on the server. Live experiments consume provider credits.
+remain on the server. V3 System 1 needs only the Jev key; its combined mode
+needs both keys. Live experiments consume provider credits. Use `--port 5392`
+to serve these routes on port 5392 instead of the default 5391.
 
 ## Documentation
 
 - [Run guide](minesweeper/README.md): configuration, benchmark commands, and budgets.
+- [V3 guide](docs/v3-context-lab.md): System 1 and System 2 inputs, controls, and failures.
 - [Architecture](docs/architecture.md): solver, model interfaces, routing, and execution checks.
 - [Research report](minesweeper/docs/system-one-system-two-research.md): experimental design and evidence.
 - [Findings article](minesweeper/docs/system-one-system-two-article.md): a shorter discussion of the results.

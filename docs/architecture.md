@@ -4,7 +4,8 @@ The repository contains the two original browser experiments, the V3 context
 lab, and a separate benchmark CLI.
 They share the game engine and provider clients, but use different solvers and
 controllers. “System One” denotes TypeSafe Jev; “System Two” denotes the LLM's
-review role in the hybrid policy. These are software roles rather than claims
+analysis role: proposing moves before Jev in V3, or reviewing Jev decisions
+in the CLI hybrid policy. These are software roles rather than claims
 about human cognition. See [TypeSafe's System One definition](https://docs.typesafe.ai/concepts/system-one.md).
 
 ## Browser experiments
@@ -118,9 +119,29 @@ into a browser are tracked in the [roadmap](roadmap.md). Evaluation results and
 their limitations are in the
 [research report](../minesweeper/docs/system-one-system-two-research.md).
 
-## V3 context lab
+## V3: System 1 and System 2
 
-The [context lab](v3-context-lab.md) uses a separate server session at `/v3/`.
-It holds candidate selection and the Choice prompt fixed while varying clue
-representation and explicit solver guidance. It stops on failed or invalid
-decisions instead of using the original browsers’ random fallback.
+The [V3 guide](v3-context-lab.md) describes the separate session at `/v3/`.
+Neither visible UI mode supplies solver deductions or risk estimates.
+
+| Mode | Input and decision flow |
+| --- | --- |
+| System 1 | Code samples frontier candidates and gathers visible clues → Jev selects → code executes |
+| System 1 + System 2 | Full visible board → LLM proposes cells and rationales → Jev selects a proposal → code executes |
+
+[context_lab.py](../minesweeper/context_lab.py) constructs public inputs and
+validates LLM proposals for format, count, uniqueness, bounds, and legality.
+It does not rank, repair, or replace the proposals. The combined mode's Jev
+Choice options exactly match the LLM's proposals; the visible board is included
+alongside that unverified advice. The baseline's code-sampled options and
+prompt differ, so this is an architecture comparison, not an identical-input
+model comparison. An equation baseline remains API-only for reproducibility.
+
+System 2 has a 120-second request limit and Jev a 20-second limit, both bounded
+by the remaining game time. Execution checks the current run, stop state, and
+deadline before applying the result. Provider or proposal failures stop V3
+without the original browsers' random fallback or the CLI's risk correction.
+The UI identifies the active model and displays failure reasons above the board.
+
+This LLM → Jev flow is separate from the CLI's guarded Jev → LLM cascade.
+The historical CLI results do not measure V3's reliability.

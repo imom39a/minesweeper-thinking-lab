@@ -43,6 +43,19 @@ enabling automatic scrolling. Opt into **Follow Jev** to track moves, or use
 it does not forecast a route. Only visible cells are drawn, so increasing the
 board size does not require a board-sized canvas.
 
+## System 1 and System 2 (V3)
+
+V3 compares Jev choosing from code-sampled visible-clue candidates with an LLM
+proposing moves from the full visible board for Jev to select. The combined
+mode supplies no code-generated equations, deductions, or risk estimates.
+
+![System 1 + System 2 paused after a move](images/v3-llm-guidance.png)
+
+This screenshot illustrates live gameplay on a 9×9 board with 10 mines. It does
+not establish a win rate or a latency advantage. The [V3 guide](v3-context-lab.md)
+covers inputs, model roles, request inspection, timeouts, and failure handling.
+The offline and live replay results below concern the separate CLI policies.
+
 ## Offline repeat experiments
 
 The following September 22, 2026 runs use the code at

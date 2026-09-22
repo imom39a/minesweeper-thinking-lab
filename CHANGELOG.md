@@ -2,17 +2,14 @@
 
 ## Unreleased
 
-- Fix V3 reporting failed runs as complete. Show provider errors above the board
-  and the active reasoning stage; allow System 2 up to 120 seconds within the game deadline.
-- Label the V3 UI as System 1 (Jev) and System 1 + System 2 (LLM proposals
-  followed by Jev selection); remove the equation mode from the UI.
-- Replace V3 equation-based LLM advice with full-board LLM proposals followed
-  by Jev selection. Validate proposals without code-selected candidates or equations.
-- Replace V3 solver guidance with LLM advice from the same public evidence,
-  followed by Jev selection. Add a guidance-model control and inspectable advice.
-- Add a separate V3 context lab with clue-only, equation, and LLM-guided
-  inputs, inspectable requests, and failure handling without random fallback.
-
+- Add a separate V3 browser experiment with **System 1 (Jev)** and
+  **System 1 + System 2 (LLM proposals → Jev selection)**. Combined mode sends
+  the full visible board without code-selected candidates or equations;
+  invalid proposals stop the run without replacement moves.
+- Add model controls, inspectable Jev requests, and stage-specific status.
+  Failures appear above the board; System 2 has up to 120 seconds within the
+  game deadline. Retain the earlier equation baseline through the API only.
+- Document V3 separately from the historical guarded CLI cascade and its results.
 - Keep the V2 viewport fixed by default; make following opt-in and add a
   one-time **Show latest move** control.
 - Add V2 cell-choice percentages, previous-round changes, recent move trails,

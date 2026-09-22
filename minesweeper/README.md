@@ -16,21 +16,22 @@ python3 -m minesweeper.server
 | Experiment | URL | Credentials |
 | --- | --- | --- |
 | LLM vs Jev | [http://127.0.0.1:5391/](http://127.0.0.1:5391/) | Jev key and `OPENROUTER_API_KEY` |
-| Context lab | [http://127.0.0.1:5391/v3/](http://127.0.0.1:5391/v3/) | `TYPESAFE_API_KEY` or `JEV_API_KEY` |
+| System 1 / System 1 + System 2 (V3) | [http://127.0.0.1:5391/v3/](http://127.0.0.1:5391/v3/) | Jev key; combined mode also requires `OPENROUTER_API_KEY` |
 | Jev on large boards | [http://127.0.0.1:5391/v2/](http://127.0.0.1:5391/v2/) | `TYPESAFE_API_KEY` or `JEV_API_KEY` |
 
-The server loads the root `.env` and keeps credentials server-side. Optional
-variables are `JEV_MODEL`, `OPENROUTER_MODEL`, and `PORT`. The legacy
-`openouterkey` name is also accepted. Server flags include `--host`, `--port`,
-`--html`, and `--v2-html`; `./minesweeper/scripts/start.sh` forwards these flags.
+The server loads the root `.env` and keeps credentials server-side. Choose
+models in the browser controls; `JEV_MODEL` and `OPENROUTER_MODEL` configure
+CLI defaults. Use `--port 5392` to change the default port 5391. The legacy
+`openouterkey` credential name is also accepted. Server flags include
+`--host`, `--port`, `--html`, and `--v2-html`; `./minesweeper/scripts/start.sh` forwards these flags.
 
 The comparison starts both models on the same seeded board. Different actions
 can produce different subsequent observations. The first reveal is safe;
 revealing a mine loses the lane, and revealing every safe cell wins it.
 
 The large-board browser accepts up to 500×500 cells and sends compact frontier
-input above 4,096 cells. Both browsers use the original heuristic controller.
-The stronger solver and hybrid policy below are CLI experiments.
+input above 4,096 cells. The `/` and `/v2/` routes use the original heuristic
+controller. The stronger solver and hybrid policy below are CLI experiments.
 
 In V2, use **Zoom** and scroll in either direction to explore large boards.
 The viewport stays fixed by default. Enable **Follow Jev** to keep the latest
@@ -50,6 +51,14 @@ from V2. System 1 uses code-sampled frontier candidates and visible clues;
 combined mode uses the LLM's proposals from the full visible board. Neither
 mode supplies solver deductions or computed risks. Expand **Input sent to Jev**
 to inspect or download the latest request.
+
+System 2 proposes moves before System 1 selects one; it is called on every
+combined-mode decision. Its request limit is 120 seconds, bounded by the
+remaining game time; Jev has a 20-second request limit. The badge shows the
+active model. **Failed** means no usable decision was returned, **time limit**
+means the game budget expired, and **board cleared** means a win. Errors
+appear above the board; no fallback move replaces a failed V3 decision.
+The zoom, follow, and pause controls described above also work in V3.
 
 ## Benchmark modes
 

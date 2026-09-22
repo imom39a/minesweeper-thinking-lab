@@ -1,8 +1,10 @@
 # Roadmap
 
 The stronger constraint solver and Jev → LLM cascade currently run through the
-benchmark CLI. The two browser experiments use the original game policy.
-This roadmap describes proposed work; it is not part of the current release.
+benchmark CLI. The original `/` and `/v2/` browsers use the original game
+policy. [V3](v3-context-lab.md) already compares Jev with LLM proposals followed
+by Jev selection, without solver guidance. It does not implement the CLI cascade.
+The work below is proposed, separate from these available interfaces.
 
 ## Shared execution policy
 
@@ -50,6 +52,15 @@ justify its additional latency and cost.
 4. Retain the existing results as historical evidence and save new runs
    separately. Seeds used in development or regression checks are no longer
    held out for later studies.
+
+## V3 architecture evaluation
+
+Compare System 1 with System 1 + System 2 on repeated held-out games, recording
+provider failures, time limits, calls, input size, latency, cost, and completion.
+The architectures use different candidate-generation procedures; report that
+as part of the comparison. For a separate selection study, replay the same
+frozen LLM proposals to Jev and an LLM selector. Keep these findings separate
+from the existing guarded CLI study.
 
 ## Large-board performance
 
