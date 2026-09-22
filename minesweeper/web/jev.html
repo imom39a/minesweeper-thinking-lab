@@ -6,6 +6,7 @@
   <title>JEV Playground · Minesweeper · JEV</title>
   <style>
     :root { color-scheme: dark; --bg:#090d12; --panel:#121a22; --line:#2a3946; --ink:#f3efe4; --muted:#9ca9b2; --accent:#74d5c0; --gold:#ffd166; --bad:#ff7182; --good:#83e3a6; }
+    [hidden] { display:none !important }
     * { box-sizing:border-box } body { margin:0; min-height:100vh; color:var(--ink); background:radial-gradient(circle at 12% 0%,rgba(116,213,192,.14),transparent 30rem),var(--bg); font-family:Inter,ui-sans-serif,system-ui,sans-serif }
     button,select,input { font:inherit } button { cursor:pointer } main { width:min(1680px,calc(100% - 32px)); margin:0 auto; padding:24px 0 80px }
     header { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; padding-bottom:18px; border-bottom:1px solid var(--line) } .eyebrow { color:var(--gold); font:700 .64rem ui-monospace,monospace; letter-spacing:.12em; text-transform:uppercase } h1 { margin:7px 0 0; font-size:clamp(2rem,4vw,4.2rem); letter-spacing:-.06em; line-height:.9 } .status { display:flex; gap:9px; align-items:center; border:1px solid var(--line); border-radius:99px; color:var(--muted); padding:9px 12px; font:700 .66rem ui-monospace,monospace; text-transform:uppercase; white-space:nowrap } .dot { width:8px; height:8px; border-radius:50%; background:var(--gold) } .status.running .dot { background:var(--good) } .status.error .dot { background:var(--bad) } .status.complete .dot { background:var(--good) }
@@ -26,7 +27,9 @@
       <div class="status" id="status"><i class="dot"></i><span>idle · ready</span></div>
     </header>
 
+    <p class="overlay-note" id="v3Intro" hidden>Compare what Jev can infer from visible clues, explicit equations, or code guidance. Candidate selection and the prompt stay fixed. Same-seed games can diverge after different choices.</p>
     <div class="controls">
+      <label class="control" id="contextControl" hidden>Input to Jev<select id="contextMode"><option value="clues">Visible clues only</option><option value="equations">Clues + explicit equations</option><option value="assisted">Clues + equations + code guidance</option></select></label>
       <label class="control">Width<input id="width" type="number" min="2" max="500" value="30"></label>
       <label class="control">Height<input id="height" type="number" min="2" max="500" value="16"></label>
       <label class="control">Mines<input id="mines" type="number" min="1" max="249999" value="99"></label>
@@ -57,18 +60,33 @@
       </div>
     </section>
 
+    <p id="v3Failure" class="overlay-note" role="status" hidden></p>
     <section class="stats">
       <div class="stat timer"><strong id="timer">15:00</strong><span id="timerLabel">not started</span></div>
       <div class="stat"><span>Revealed</span><b id="revealed">0 / 0</b></div>
       <div class="stat"><span>Mines left</span><b id="minesLeft">99</b></div>
       <div class="stat"><span>Outcome</span><b id="outcome">waiting</b></div>
     </section>
+    <details id="inputPanel" hidden style="margin-top:16px">
+      <summary>Input sent to Jev</summary>
+      <p class="overlay-note">Latest request, which may still be awaiting a response. No credentials or move history. Equations restate clue memberships; only code-assisted mode supplies deductions and risk estimates.</p>
+      <button class="secondary" id="downloadInput" type="button">Download request JSON</button>
+      <pre id="inputJson" style="max-height:400px;overflow:auto;white-space:pre-wrap;font-size:.75rem"></pre>
+    </details>
   </main>
 
   <script>
+    const V3 = /^\/v3(?:\/|$)/.test(location.pathname);
+    const API = V3 ? '/v3' : '';
     const sample = { width:30, height:16, mines:99, phase:'ready', round:0, cells:'?'.repeat(480), revealed_count:0, safe_total:381, flags:0, boom:null, outcome:{status:'ready', moves:0, revealed:0, safe_total:381} };
     const state = { config:null, timer:{status:'idle'}, status:'idle', model:'', elapsed_ms:null, event_total:0, projection:sample, decisions:[] };
     const $ = id => document.getElementById(id);
+    if (V3) {
+      document.title = 'Minesweeper · V3 context experiment';
+      document.querySelector('h1').textContent = 'What does Jev see?';
+      document.querySelector('.eyebrow').textContent = 'Minesweeper Thinking Lab / V3';
+      for (const id of ['v3Intro', 'contextControl', 'inputPanel']) $(id).hidden = false;
+    }
     const number = n => Number(n ?? 0).toLocaleString('en-US');
     const duration = ms => { const total = Math.max(0, Math.round(Number(ms) / 1000)); return `${String(Math.floor(total / 60)).padStart(2,'0')}:${String(total % 60).padStart(2,'0')}`; };
     const DIGIT_COLORS = { '1':'#69b9ff','2':'#72e0a1','3':'#ff9a5c','4':'#947ff1','5':'#ffd166','6':'#74d5c0','7':'#f386d4','8':'#d28cff' };
@@ -280,6 +298,8 @@
       $('pause').disabled = !['live', 'paused'].includes(state.status);
       $('pause').textContent = state.status === 'paused' ? 'Resume' : 'Pause';
       if (inspectedCell) inspectCell(inspectedCell);
+      $('contextMode').disabled = running;
+      $('downloadInput').disabled = !state.inputRequest;
       $('start').disabled = running;
       $('stop').disabled = !state.config || state.timer.status === 'idle';
     }
@@ -287,7 +307,7 @@
     function syncRunControls() {
       const config = state.config;
       if (!config) return;
-      for (const [id, key] of Object.entries({width:'width', height:'height', mines:'mines', duration:'duration_seconds', candidateLimit:'candidate_limit', seed:'seed', jevModel:'jev_model'})) {
+      for (const [id, key] of Object.entries({width:'width', height:'height', mines:'mines', duration:'duration_seconds', candidateLimit:'candidate_limit', seed:'seed', jevModel:'jev_model', contextMode:'context_mode'})) {
         if (config[key] !== undefined) $(id).value = String(config[key]);
       }
       syncMineMax();
@@ -309,6 +329,18 @@
         state.event_total = side.event_total;
         if (side.projection) state.projection = side.projection;
         if (side.decisions) state.decisions = side.decisions;
+        if (V3) {
+          const failure = (side.events || []).filter(e => e.kind === 'decision_failed').at(-1);
+          $('v3Failure').hidden = !failure;
+          $('v3Failure').textContent = failure ? `Run stopped: ${failure.message}. No replacement move was made.` : '';
+        }
+        if (V3 && side.input_request) {
+          state.inputRequest = side.input_request;
+          $('inputJson').textContent = JSON.stringify(side.input_request, null, 2);
+        } else if (V3) {
+          state.inputRequest = null;
+          $('inputJson').textContent = 'Start a game to inspect the request.';
+        }
       }
       render();
       draw();
@@ -319,7 +351,7 @@
 
     async function loadConfig() {
       try {
-        const value = await (await fetch('/config')).json();
+        const value = await (await fetch(API + '/config')).json();
         const jev = (value.models || {}).jev || [];
         const select = $('jevModel');
         select.replaceChildren(...jev.map(item => Object.assign(document.createElement('option'), { value: item.id, textContent: item.label || item.id })));
@@ -356,12 +388,13 @@
         right_engine: 'jev',
         jev_model: $('jevModel').value,
       };
+      if (V3) body.context_mode = $('contextMode').value;
       const seed = $('seed').value.trim();
       if (seed !== '' && /^\d+$/.test(seed)) body.seed = Number(seed);
       $('start').disabled = true;
       inspectCell(null);
       try {
-        const response = await fetch('/start', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+        const response = await fetch(API + '/start', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
         const result = await response.json();
         if (!response.ok) throw new Error(result.error || 'start failed');
         apply({ type: 'comparison', config: result.config, timer: { status: 'running' } });
@@ -371,10 +404,10 @@
         $('start').disabled = false;
       }
     });
-    $('stop').addEventListener('click', async () => { await fetch('/stop', { method: 'POST' }); });
+    $('stop').addEventListener('click', async () => { await fetch(API + '/stop', { method: 'POST' }); });
 
     $('pause').addEventListener('click', async () => {
-      await fetch(state.status === 'paused' ? '/resume' : '/pause', {
+      await fetch(API + (state.status === 'paused' ? '/resume' : '/pause'), {
         method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({side: 'right'})
       });
     });
@@ -405,8 +438,14 @@
     $('board').addEventListener('pointermove', inspectPointer);
     $('board').addEventListener('click', inspectPointer);
     $('board').addEventListener('pointerleave', () => inspectCell(null));
+    $('downloadInput').addEventListener('click', () => {
+      if (!state.inputRequest) return;
+      const url = URL.createObjectURL(new Blob([JSON.stringify(state.inputRequest, null, 2)], {type:'application/json'}));
+      const link = document.createElement('a'); link.href = url; link.download = 'jev-input.json'; link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
     window.addEventListener('resize', draw);
-    const feed = new EventSource('/events');
+    const feed = new EventSource(API + '/events');
     feed.addEventListener('comparison', event => { try { apply(JSON.parse(event.data)); } catch { /* ignore */ } });
     feed.onerror = () => { if (state.timer.status === 'idle') $('status').querySelector('span').textContent = 'reconnecting'; };
     setInterval(() => { render(); draw(); }, 1000);

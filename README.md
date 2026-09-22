@@ -15,6 +15,7 @@ game, computes risks, and executes actions.
 | 1. LLM vs Jev | Browser at `/` | Compare two models using the original deductions and heuristic candidate ranking. |
 | 2. System One alone | Browser at `/v2/` | Test Jev with compact frontier input on boards up to 500×500. |
 | 3. Solver and model policies | Benchmark CLI | Compare six policies under stronger deterministic inference, including Jev with optional LLM review. |
+| 4. Context lab (V3) | Browser at `/v3/` | Compare visible clues, explicit equations, and supplied code guidance with neutral candidates. |
 
 Variant 3 has six modes: `heuristic`, `code`, `proof`, `jev`, `llm`, and `hybrid`.
 Its solver and hybrid controller are available through the CLI; the browser
@@ -34,6 +35,8 @@ the second measures one proposed move per shared observation. The live sample
 is too small to establish a general model comparison. See the
 [research report](minesweeper/docs/system-one-system-two-research.md) for methods,
 all results, failures, and limitations.
+
+See the [V3 context lab guide](docs/v3-context-lab.md) for what each input mode supplies and how to inspect the actual request.
 
 ## Browser gameplay
 

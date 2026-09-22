@@ -311,3 +311,16 @@ def _bounded_confidence(value: object) -> float | None:
     except (TypeError, ValueError):
         return None
     return max(0.0, min(1.0, number))
+
+
+def jev_context_choose(request: dict, key: str, timeout: float = JEV_TIMEOUT_SECONDS):
+    """Send the exact inspectable V3 request without adding solver instructions."""
+    response = _http_json(JEV_URL, request, {"Authorization": f"Bearer {key}"},
+                          min(max(1.0, timeout), JEV_TIMEOUT_SECONDS))
+    answers = response.get("answers") if isinstance(response, dict) else None
+    answer = answers.get("cell") if isinstance(answers, dict) else None
+    if not isinstance(answer, dict) or not isinstance(answer.get("choice"), str):
+        raise ProviderError("jev_choice_missing")
+    return answer["choice"], {"provider_model": response.get("model", request["model"]),
+                              "confidence": _bounded_confidence(answer.get("confidence")),
+                              "probabilities": answer.get("probabilities")}

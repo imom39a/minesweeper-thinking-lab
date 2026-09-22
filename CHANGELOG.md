@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add a separate V3 context lab with clue-only, equation, and code-assisted
+  inputs, inspectable requests, and failure handling without random fallback.
+
 - Keep the V2 viewport fixed by default; make following opt-in and add a
   one-time **Show latest move** control.
 - Add V2 cell-choice percentages, previous-round changes, recent move trails,

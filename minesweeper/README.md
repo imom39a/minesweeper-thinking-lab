@@ -16,6 +16,7 @@ python3 -m minesweeper.server
 | Experiment | URL | Credentials |
 | --- | --- | --- |
 | LLM vs Jev | [http://127.0.0.1:5391/](http://127.0.0.1:5391/) | Jev key and `OPENROUTER_API_KEY` |
+| Context lab | [http://127.0.0.1:5391/v3/](http://127.0.0.1:5391/v3/) | `TYPESAFE_API_KEY` or `JEV_API_KEY` |
 | Jev on large boards | [http://127.0.0.1:5391/v2/](http://127.0.0.1:5391/v2/) | `TYPESAFE_API_KEY` or `JEV_API_KEY` |
 
 The server loads the root `.env` and keeps credentials server-side. Optional
@@ -40,6 +41,14 @@ previous round, or select a candidate in the sidebar to locate it on the board.
 The dashed trail shows recent completed moves. **Pause** pauses between moves;
 an in-flight request may still finish. These percentages describe preference
 among offered choices, not cell safety or a predicted future route.
+
+## V3 context lab
+
+The [context lab](../docs/v3-context-lab.md) offers clue-only, equation, and
+code-assisted inputs. Its session is separate from V2. The first two modes
+supply no deductions or risk estimates; all three share neutral candidates
+and the same prompt. Expand **Input sent to Jev** to inspect or download the
+latest request.
 
 ## Benchmark modes
 

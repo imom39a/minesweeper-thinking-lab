@@ -29,12 +29,14 @@ from pathlib import Path
 from .agents import (
     ProviderError,
     jev_choose,
+    jev_context_choose,
     jev_key,
     live_cheap_models,
     llm_choose,
     openrouter_key,
 )
 from .game import MinesweeperGame, cell_label, parse_cell_label
+from . import context_lab
 
 MAX_BODY_BYTES = 16_384
 MAX_RETAINED_EVENTS = 20_000
@@ -118,6 +120,7 @@ class Side:
         self.stopped = False
         self.completed_at_ms: int | None = None
         self.last_error: str | None = None
+        self.input_request: dict | None = None
 
     def reset(self, engine: str, model: str, game: MinesweeperGame) -> None:
         self.engine = engine
@@ -130,6 +133,7 @@ class Side:
         self.stopped = False
         self.completed_at_ms = None
         self.last_error = None
+        self.input_request = None
 
     def reset_disabled(self) -> None:
         self.engine = "none"
@@ -295,14 +299,26 @@ class Comparison:
                 time.sleep(0.2)
                 continue
             round_number += 1
-            candidates = game.offered_candidates(candidate_limit)
+            candidates = (context_lab.neutral_candidates(game, candidate_limit) if config.get("context_mode")
+                          else game.offered_candidates(candidate_limit))
             if not candidates:
                 self._finish(side, run_id, game.phase, game)
                 return
             candidate_labels = [str(candidate["cell"]) for candidate in candidates]
             cell, metadata, error = self._decide(
-                side, game, config, round_number, candidate_limit, include_grid
+                side, game, config, round_number, candidate_limit, include_grid, run_id
             )
+            if config.get("context_mode"):
+                if stop_event.is_set() or side.stopped or run_id != self.run_id:
+                    return
+                if now_ms() >= deadline_ms:
+                    self._finish(side, run_id, "time_limit", game)
+                    return
+                if error or cell not in candidate_labels:
+                    self._append_event(side, {"kind": "decision_failed", "actor": side.engine,
+                                            "message": error or "choice_not_offered"}, run_id)
+                    self._finish(side, run_id, "ended", game)
+                    return
             fallback = False
             parsed = parse_cell_label(cell)
             if parsed is None or cell not in candidate_labels or not game.in_bounds(*parsed):
@@ -354,6 +370,7 @@ class Comparison:
                     "rationale": metadata.get("rationale"),
                     "provider_model": metadata.get("provider_model"),
                     "fallback": fallback,
+                    "context_mode": config.get("context_mode"),
                 },
                 run_id,
             )
@@ -382,8 +399,25 @@ class Comparison:
         round_number: int,
         candidate_limit: int = DEFAULT_CANDIDATE_LIMIT,
         include_grid: object = None,
+        expected_run: int | None = None,
     ) -> tuple[str | None, dict[str, object], str | None]:
         grid_flag = include_grid if isinstance(include_grid, bool) else None
+        if config.get("context_mode"):
+            request = context_lab.request_for(game, str(config["context_mode"]), side.model, candidate_limit)
+            with self.lock:
+                if expected_run is not None and expected_run != self.run_id:
+                    return None, {}, "stopped"
+                side.input_request = request
+                self._touch()
+            key = jev_key()
+            if not key:
+                return None, {}, "jev_key_missing"
+            try:
+                remaining = max(0.1, (int(self.timer["deadline_at_ms"]) - now_ms()) / 1000)
+                cell, metadata = jev_context_choose(request, key, remaining)
+                return cell, metadata, None
+            except ProviderError as exc:
+                return None, {}, str(exc)
         state = game.agent_state(round_number, candidate_limit, grid_flag)
         last_error: str | None = None
         for attempt in range(1, MAX_ATTEMPTS + 1):
@@ -507,6 +541,7 @@ class Comparison:
             "events": side.events[-FEED_EVENTS:],
             "decisions": side.decisions[-FEED_EVENTS:],
             "seats": [side.engine],
+            "input_request": side.input_request,
         }
 
     def feed(self, key: str) -> dict[str, object]:
@@ -609,7 +644,11 @@ def _validate_start(body: object) -> dict[str, object]:
     seed = body.get("seed")
     if isinstance(seed, bool) or not isinstance(seed, int) or not 0 <= seed <= 2**53 - 1:
         seed = random.SystemRandom().randint(0, 2**53 - 1)
+    context_mode = body.get("context_mode")
+    if context_mode is not None and (context_mode not in context_lab.MODES or left_engine != "none" or right_engine != "jev"):
+        raise ValueError("context_mode_invalid")
     return {
+        "context_mode": context_mode,
         "width": width,
         "height": height,
         "mines": mines,
@@ -691,7 +730,16 @@ class Handler(BaseHTTPRequestHandler):
 
     # -- routes -------------------------------------------------------------
 
+    def _route_experiment(self) -> None:
+        self.comparison = type(self).comparison
+        path = urllib.parse.urlparse(self.path).path
+        if path == "/v3" or path.startswith("/v3/"):
+            self.comparison = self.v3_comparison
+            suffix = self.path[3:]
+            self.path = suffix if suffix.startswith("/") else "/" + suffix
+
     def do_GET(self) -> None:
+        self._route_experiment()
         path = urllib.parse.urlparse(self.path).path
         if path in ("/", "/index.html"):
             self._serve_html()
@@ -734,6 +782,7 @@ class Handler(BaseHTTPRequestHandler):
         self._send_json(HTTPStatus.NOT_FOUND, {"error": "not_found"})
 
     def do_POST(self) -> None:
+        self._route_experiment()
         path = urllib.parse.urlparse(self.path).path
         try:
             body = self._read_body()
@@ -742,6 +791,13 @@ class Handler(BaseHTTPRequestHandler):
             return
         if path == "/start":
             try:
+                if not isinstance(body, dict):
+                    raise ValueError("body_invalid")
+                if self.comparison is getattr(self, "v3_comparison", None):
+                    mode = body.get("context_mode", "clues")
+                    if mode not in context_lab.MODES:
+                        raise ValueError("context_mode_invalid")
+                    body = {"left_engine": "none", "right_engine": "jev", **body, "context_mode": mode}
                 config = _validate_start(body)
             except (TypeError, ValueError) as error:
                 self._send_json(HTTPStatus.BAD_REQUEST, {"error": str(error)})
@@ -789,16 +845,19 @@ def main(argv: list[str] | None = None) -> int:
     arguments = parser.parse_args(argv)
     _load_dotenv(Path(__file__).resolve().parents[1])
     comparison = Comparison(arguments.html, arguments.v2_html)
-    handler = type("BoundHandler", (Handler,), {"comparison": comparison})
+    v3_comparison = Comparison(arguments.v2_html, arguments.v2_html)
+    handler = type("BoundHandler", (Handler,), {"comparison": comparison, "v3_comparison": v3_comparison})
     server = ThreadingHTTPServer((arguments.host, arguments.port), handler)
     print(f"Minesweeper comparison on http://{arguments.host}:{arguments.port}/")
     print(f"JEV-only expert board on http://{arguments.host}:{arguments.port}/v2/")
+    print(f"Context lab on http://{arguments.host}:{arguments.port}/v3/")
     try:
         server.serve_forever(poll_interval=0.2)
     except KeyboardInterrupt:
         pass
     finally:
         comparison.stop()
+        v3_comparison.stop()
         server.server_close()
     return 0
 

@@ -1,6 +1,7 @@
 # Architecture
 
-The repository contains two browser experiments and a separate benchmark CLI.
+The repository contains the two original browser experiments, the V3 context
+lab, and a separate benchmark CLI.
 They share the game engine and provider clients, but use different solvers and
 controllers. “System One” denotes TypeSafe Jev; “System Two” denotes the LLM's
 review role in the hybrid policy. These are software roles rather than claims
@@ -116,3 +117,10 @@ exists. Skipping those calls, calibrating review, and integrating this controlle
 into a browser are tracked in the [roadmap](roadmap.md). Evaluation results and
 their limitations are in the
 [research report](../minesweeper/docs/system-one-system-two-research.md).
+
+## V3 context lab
+
+The [context lab](v3-context-lab.md) uses a separate server session at `/v3/`.
+It holds candidate selection and the Choice prompt fixed while varying clue
+representation and explicit solver guidance. It stops on failed or invalid
+decisions instead of using the original browsers’ random fallback.
