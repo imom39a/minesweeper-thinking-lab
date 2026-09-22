@@ -7,3 +7,5 @@ Keep TypeSafe questions and decision thresholds together so they are easy to rev
 Load credentials with `source scripts/load-jev-env.sh`. It reads the local `.env` and maps the existing `JEV_API_KEY` name to the official `TYPESAFE_API_KEY` name expected by TypeSafe clients. Treat `.env` as secret and commit only `.env.example`.
 
 Keep the three experiment variants distinct: the legacy LLM-versus-Jev browser demo, the Jev-only large-board browser demo, and the stronger-solver hybrid benchmark CLI. Share proposed future UI integration as a roadmap until implemented. Preserve recorded JSON results in `minesweeper/results/`; write new runs to a separate output path and distinguish model speed, whole-board wins, and one-step replay outcomes in published claims.
+
+Write public research as methods, results, interpretation, limitations, and reproduction instructions. Cite technical claims to primary sources and measured claims to result artifacts. Keep each document focused on its reader's task; exclude browsing logs, tool failures during source discovery, local workspace narration, and unrelated project plans. Preserve experimental failures when they affect the results.

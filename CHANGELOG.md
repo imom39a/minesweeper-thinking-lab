@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Restructure the research report and guides around methods, results,
+  limitations, and usage; consolidate proposed work in the
+  [roadmap](docs/roadmap.md).
+
 ## v0.1.0 — Research preview · 2026-09-22
 
 First standalone release of Minesweeper Thinking Lab, extracted from
@@ -10,18 +16,11 @@ First standalone release of Minesweeper Thinking Lab, extracted from
   code, proof-only, Jev, LLM, and hybrid policies.
 - Includes the bounded constraint solver, guarded Jev → LLM cascade, paired
   seeded episodes, common-state replay, tests, and 11 recorded result files.
-- Publishes the [article](minesweeper/docs/system-one-system-two-article.md),
+- Publishes the [findings](minesweeper/docs/system-one-system-two-article.md),
   [research report](minesweeper/docs/system-one-system-two-research.md), and
   [architecture guide](docs/architecture.md).
 - Packages a Python 3.10+ application that runs from a checkout with no
   third-party runtime dependencies or frontend build.
 
-Recorded finding: stronger code completed 52/100 held-out expert boards versus
-32/100 for the old heuristic. The four-state live pilot showed faster Jev
-choices, no demonstrated hybrid reliability gain, and escalation on every
-hybrid state. These records were produced by the original experiments; the
-standalone extraction does not constitute a new model evaluation.
-
-The stronger solver and cascade run through the CLI. Integrating them into a
-shared browser controller and Solver Lab remains
-[planned work](minesweeper/docs/v0.2-release-plan.md).
+The stronger solver and cascade run through the CLI. Browser integration is
+[planned work](docs/roadmap.md).

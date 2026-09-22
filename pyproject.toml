@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "minesweeper-thinking-lab"
 version = "0.1.0"
-description = "Reproducible Minesweeper experiments with Jev System One, LLMs, and hybrid architectures"
+description = "Minesweeper experiments comparing Jev, LLMs, hybrid policies, and deterministic solvers"
 readme = "README.md"
 requires-python = ">=3.10"
 license = { file = "LICENSE" }

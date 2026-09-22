@@ -2,7 +2,7 @@
   "source_repository": "https://github.com/imom39a/jev-playground",
   "source_head": "ef6580646a03d55cd08943fbedc8363a9b642fc1",
   "extracted_at": "2026-09-22",
-  "note": "Includes uncommitted Minesweeper experiment files developed after source_head. Source file hashes identify the actual extraction input; no full monorepo history is imported.",
+  "note": "source_head identifies the base commit. The imported snapshot includes later changes; the per-file SHA-256 hashes identify the exact import contents and original paths.",
   "files": {
     "minesweeper/.env.example": "73142710cf7dc207e7021c469367d107f71c5f24b4ad237624b56d1fd3d13458",
     "minesweeper/README.md": "b08938abec57514447e3af8385c8b82cbc7ccd82ca4a3616272a149a2f3de5c1",
