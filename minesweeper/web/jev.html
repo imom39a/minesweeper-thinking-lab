@@ -41,8 +41,9 @@
 
     <div class="overlay-controls">
       <label><input type="checkbox" id="showProbabilities" checked>Jev choice probabilities</label>
-      <label><input type="checkbox" id="showTrail" checked>Recent move trail</label>
-      <label><input type="checkbox" id="followJev" checked>Follow Jev</label>
+      <label><input type="checkbox" id="showTrail" checked>Past 12 moves</label>
+      <label><input type="checkbox" id="followJev">Follow Jev</label>
+      <button class="secondary" id="showLatest" type="button">Show latest move</button>
       <label>Zoom <input id="zoom" type="range" min="16" max="64" step="4" value="36" aria-label="Board cell size"><output id="zoomLabel">36 px</output></label>
       <span>Scroll to explore · teal = alternatives · gold = selected · dashed line = past moves</span>
     </div>
@@ -358,7 +359,6 @@
       const seed = $('seed').value.trim();
       if (seed !== '' && /^\d+$/.test(seed)) body.seed = Number(seed);
       $('start').disabled = true;
-      $('boardPane').scrollTo(0, 0);
       inspectCell(null);
       try {
         const response = await fetch('/start', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
@@ -379,6 +379,7 @@
       });
     });
     $('followJev').addEventListener('change', () => { if ($('followJev').checked) focusLatest(); });
+    $('showLatest').addEventListener('click', () => focusLatest());
     $('boardPane').addEventListener('scroll', draw, {passive: true});
     let previousScale = Number($('zoom').value);
     $('zoom').addEventListener('input', () => {

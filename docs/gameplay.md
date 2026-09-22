@@ -37,8 +37,9 @@ reveal, not probabilities of avoiding a mine. Hover or tap to inspect changes
 in percentage points when the same candidate appeared in the previous round.
 Selecting a sidebar candidate moves the viewport to that cell.
 
-**Follow Jev** keeps the latest move visible. Turn it off for free exploration,
-or use **Pause** to inspect between moves. The dashed trail shows past moves;
+The viewport stays fixed by default. **Show latest move** jumps once without
+enabling automatic scrolling. Opt into **Follow Jev** to track moves, or use
+**Pause** to inspect between moves. The dashed trail shows past moves;
 it does not forecast a route. Only visible cells are drawn, so increasing the
 board size does not require a board-sized canvas.
 

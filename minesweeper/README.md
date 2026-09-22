@@ -32,8 +32,9 @@ input above 4,096 cells. Both browsers use the original heuristic controller.
 The stronger solver and hybrid policy below are CLI experiments.
 
 In V2, use **Zoom** and scroll in either direction to explore large boards.
-**Follow Jev** keeps the latest move in view; turn it off to inspect another
-area. Candidate cells show Jev's choice percentages, with the selected cell
+The viewport stays fixed by default. Enable **Follow Jev** to keep the latest
+move in view, or click **Show latest move** for a one-time jump. Candidate
+cells show Jev's choice percentages, with the selected cell
 outlined in gold. Hover or tap a cell for its percentage and change from the
 previous round, or select a candidate in the sidebar to locate it on the board.
 The dashed trail shows recent completed moves. **Pause** pauses between moves;

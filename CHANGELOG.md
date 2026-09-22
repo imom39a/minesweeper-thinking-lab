@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Keep the V2 viewport fixed by default; make following opt-in and add a
+  one-time **Show latest move** control.
 - Add V2 cell-choice percentages, previous-round changes, recent move trails,
   pause/resume, and zoomable scrolling with an optional follow mode.
 - Add browser gameplay screenshots and repeat experiment records.
