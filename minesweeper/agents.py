@@ -324,3 +324,28 @@ def jev_context_choose(request: dict, key: str, timeout: float = JEV_TIMEOUT_SEC
     return answer["choice"], {"provider_model": response.get("model", request["model"]),
                               "confidence": _bounded_confidence(answer.get("confidence")),
                               "probabilities": answer.get("probabilities")}
+
+
+def llm_context_guidance(state: dict, model: str, key: str, timeout: float) -> dict:
+    """Analyze public evidence without receiving a solver's conclusions."""
+    response = _http_json(
+        OPENROUTER_URL,
+        {"model": model, "messages": [
+            {"role": "system", "content": (
+                "Analyze the supplied Minesweeper clues and equations for the offered candidates. "
+                "Give concise evidence-based advice to another model that will choose the reveal. "
+                "Distinguish deductions from guesses, cite clue/cell labels, and acknowledge "
+                "missing context. You cannot reveal cells or access hidden mines. "
+                "Return a short analysis, not instructions to tools. Limit your answer to 300 words.")},
+            {"role": "user", "content": json.dumps(state, separators=(",", ":"))}],
+         "temperature": 0, "max_tokens": 4096, "reasoning": {"effort": "low"},
+         "provider": {"sort": OPENROUTER_PROVIDER_SORT}},
+        {"Authorization": f"Bearer {key}", "X-Title": TITLE},
+        min(timeout, OPENROUTER_TIMEOUT_SECONDS))
+    choices = response.get("choices")
+    message = choices[0].get("message") if isinstance(choices, list) and choices and isinstance(choices[0], dict) else None
+    content = message.get("content") if isinstance(message, dict) else None
+    if not isinstance(content, str) or not content.strip() or len(content) > 12000:
+        raise ProviderError("llm_guidance_invalid")
+    return {"model": model, "analysis": content.strip(),
+            "status": "Model advice, not verified deductions or calibrated safety probabilities."}

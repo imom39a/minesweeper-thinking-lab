@@ -70,13 +70,6 @@ def build_input(game: MinesweeperGame, mode: str, limit: int = 20) -> dict:
     }
     if mode in {"equations", "assisted"}:
         state["equations"] = equations
-    if mode == "assisted":
-        safe, mines = game.deduce()
-        state["code_guidance"] = [{"cell": c["cell"],
-                                   "proven_safe": (c["row"], c["col"]) in safe,
-                                   "proven_mine": (c["row"], c["col"]) in mines,
-                                   "estimated_mine_risk": game.risk_score(c["row"], c["col"], mines)}
-                                  for c in candidates]
     return state
 
 

@@ -10,4 +10,4 @@ Keep the three experiment variants distinct: the legacy LLM-versus-Jev browser d
 
 Write public research as methods, results, interpretation, limitations, and reproduction instructions. Cite technical claims to primary sources and measured claims to result artifacts. Keep each document focused on its reader's task; exclude browsing logs, tool failures during source discovery, local workspace narration, and unrelated project plans. Preserve experimental failures when they affect the results.
 
-For V3 context-lab changes, preserve identical neutral candidates and prompts across input modes. Clue-only and equation modes must not call the solver or risk scorer; only the assisted mode may supply their outputs. Keep V3 sessions independent of the original browser experiments.
+For V3 context-lab changes, preserve identical neutral candidates and prompts across input modes. No V3 mode may call the solver or risk scorer. Assisted mode supplies LLM advice from the same public evidence before Jev chooses; keep it distinct from verified facts. Keep V3 sessions independent of the original browser experiments.

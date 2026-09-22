@@ -45,7 +45,7 @@ among offered choices, not cell safety or a predicted future route.
 ## V3 context lab
 
 The [context lab](../docs/v3-context-lab.md) offers clue-only, equation, and
-code-assisted inputs. Its session is separate from V2. The first two modes
+LLM-guided inputs. Its session is separate from V2. The first two modes
 supply no deductions or risk estimates; all three share neutral candidates
 and the same prompt. Expand **Input sent to Jev** to inspect or download the
 latest request.

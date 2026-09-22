@@ -27,15 +27,16 @@
       <div class="status" id="status"><i class="dot"></i><span>idle · ready</span></div>
     </header>
 
-    <p class="overlay-note" id="v3Intro" hidden>Compare what Jev can infer from visible clues, explicit equations, or code guidance. Candidate selection and the prompt stay fixed. Same-seed games can diverge after different choices.</p>
+    <p class="overlay-note" id="v3Intro" hidden>Compare what Jev can infer from visible clues, explicit equations, or LLM guidance. Candidate selection and the prompt stay fixed. Same-seed games can diverge after different choices.</p>
     <div class="controls">
-      <label class="control" id="contextControl" hidden>Input to Jev<select id="contextMode"><option value="clues">Visible clues only</option><option value="equations">Clues + explicit equations</option><option value="assisted">Clues + equations + code guidance</option></select></label>
+      <label class="control" id="contextControl" hidden>Input to Jev<select id="contextMode"><option value="clues">Visible clues only</option><option value="equations">Clues + explicit equations</option><option value="assisted">Clues + equations + LLM guidance</option></select></label>
       <label class="control">Width<input id="width" type="number" min="2" max="500" value="30"></label>
       <label class="control">Height<input id="height" type="number" min="2" max="500" value="16"></label>
       <label class="control">Mines<input id="mines" type="number" min="1" max="249999" value="99"></label>
       <label class="control">Time (s)<input id="duration" type="number" min="5" max="3600" value="900"></label>
       <label class="control">Candidates<input id="candidateLimit" type="number" min="4" max="48" value="20" title="Max cells offered to JEV per round"></label>
       <label class="control">Seed<input id="seed" type="text" placeholder="optional"></label>
+      <label class="control" id="guidanceControl" hidden>Guidance LLM<input id="guidanceModel" type="text" value="openai/gpt-oss-20b" aria-label="Guidance LLM model"></label>
       <label class="control">JEV model<select id="jevModel"></select></label>
       <button class="secondary" id="pause" disabled>Pause</button>
       <button class="secondary" id="stop" disabled>Stop</button>
@@ -69,7 +70,7 @@
     </section>
     <details id="inputPanel" hidden style="margin-top:16px">
       <summary>Input sent to Jev</summary>
-      <p class="overlay-note">Latest request, which may still be awaiting a response. No credentials or move history. Equations restate clue memberships; only code-assisted mode supplies deductions and risk estimates.</p>
+      <p class="overlay-note">Latest request, which may still be awaiting a response. No credentials or move history. Equations restate clue memberships; LLM-guided mode adds unverified model advice before Jev chooses. It makes an extra LLM call per move.</p>
       <button class="secondary" id="downloadInput" type="button">Download request JSON</button>
       <pre id="inputJson" style="max-height:400px;overflow:auto;white-space:pre-wrap;font-size:.75rem"></pre>
     </details>
@@ -299,6 +300,8 @@
       $('pause').textContent = state.status === 'paused' ? 'Resume' : 'Pause';
       if (inspectedCell) inspectCell(inspectedCell);
       $('contextMode').disabled = running;
+      $('guidanceControl').hidden = !V3 || $('contextMode').value !== 'assisted';
+      $('guidanceModel').disabled = running;
       $('downloadInput').disabled = !state.inputRequest;
       $('start').disabled = running;
       $('stop').disabled = !state.config || state.timer.status === 'idle';
@@ -307,7 +310,7 @@
     function syncRunControls() {
       const config = state.config;
       if (!config) return;
-      for (const [id, key] of Object.entries({width:'width', height:'height', mines:'mines', duration:'duration_seconds', candidateLimit:'candidate_limit', seed:'seed', jevModel:'jev_model', contextMode:'context_mode'})) {
+      for (const [id, key] of Object.entries({width:'width', height:'height', mines:'mines', duration:'duration_seconds', candidateLimit:'candidate_limit', seed:'seed', jevModel:'jev_model', contextMode:'context_mode', guidanceModel:'model'})) {
         if (config[key] !== undefined) $(id).value = String(config[key]);
       }
       syncMineMax();
@@ -349,6 +352,10 @@
       lastDecisionKey = key;
     }
 
+    $('contextMode').addEventListener('change', () => {
+      $('guidanceControl').hidden = !V3 || $('contextMode').value !== 'assisted';
+    });
+
     async function loadConfig() {
       try {
         const value = await (await fetch(API + '/config')).json();
@@ -388,7 +395,7 @@
         right_engine: 'jev',
         jev_model: $('jevModel').value,
       };
-      if (V3) body.context_mode = $('contextMode').value;
+      if (V3) { body.context_mode = $('contextMode').value; body.model = $('guidanceModel').value; }
       const seed = $('seed').value.trim();
       if (seed !== '' && /^\d+$/.test(seed)) body.seed = Number(seed);
       $('start').disabled = true;

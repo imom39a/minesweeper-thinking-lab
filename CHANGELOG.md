@@ -2,7 +2,9 @@
 
 ## Unreleased
 
-- Add a separate V3 context lab with clue-only, equation, and code-assisted
+- Replace V3 solver guidance with LLM advice from the same public evidence,
+  followed by Jev selection. Add a guidance-model control and inspectable advice.
+- Add a separate V3 context lab with clue-only, equation, and LLM-guided
   inputs, inspectable requests, and failure handling without random fallback.
 
 - Keep the V2 viewport fixed by default; make following opt-in and add a

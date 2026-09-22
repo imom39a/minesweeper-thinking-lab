@@ -33,6 +33,7 @@ from .agents import (
     jev_key,
     live_cheap_models,
     llm_choose,
+    llm_context_guidance,
     openrouter_key,
 )
 from .game import MinesweeperGame, cell_label, parse_cell_label
@@ -404,16 +405,27 @@ class Comparison:
         grid_flag = include_grid if isinstance(include_grid, bool) else None
         if config.get("context_mode"):
             request = context_lab.request_for(game, str(config["context_mode"]), side.model, candidate_limit)
-            with self.lock:
-                if expected_run is not None and expected_run != self.run_id:
-                    return None, {}, "stopped"
-                side.input_request = request
-                self._touch()
             key = jev_key()
             if not key:
                 return None, {}, "jev_key_missing"
             try:
-                remaining = max(0.1, (int(self.timer["deadline_at_ms"]) - now_ms()) / 1000)
+                if config["context_mode"] == "assisted":
+                    llm_key = openrouter_key()
+                    if not llm_key:
+                        raise ProviderError("openrouter_key_missing")
+                    remaining = (int(self.timer["deadline_at_ms"]) - now_ms()) / 1000
+                    if remaining <= 0:
+                        raise ProviderError("decision_expired")
+                    request["state"]["llm_guidance"] = llm_context_guidance(
+                        request["state"], str(config["model"]), llm_key, remaining)
+                with self.lock:
+                    if side.stopped or self.stop_event.is_set() or (expected_run is not None and expected_run != self.run_id):
+                        return None, {}, "stopped"
+                    remaining = (int(self.timer["deadline_at_ms"]) - now_ms()) / 1000
+                    if remaining <= 0:
+                        return None, {}, "decision_expired"
+                    side.input_request = request
+                    self._touch()
                 cell, metadata = jev_context_choose(request, key, remaining)
                 return cell, metadata, None
             except ProviderError as exc:
@@ -625,7 +637,7 @@ def _validate_start(body: object) -> dict[str, object]:
     if left_engine == right_engine == "none":
         raise ValueError("no_engine_enabled")
     model = body.get("model", "openai/gpt-oss-20b")
-    if left_engine == "openrouter":
+    if left_engine == "openrouter" or body.get("context_mode") == "assisted":
         model = _safe(model, "model")
     elif not isinstance(model, str) or not model:
         model = "n/a"
